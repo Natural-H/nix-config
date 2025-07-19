@@ -8,10 +8,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [
-    # include NixOS-WSL modules
-    <nixos-wsl/modules>
-  ];
+  imports = [];
 
   wsl.enable = true;
   wsl.defaultUser = "nixos";
