@@ -57,17 +57,21 @@
     };
     historySubstringSearch = {
       enable = true; # Enable substring search in history
-      #searchDownKey = "j"; # Key to search down
-      #searchUpKey = "k"; # Key to search up
+      searchDownKey = "^[OB"; # Key to search down
+      searchUpKey = "^[OA"; # Key to search up
     };
     initExtra = ''
-    bindkey '^[[A' history-substring-search-up
-    bindkey '^[[B' history-substring-search-down
+    bindkey '^[[1;3D' backward-word
+    bindkey '^[[1;3C' forward-word
+    bindkey '^[[1;5D' beginning-of-line
+    bindkey '^[[1;5C' end-of-line
+    eval `ssh-agent -s | grep -v 'echo'`
     '';
 
     shellAliases = {
       pbcopy = "xclip -selection clipboard";
       pbpaste = "xclip -selection clipboard -o";
+      nix-update-machine = "sudo nixos-rebuild switch; home-manager switch";
     };
   };
 

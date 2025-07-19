@@ -64,14 +64,21 @@
     autoPrune.enable = true;
   };
 
-  environment.systemPackages = with pkgs; [
-    # Add your system packages here
-    git
-    htop
-    gitkraken
-    home-manager
-    xclip
-  ];
+  environment = {
+    systemPackages = with pkgs; [
+      # Add your system packages here
+      git
+      htop
+      gitkraken
+      home-manager
+      wslu
+      xclip
+      xdg-utils
+    ];
+    variables = {
+      BROWSER = "${pkgs.wslu}/bin/wslview";
+    };
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
