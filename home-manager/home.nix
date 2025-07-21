@@ -33,6 +33,10 @@
         tree
         openssh
         btop
+        zellij
+        k9s
+        kubernetes-helm
+        superfile
     ];
   };
 
@@ -74,6 +78,8 @@
       nix-update-machine = "sudo nixos-rebuild switch; home-manager switch";
     };
   };
+  # programs.zellij.enable = true;
+  programs.zellij.enableZshIntegration = true;
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";

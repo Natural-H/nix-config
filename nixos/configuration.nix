@@ -37,12 +37,14 @@
     docker-desktop.enable = false;
   };
   programs.nix-ld.enable = true;
+  users.groups.kubeadmin = {};
   users.users.naturalh = {
     isNormalUser = true;
     shell = pkgs.zsh;
     extraGroups = [
       "wheel"
       "docker"
+      "kubeadmin"
     ];
   };
   programs.zsh = {
@@ -68,6 +70,7 @@
     systemPackages = with pkgs; [
       # Add your system packages here
       git
+      lazygit
       htop
       gitkraken
       home-manager
@@ -78,6 +81,39 @@
     variables = {
       BROWSER = "${pkgs.wslu}/bin/wslview";
     };
+  };
+  services.k3s = {
+    enable = true;
+    extraFlags = [
+      "--write-kubeconfig-group=kubeadmin"
+      "--write-kubeconfig-mode=640"
+      "--disable=traefik"
+      #"--disable=servicelb"
+      #"--disable=metrics-server"
+      #"--disable=local-storage"
+    ];
+    # extraArgs = {
+    #   "kubelet" = [
+    #     "--node-ip=$(ip -4 addr show dev eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')"
+    #     "--cgroup-driver=systemd"
+    #   ];
+    #   "kube-proxy" = [
+    #     "--proxy-mode=ipvs"
+    #     "--ipvs-scheduler=rr"
+    #   ];
+    # };
+    # extraK3sConfig = {
+    #   "kubelet" = {
+    #     "cgroup-driver" = "systemd";
+    #     "node-ip" = "${pkgs.writeShellScript "get-node-ip" ''
+    #       ip -4 addr show dev eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}'
+    #     ''}";
+    #   };
+    #   "kube-proxy" = {
+    #     "proxy-mode" = "ipvs";  
+    #     "ipvs-scheduler" = "rr";
+    #   };
+    # };
   };
 
   # This value determines the NixOS release from which the default
