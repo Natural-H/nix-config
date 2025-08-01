@@ -5,12 +5,13 @@
   lib,
   config,
   pkgs,
+  pkgs-wsl,
   ...
 }: {
   # You can import other home-manager modules here
   imports = [];
 
-  nixpkgs = {
+  nixpkgs-wsl = {
     config = {
       allowUnfree = true;
       allowUnfreePredicate = _: true;
@@ -22,7 +23,7 @@
     username = "naturalh";
     homeDirectory = "/home/naturalh";
     
-    packages = with pkgs; [
+    packages = with pkgs-wsl; [
         # Add your home packages here
         wget
         curl
