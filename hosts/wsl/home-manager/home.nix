@@ -74,7 +74,7 @@
     shellAliases = {
       pbcopy = "xclip -selection clipboard";
       pbpaste = "xclip -selection clipboard -o";
-      nix-update-machine = "sudo nixos-rebuild switch; home-manager switch";
+      nix-update-machine = "sudo nixos-rebuild switch; home-manager switch --flake ~/nixos";
     };
   };
   # programs.zellij.enable = true;
