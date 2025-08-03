@@ -120,6 +120,9 @@
   #};
 
   programs.firefox.enable = true;
+  programs.firefox.preferences = {
+    "widget.use-xdg-desktop-portal.file-picker" = 1;
+  };
 
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
@@ -158,7 +161,9 @@
       libvdpau-va-gl
     ];
   };
-  environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD"; }; # Force intel-media-driver
+  environment.sessionVariables = { 
+    LIBVA_DRIVER_NAME = "iHD";
+  }; # Force intel-media-driver
 
   fonts.packages = with pkgs; [
     noto-fonts
@@ -198,6 +203,11 @@
 
     openssh.enable = true;
     openssh.settings.PermitRootLogin = "no";
+
+    tailscale = {
+      enable = true;
+      useRoutingFeatures = "client";
+    };
   };
 
   # Enable the OpenSSH daemon.

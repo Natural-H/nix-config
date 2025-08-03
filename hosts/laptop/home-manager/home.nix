@@ -43,13 +43,43 @@
     # '')
 
     # steam # bruh this was a dummy pkg
+    lazygit
     vscode
+    gitkraken
     libreoffice-qt6
     vesktop
+    mission-center
     tree
-    xclip
     btop
+    xclip
+    blender
+    osu-lazer
+    prismlauncher
+    nextcloud-client
+
+    jdk24
+    jetbrains.idea-community
+
+    wineWowPackages.waylandFull
   ];
+
+  programs.firefox = {
+    policies = {
+      Homepage.StartPage = "previous-session";
+    };
+  };
+
+  programs.neovim = {
+    enable = true;
+    plugins = with pkgs.vimPlugins; [
+      LazyVim
+    ];
+  };
+
+  services.nextcloud-client = {
+    enable = true;
+    startInBackground = true;
+  };
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
