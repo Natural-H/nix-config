@@ -148,6 +148,12 @@
     wayland-utils # Wayland utilities
     wl-clipboard # Command-line copy/paste utilities for Wayland
     nil # for kate
+
+    # Bluetooth support
+    kdePackages.bluedevil
+    kdePackages.bluez-qt
+    openobex
+    obexftp
   ];
 
   nixpkgs.config.packageOverrides = pkgs: {
@@ -161,6 +167,7 @@
       libvdpau-va-gl
     ];
   };
+  hardware.bluetooth.enable = true; # Enable Bluetooth support
   environment.sessionVariables = { 
     LIBVA_DRIVER_NAME = "iHD";
   }; # Force intel-media-driver
@@ -198,8 +205,11 @@
 
   services = {
     desktopManager.plasma6.enable = true;
-    displayManager.sddm.enable = true;
-    displayManager.sddm.wayland.enable = true;
+    displayManager.sddm = {
+      enable = true;
+      wayland.enable = true;
+      settings.General.DisplayServer = "wayland";
+    };
 
     openssh.enable = true;
     openssh.settings.PermitRootLogin = "no";
