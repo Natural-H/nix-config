@@ -111,14 +111,6 @@
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
   };
 
-  #home-manager = {
-    # also pass inputs to home-manager modules
-  #  extraSpecialArgs = {inherit inputs;};
-  #  users = {
-  #    "naturalh" = import ./home-manager/home.nix;
-  #  };
-  #};
-
   programs.firefox.enable = true;
   programs.firefox.preferences = {
     "widget.use-xdg-desktop-portal.file-picker" = 1;
@@ -131,7 +123,8 @@
     wget
     os-prober
     openssh
-    # home-manager
+    home-manager
+    p7zip
 
     # kdePackages.discover # Optional: Install if you use Flatpak or fwupd firmware update sevice
     kdePackages.kcalc # Calculator
@@ -140,6 +133,8 @@
     kdePackages.kolourpaint # Easy-to-use paint program
     kdePackages.ksystemlog # KDE SystemLog Application
     kdePackages.sddm-kcm # Configuration module for SDDM
+    kdePackages.kamera
+    kdePackages.filelight
     kdiff3 # Compares and merges 2 or 3 files or directories
     kdePackages.isoimagewriter # Optional: Program to write hybrid ISO files onto USB disks
     kdePackages.partitionmanager # Optional Manage the disk devices, partitions and file systems on your computer
@@ -172,6 +167,11 @@
     LIBVA_DRIVER_NAME = "iHD";
   }; # Force intel-media-driver
 
+  # Enable support for webcam
+  # I need this even if I don't have Raptor Lake+ cpu
+  hardware.ipu6.enable = true;
+  hardware.ipu6.platform = "ipu6ep";
+
   fonts.packages = with pkgs; [
     noto-fonts
     noto-fonts-cjk-sans
@@ -186,6 +186,11 @@
     nerd-fonts.droid-sans-mono
   ];
 
+  virtualisation.docker.rootless = {
+    enable = true;
+    setSocketVariable = true;
+  };
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   programs.mtr.enable = true;
@@ -199,6 +204,13 @@
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+
+    # Need this to be consistent with the KDE Plasma theme
+    package = pkgs.steam.override {
+      extraPkgs = p: [
+        p.kdePackages.breeze
+      ];
+    };
   };
 
   # List services that you want to enable:
@@ -254,4 +266,3 @@
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "25.05"; # Did you read the comment?
 }
-

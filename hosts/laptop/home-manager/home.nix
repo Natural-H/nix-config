@@ -25,10 +25,6 @@
   # environment.
   nixpkgs.config.allowUnfree = true;
   home.packages = with pkgs; [
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    # pkgs.hello
-
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
@@ -42,8 +38,8 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
 
-    # steam # bruh this was a dummy pkg
     lazygit
+    lazydocker
     vscode
     gitkraken
     libreoffice-qt6
@@ -56,9 +52,17 @@
     osu-lazer
     prismlauncher
     nextcloud-client
+    transmission_4-qt6
+    xournalpp
+    texliveFull
+    texlivePackages.latex
+    obs-studio
+    telegram-desktop
+    imagemagick
 
     jdk24
-    jetbrains.idea-community
+    jetbrains-toolbox
+    dotnetCorePackages.dotnet_9.sdk
 
     wineWowPackages.waylandFull
   ];
