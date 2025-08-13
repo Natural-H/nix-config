@@ -1,10 +1,20 @@
 { config, pkgs,... }:
 
 {
+  imports = [
+    # vscode server, i'll probably remove this later in favor to the flake
+    "${fetchTarball {
+      url = "https://github.com/msteen/nixos-vscode-server/tarball/6d5f074e4811d143d44169ba4af09b20ddb6937d";
+      sha256 = "1rdn70jrg5mxmkkrpy2xk8lydmlc707sk0zb35426v1yxxka10by";
+    }}/modules/vscode-server/home.nix"
+    ../../../users/desktop-pkgs.nix
+    ../../../users/common-pkgs.nix
+  ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "naturalh";
   home.homeDirectory = "/home/naturalh";
+  nixpkgs.config.allowUnfree = true;
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -14,16 +24,15 @@
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
   home.stateVersion = "25.05"; # Please read the comment before changing.
-  
-  programs.git = {
-    enable = true;
-    userName = "naturalh";
-    userEmail = "marco.mmtz@proton.me";
+
+  programs.firefox = {
+    policies = {
+      Homepage.StartPage = "previous-session";
+    };
   };
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  nixpkgs.config.allowUnfree = true;
   home.packages = with pkgs; [
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -37,53 +46,15 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
-
-    lazygit
-    lazydocker
-    vscode
-    gitkraken
-    libreoffice-qt6
-    vesktop
-    mission-center
-    tree
-    btop
-    xclip
-    blender
-    osu-lazer
-    prismlauncher
-    nextcloud-client
-    transmission_4-qt6
-    xournalpp
-    texliveFull
-    texlivePackages.latex
-    obs-studio
-    telegram-desktop
-    imagemagick
-
-    jdk24
-    jetbrains-toolbox
-    dotnetCorePackages.dotnet_9.sdk
-
-    wineWowPackages.waylandFull
   ];
-
-  programs.firefox = {
-    policies = {
-      Homepage.StartPage = "previous-session";
-    };
-  };
-
-  programs.neovim = {
-    enable = true;
-    plugins = with pkgs.vimPlugins; [
-      LazyVim
-    ];
-  };
 
   services.nextcloud-client = {
     enable = true;
     startInBackground = true;
   };
+
+  services.vscode-server.enable = true;
+  services.vscode-server.enableFHS = true;
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
