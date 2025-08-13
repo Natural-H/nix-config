@@ -2,16 +2,18 @@
   description = "Nixos config flake";
 
   inputs = {
+
     # Nixpkgs, I'll try to update the wsl config to the latest stable later
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     nixpkgs-wsl.url = "github:nixos/nixpkgs/nixos-24.11";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
 
     # Home manager
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     home-manager-wsl = {
       url = "github:nix-community/home-manager/release-24.11";
@@ -22,6 +24,7 @@
   outputs = {
     self,
     nixpkgs-stable,
+    nixpkgs-unstable,
     nixpkgs-wsl,
     nixos-wsl,
     home-manager,
