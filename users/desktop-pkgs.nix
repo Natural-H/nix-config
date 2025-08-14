@@ -6,7 +6,7 @@
     vesktop
     mission-center
     blender
-    osu-lazer
+    osu-lazer-bin
     prismlauncher
     nextcloud-client
     transmission_4-qt6
@@ -16,6 +16,7 @@
     obs-studio
     telegram-desktop
     imagemagick
+    ffmpeg_6
 
     jdk24
     jetbrains-toolbox
