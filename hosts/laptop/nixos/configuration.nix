@@ -71,7 +71,16 @@
       pulse.enable = true;
     };
 
-    printing.enable = true;
+    printing = {
+      enable = true;
+      drivers = with pkgs; [ hplip ];
+    };
+
+    avahi = {
+      enable = true;
+      nssmdns4 = true;
+      openFirewall = true;
+    };
   };
 
   nixpkgs.config.allowUnfree = true;
