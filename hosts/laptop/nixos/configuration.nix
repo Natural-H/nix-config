@@ -41,9 +41,9 @@
   #   useXkbConfig = true; # use xkb.options in tty.
   # };
 
-  virtualisation.docker.rootless = {
+  virtualisation.docker = {
     enable = true;
-    setSocketVariable = true;
+    enableOnBoot = true;
   };
 
   # List services that you want to enable:

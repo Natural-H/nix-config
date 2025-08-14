@@ -2,6 +2,9 @@
 {
   users.users.naturalh = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    extraGroups = [
+      "wheel"
+      "docker"
+    ];
   };
 }
