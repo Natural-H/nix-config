@@ -1,4 +1,4 @@
-{ config, pkgs,... }:
+{ isWsl, inputs, config, lib, pkgs, ... }:
 
 {
   imports = [
@@ -7,8 +7,6 @@
       url = "https://github.com/msteen/nixos-vscode-server/tarball/6d5f074e4811d143d44169ba4af09b20ddb6937d";
       sha256 = "1rdn70jrg5mxmkkrpy2xk8lydmlc707sk0zb35426v1yxxka10by";
     }}/modules/vscode-server/home.nix"
-    ../../../users/desktop-pkgs.nix
-    ../../../users/common-pkgs.nix
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -25,14 +23,6 @@
   # release notes.
   home.stateVersion = "25.05"; # Please read the comment before changing.
 
-  programs.firefox = {
-    policies = {
-      Homepage.StartPage = "previous-session";
-    };
-  };
-
-  # The home.packages option allows you to install Nix packages into your
-  # environment.
   home.packages = with pkgs; [
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -46,15 +36,99 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
-  ];
+
+    lazygit
+    lazydocker
+    gitkraken
+    tree
+    btop
+    xclip
+  ] ++ (lib.optionals (!isWsl) [
+    vscode
+    libreoffice-qt6
+    vesktop
+    mission-center
+    blender
+    osu-lazer-bin
+    prismlauncher
+    nextcloud-client
+    transmission_4-qt6
+    xournalpp
+    texliveFull
+    texlivePackages.latex
+    obs-studio
+    telegram-desktop
+    imagemagick
+    ffmpeg_6
+
+    jdk24
+    jetbrains-toolbox
+    dotnetCorePackages.dotnet_9.sdk
+
+    wineWowPackages.waylandFull
+  ]);
+
+    programs.git = {
+    enable = true;
+    userName = "naturalh";
+    userEmail = "marco.mmtz@proton.me";
+  };
+
+  programs.neovim = {
+    enable = true;
+    plugins = with pkgs.vimPlugins; [
+      LazyVim
+    ];
+  };
+
+  programs.starship = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+  programs.zsh = {
+    enable = true;
+    # Enable completion, syntax highlighting, and autosuggestions
+    enableCompletion = true;
+    syntaxHighlighting.enable = true;
+    autosuggestion.enable = false;
+    history = {
+      size = 10000; # Set history size
+      share = false; # Share history across sessions
+    };
+    historySubstringSearch = {
+      enable = true; # Enable substring search in history
+      searchDownKey = "^[OB"; # Key to search down
+      searchUpKey = "^[OA"; # Key to search up
+    };
+    initExtra = if isWsl then ''
+    bindkey '^[[1;3D' backward-word
+    bindkey '^[[1;3C' forward-word
+    bindkey '^[[1;5D' beginning-of-line
+    bindkey '^[[1;5C' end-of-line
+    eval `ssh-agent -s | grep -v 'echo'`
+    '' else ""; # this will be added later for non-wsl systems
+
+    shellAliases = {
+      pbcopy = "xclip -selection clipboard";
+      pbpaste = "xclip -selection clipboard -o";
+      # plasma needs first a user update then a system update to link correctly
+      nix-update-machine = "home-manager switch --flake ~/nixos; sudo nixos-rebuild switch";
+    };
+  };
+
+  programs.firefox = {
+    policies = {
+      Homepage.StartPage = "previous-session";
+    };
+  };
 
   services.nextcloud-client = {
-    enable = true;
+    enable = !isWsl;
     startInBackground = true;
   };
 
-  services.vscode-server.enable = true;
-  services.vscode-server.enableFHS = true;
+  services.vscode-server.enable = !isWsl;
+  services.vscode-server.enableFHS = !isWsl;
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.

@@ -1,7 +1,6 @@
 { config, pkgs, inputs, ... }:
 {
   environment.systemPackages = with pkgs.kdePackages; [
-    # discover # Optional: Install if you use Flatpak or fwupd firmware update sevice
     kcalc
     kcharselect
     kcolorchooser
@@ -16,6 +15,8 @@
     bluez-qt
     pkgs.kdiff3
     pkgs.nil
+    pkgs.hardinfo2
+    pkgs.haruna
 
     # for bluetooth support
     pkgs.openobex
@@ -32,6 +33,15 @@
     };
     firefox.preferences = {
       "widget.use-xdg-desktop-portal.file-picker" = 1;
+    };
+  };
+
+  services = {
+    desktopManager.plasma6.enable = true;
+    displayManager.sddm = {
+      enable = true;
+      wayland.enable = true;
+      settings.General.DisplayServer = "wayland";
     };
   };
 }

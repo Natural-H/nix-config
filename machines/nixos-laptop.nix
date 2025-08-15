@@ -1,61 +1,63 @@
-# Edit this configuration file to define what should be installed on
-# your system. Help is available in the configuration.nix(5) man page, on
-# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
-{ config, pkgs, inputs, ... }:
-
+{ config, pkgs, lib, ... }:
 {
   imports = [
-    ./hardware-configuration.nix
-    ../bootloader.nix
-    ../../../modules/system/common-pkgs.nix
-    ../../../modules/system/common-graphical.nix
-    ../../../modules/kde/kde.nix
-    ../../../modules/fonts/fonts.nix
-    ../../../users/naturalh.nix
+    ./hardware-configs/nixos-laptop.nix
+    ../modules/kde/plasma.nix
+    ../modules/fonts/fonts.nix
   ];
+
+  boot.loader = {
+    efi = {
+      efiSysMountPoint = "/boot";
+      canTouchEfiVariables = true;
+    };
+    grub = {
+      enable = true;
+      device = "nodev";
+      efiSupport = true;
+      fsIdentifier = "label";
+      copyKernels = true;
+      useOSProber = true;
+      # efiInstallAsRemovable = true;
+    };
+  };
+
+  # Use latest kernel.
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  hardware.enableAllFirmware = true;
+
+  networking.networkmanager.enable = true;
+  zramSwap.enable = true;
+  time.timeZone = "America/Mexico_City";
 
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
   ];
 
-  networking.hostName = "nixos-laptop"; # Define your hostname.
-  # Pick only one of the below networking options.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
-  zramSwap.enable = true;
+  environment.systemPackages = with pkgs; [
+    vim
+    wget
+    os-prober
+    openssh
+    home-manager
+    p7zip
+    
+    wayland-utils
+    wl-clipboard
+  ];
 
-  # Set your time zone.
-  time.timeZone = "America/Mexico_City";
+  programs.firefox.enable = true;
+  programs.zsh.enable = true;
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Select internationalisation properties.
-  # i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  #   useXkbConfig = true; # use xkb.options in tty.
-  # };
-
-  virtualisation.docker = {
+  programs.steam = {
     enable = true;
-    enableOnBoot = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
   };
 
-  # List services that you want to enable:
-
   services = {
-    desktopManager.plasma6.enable = true;
-    displayManager.sddm = {
-      enable = true;
-      wayland.enable = true;
-      settings.General.DisplayServer = "wayland";
-    };
-
     openssh = {
       enable = true;
       settings.PermitRootLogin = "no";
@@ -83,13 +85,6 @@
     };
   };
 
-  nixpkgs.config.allowUnfree = true;
-
-  # List packages installed in system profile.
-  # You can use https://search.nixos.org/ to find more packages (and options).
-  # environment.systemPackages = with pkgs; [
-  # ];
-
   hardware.bluetooth.enable = true; # Enable Bluetooth support
 
   nixpkgs.config.packageOverrides = pkgs: {
@@ -111,10 +106,6 @@
   # I need this even if I don't have Raptor Lake+ cpu
   hardware.ipu6.enable = true;
   hardware.ipu6.platform = "ipu6ep";
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-  # services.openssh.settings.PermitRootLogin = "no";
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [ 8443 ]; # a docker service I use

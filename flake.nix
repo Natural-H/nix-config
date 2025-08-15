@@ -2,12 +2,9 @@
   description = "Nixos config flake";
 
   inputs = {
-
-    # Nixpkgs, I'll try to update the wsl config to the latest stable later
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    nixpkgs-wsl.url = "github:nixos/nixpkgs/nixos-24.11";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
 
     # Home manager
@@ -15,57 +12,52 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    home-manager-wsl = {
-      url = "github:nix-community/home-manager/release-24.11";
-      inputs.nixpkgs.follows = "nixpkgs-wsl";
-    };
   };
 
   outputs = {
     self,
-    nixpkgs-stable,
+    nixpkgs,
     nixpkgs-unstable,
-    nixpkgs-wsl,
     nixos-wsl,
     home-manager,
-    home-manager-wsl,
     ...
   } @ inputs: let
     inherit (self) outputs;
+
+    mkSystem = import ./lib/mkSystem.nix {
+      inherit nixpkgs inputs;
+    };
+
+    mkHome = import ./lib/mkHome.nix {
+      inherit inputs;
+      nixpkgs = nixpkgs-unstable;
+    };
   in {
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
-      nixos-laptop = nixpkgs-stable.lib.nixosSystem {
+      nixos-laptop = mkSystem "nixos-laptop" {
         system = "x86_64-linux";
-        specialArgs = { inherit inputs; };
-        modules = [
-          ./hosts/laptop/nixos/configuration.nix
-        ];
+        user = "naturalh";
       };
 
-      nixos-wsl = nixpkgs-wsl.lib.nixosSystem rec {
+      nixos-wsl = mkSystem "nixos-wsl" {
         system = "x86_64-linux";
-        specialArgs = { inherit inputs outputs; };
-        modules = [
-          { networking.hostName = "nixos-wsl"; }
-          nixos-wsl.nixosModules.default
-          ./hosts/wsl/nixos/configuration.nix
-        ];
+        user = "naturalh";
+        wsl = true;
       };
     };
 
     homeConfigurations = {
-      # "naturalh@nixos-laptop" = home-manager.lib.homeManagerConfiguration {
-      #   pkgs = nixpkgs.legacyPackages.x86_64-linux;
-      #   extraSpecialArgs = { inherit inputs; };
-      #   modules = [ ./hosts/laptop/home-manager/home.nix ];
-      # };
+      "naturalh@nixos-laptop" = mkHome "nixos-laptop" {
+        system = "x86_64-linux";
+        user = "naturalh";
+      };
 
-      "naturalh@nixos-wsl" = home-manager-wsl.lib.homeManagerConfiguration  rec {
-        pkgs = nixpkgs-wsl.legacyPackages.x86_64-linux;
-        extraSpecialArgs = { inherit inputs outputs; };
-        modules = [ ./hosts/wsl/home-manager/home.nix ];
+      "naturalh@nixos-wsl" = mkHome "nixos-wsl" {
+        system = "x86_64-linux";
+        user = "naturalh";
+        wsl = true;
       };
     };
   };
