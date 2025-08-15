@@ -41,6 +41,11 @@
         user = "naturalh";
       };
 
+      nixos-desktop = mkSystem "nixos-desktop" {
+        system = "x86_64-linux";
+        user = "naturalh";
+      };
+
       nixos-wsl = mkSystem "nixos-wsl" {
         system = "x86_64-linux";
         user = "naturalh";
@@ -50,6 +55,11 @@
 
     homeConfigurations = {
       "naturalh@nixos-laptop" = mkHome "nixos-laptop" {
+        system = "x86_64-linux";
+        user = "naturalh";
+      };
+
+      "naturalh@nixos-desktop" = mkHome "nixos-desktop" {
         system = "x86_64-linux";
         user = "naturalh";
       };
