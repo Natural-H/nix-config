@@ -47,6 +47,11 @@
     wl-clipboard
   ];
 
+  virtualisation.docker = {
+    enable = true;
+    enableOnBoot = true;
+  };
+
   programs.firefox.enable = true;
   programs.zsh.enable = true;
 
