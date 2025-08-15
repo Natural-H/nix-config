@@ -37,16 +37,7 @@
     docker-desktop.enable = false;
   };
   programs.nix-ld.enable = true;
-  users.groups.kubeadmin = {};
-  users.users.naturalh = {
-    isNormalUser = true;
-    shell = pkgs.zsh;
-    extraGroups = [
-      "wheel"
-      "docker"
-      "kubeadmin"
-    ];
-  };
+  users.groups.kubeadmin.members = [ "naturalh" ];
   programs.zsh = {
     enable = true;
     # enableCompletion = true;
