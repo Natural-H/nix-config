@@ -42,6 +42,7 @@
     openssh
     home-manager
     p7zip
+    geoclue2
     
     wayland-utils
     wl-clipboard
@@ -55,11 +56,18 @@
   programs.firefox.enable = true;
   programs.zsh.enable = true;
 
+  programs.gamemode.enable = true;
+  programs.gamescope = {
+    enable = true;
+    capSysNice = true;
+  };
+
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+    gamescopeSession.enable = true;
   };
 
   services = {
@@ -88,7 +96,13 @@
       nssmdns4 = true;
       openFirewall = true;
     };
+
+    geoclue2 = {
+      enable = true;
+    };
   };
+
+  location.provider = "geoclue2";
 
   hardware.bluetooth.enable = true; # Enable Bluetooth support
 
