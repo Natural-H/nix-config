@@ -13,6 +13,7 @@
     partitionmanager
     bluedevil
     bluez-qt
+    qtlocation
     pkgs.kdiff3
     pkgs.nil
     pkgs.hardinfo2
