@@ -43,14 +43,24 @@
     tree
     btop
     xclip
+    lazysql
   ] ++ (lib.optionals (!isWsl) [
+    (prismlauncher.override {
+      jdks = [
+        graalvm-ce
+        zulu8
+        zulu17
+        zulu
+      ];
+    })
+
+    nix-index
     vscode
     libreoffice-qt6
     vesktop
     mission-center
-    blender
+    blender-hip
     osu-lazer-bin
-    prismlauncher
     nextcloud-client
     transmission_4-qt6
     xournalpp
@@ -59,7 +69,10 @@
     obs-studio
     telegram-desktop
     imagemagick
-    ffmpeg_6
+    ffmpeg
+    mangohud
+    mangojuice
+    nvtopPackages.amd
 
     jdk24
     jetbrains-toolbox
