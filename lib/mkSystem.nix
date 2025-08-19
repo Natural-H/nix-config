@@ -3,14 +3,14 @@
 name:
 {
   system,
-  user,
+  users,
   wsl ? false
 }:
 let
   isWsl = wsl;
 
   machineConfig = ../machines/${name}.nix;
-  userConfig = ../users/${user}/${user}.nix;
+  usersConfig = nixpkgs.lib.forEach users (user: ../users/${user}/${user}.nix);
 
   # createSystem = if isWsl then inputs.nixpkgs-wsl.lib.nixosSystem else inputs.nixpkgs-stable.lib.nixosSystem;
   createSystem = inputs.nixpkgs.lib.nixosSystem;
@@ -21,13 +21,12 @@ in createSystem rec {
     { nixpkgs.config.allowUnfree = true; }
     (if isWsl then inputs.nixos-wsl.nixosModules.default else {})
     machineConfig
-    userConfig
-    
+
     {
       config._module.args = {
         inherit isWsl inputs;
         currentSystem = system;
       };
     }
-  ];
+  ] ++ usersConfig;
 }

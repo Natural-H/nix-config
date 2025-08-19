@@ -38,33 +38,38 @@
     nixosConfigurations = {
       nixos-laptop = mkSystem "nixos-laptop" {
         system = "x86_64-linux";
-        user = "naturalh";
+        users = [ "naturalh" ];
       };
 
       nixos-desktop = mkSystem "nixos-desktop" {
         system = "x86_64-linux";
-        user = "naturalh";
+        users = [ "naturalh" "mikeus" ];
       };
 
       nixos-wsl = mkSystem "nixos-wsl" {
         system = "x86_64-linux";
-        user = "naturalh";
+        users = [ "naturalh" ];
         wsl = true;
       };
     };
 
     homeConfigurations = {
-      "naturalh@nixos-laptop" = mkHome "nixos-laptop" {
+      "naturalh@nixos-laptop" = mkHome {
         system = "x86_64-linux";
         user = "naturalh";
       };
 
-      "naturalh@nixos-desktop" = mkHome "nixos-desktop" {
+      "naturalh@nixos-desktop" = mkHome {
         system = "x86_64-linux";
         user = "naturalh";
       };
 
-      "naturalh@nixos-wsl" = mkHome "nixos-wsl" {
+      "mikeus@nixos-desktop" = mkHome {
+        system = "x86_64-linux";
+        user = "mikeus";
+      };
+
+      "naturalh@nixos-wsl" = mkHome {
         system = "x86_64-linux";
         user = "naturalh";
         wsl = true;

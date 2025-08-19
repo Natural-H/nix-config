@@ -1,6 +1,5 @@
 { nixpkgs, inputs, ... }:
 
-name:
 {
   system,
   user,
@@ -16,7 +15,6 @@ in createHome rec {
   pkgs = nixpkgs.legacyPackages.${system};
   extraSpecialArgs = {
     inherit inputs; 
-    # isWsl = isWsl;
   };
   modules = [
     userConfig
