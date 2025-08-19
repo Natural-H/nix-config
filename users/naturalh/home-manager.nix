@@ -44,6 +44,7 @@
     btop
     xclip
     lazysql
+    gh
   ] ++ (lib.optionals (!isWsl) [
     (prismlauncher.override {
       jdks = [
@@ -81,10 +82,16 @@
     wineWowPackages.waylandFull
   ]);
 
-    programs.git = {
+  programs.git = {
     enable = true;
+    package = pkgs.gitFull;
     userName = "naturalh";
     userEmail = "marco.mmtz@proton.me";
+
+    extraConfig = {
+      # credential.helper = "manager";
+      credential."https://github.com".helper = "!gh auth git-credential";
+    };
   };
 
   programs.neovim = {
