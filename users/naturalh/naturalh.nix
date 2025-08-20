@@ -4,6 +4,7 @@
     isNormalUser = true;
     shell = pkgs.zsh;
     extraGroups = [
+      "users"
       "wheel"
       "docker"
     ];
