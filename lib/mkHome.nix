@@ -1,4 +1,4 @@
-{ nixpkgs, inputs, ... }:
+{ inputs, nixpkgs, nixpkgs-stable, ... }:
 
 {
   system,
@@ -14,7 +14,11 @@ let
 in createHome rec {
   pkgs = nixpkgs.legacyPackages.${system};
   extraSpecialArgs = {
-    inherit inputs; 
+    inherit inputs;
+    pkgs-stable = import nixpkgs-stable {
+      inherit system;
+      config.allowUnfree = true;
+    };
   };
   modules = [
     userConfig

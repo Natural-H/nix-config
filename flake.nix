@@ -31,6 +31,7 @@
     mkHome = import ./lib/mkHome.nix {
       inherit inputs;
       nixpkgs = nixpkgs-unstable;
+      nixpkgs-stable = inputs.nixpkgs;
     };
   in {
     # NixOS configuration entrypoint

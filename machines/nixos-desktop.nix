@@ -53,6 +53,8 @@
     enableOnBoot = true;
   };
 
+  programs.dconf.enable = true;
+
   programs.firefox.enable = true;
   programs.zsh.enable = true;
 
@@ -106,11 +108,14 @@
 
   hardware.bluetooth.enable = true; # Enable Bluetooth support
 
-  nixpkgs.config.packageOverrides = pkgs: {
-    intel-vaapi-driver = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
-  };
+  # nixpkgs.config.packageOverrides = pkgs: {
+  #   intel-vaapi-driver = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
+  # };
   hardware.graphics = { # hardware.graphics since NixOS 24.11
     enable = true;
+    extraPackages = with pkgs; [
+      rocmPackages.clr.icd
+    ];
     # extraPackages = with pkgs; [
     #   intel-media-driver # LIBVA_DRIVER_NAME=iHD
     #   intel-vaapi-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
@@ -127,7 +132,7 @@
   # hardware.ipu6.platform = "ipu6ep";
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ 8443 ]; # a docker service I use
+  # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;

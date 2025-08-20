@@ -1,4 +1,4 @@
-{ isWsl, inputs, config, lib, pkgs, ... }:
+{ config, lib, pkgs, pkgs-stable, isWsl, inputs, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -54,8 +54,7 @@
     vesktop
     mission-center
     blender-hip
-    osu-lazer-bin
-    
+
     obs-studio
     imagemagick
     ffmpeg
@@ -67,7 +66,7 @@
     dotnetCorePackages.dotnet_9.sdk
 
     wineWowPackages.waylandFull
-  ]);
+  ] ++ (with pkgs-stable; [ osu-lazer-bin ]));
 
   programs.git = {
     enable = true;

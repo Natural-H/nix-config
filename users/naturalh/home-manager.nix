@@ -1,4 +1,4 @@
-{ isWsl, inputs, config, lib, pkgs, ... }:
+{ config, lib, pkgs, pkgs-stable, isWsl, inputs, ... }:
 
 {
   imports = [
@@ -54,6 +54,7 @@
         zulu
       ];
     })
+    graalvm-ce
 
     nix-index
     vscode
@@ -61,7 +62,6 @@
     vesktop
     mission-center
     blender-hip
-    osu-lazer-bin
     nextcloud-client
     transmission_4-qt6
     xournalpp
@@ -74,13 +74,16 @@
     mangohud
     mangojuice
     nvtopPackages.amd
+    thunderbird
 
-    jdk24
+    davinci-resolve
+
+    # jdk24
     jetbrains-toolbox
     dotnetCorePackages.dotnet_9.sdk
 
     wineWowPackages.waylandFull
-  ]);
+  ] ++ (with pkgs-stable; [ osu-lazer-bin ]));
 
   programs.git = {
     enable = true;
@@ -91,6 +94,7 @@
     extraConfig = {
       # credential.helper = "manager";
       credential."https://github.com".helper = "!gh auth git-credential";
+      safe.directory = [ "/etc/nixos" ];
     };
   };
 
