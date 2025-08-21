@@ -58,20 +58,20 @@
     };
 
     # for each user in machines, create a home configuration
-    homes = nixpkgs.lib.foldlAttrs (acc: name: config:
+    homes = nixpkgs.lib.foldlAttrs (acc: host: config:
         acc // nixpkgs.lib.listToAttrs(nixpkgs.lib.map (
             user: {
-              name = "${user}@${name}";
+              name = "${user}@${host}";
               value = {inherit (config) system; inherit user; wsl = config.wsl or false;};
             }
           ) config.users)
     ) ({}) machines;
   in {
-    nixosConfigurations = nixpkgs.lib.mapAttrs (name: config: (
-      mkSystem "${name}" { inherit (config) system users; wsl = config.wsl or false; }
+    nixosConfigurations = nixpkgs.lib.mapAttrs (host: config: (
+      mkSystem "${host}" { inherit (config) system users; wsl = config.wsl or false; }
     )) machines;
 
-    homeConfigurations = nixpkgs.lib.mapAttrs (name: config: (
+    homeConfigurations = nixpkgs.lib.mapAttrs (host: config: (
       mkHome { inherit (config) system user wsl; }
     )) homes;
   };
