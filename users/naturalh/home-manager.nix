@@ -76,7 +76,7 @@
     nvtopPackages.amd
     thunderbird
 
-    davinci-resolve
+    # davinci-resolve
 
     # jdk24
     jetbrains-toolbox

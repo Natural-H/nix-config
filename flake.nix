@@ -42,6 +42,11 @@
         users = [ "naturalh" ];
       };
 
+      nix-hp-pavilion = mkSystem "nix-hp-pavilion" {
+        system = "x86_64-linux";
+        users = [ "naturalh" ];
+      };
+
       nixos-desktop = mkSystem "nixos-desktop" {
         system = "x86_64-linux";
         users = [ "naturalh" "mikeus" ];
@@ -56,6 +61,11 @@
 
     homeConfigurations = {
       "naturalh@nixos-laptop" = mkHome {
+        system = "x86_64-linux";
+        user = "naturalh";
+      };
+
+      "naturalh@nix-hp-pavilion" = mkHome {
         system = "x86_64-linux";
         user = "naturalh";
       };
