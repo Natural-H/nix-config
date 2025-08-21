@@ -83,7 +83,10 @@
     dotnetCorePackages.dotnet_9.sdk
 
     wineWowPackages.waylandFull
-  ] ++ (with pkgs-stable; [ osu-lazer-bin ]));
+  ] ++ (with pkgs-stable; [
+    osu-lazer-bin
+    nodejs_22
+  ]));
 
   programs.git = {
     enable = true;
