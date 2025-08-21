@@ -33,58 +33,46 @@
       nixpkgs = nixpkgs-unstable;
       nixpkgs-stable = inputs.nixpkgs;
     };
-  in {
-    # NixOS configuration entrypoint
-    # Available through 'nixos-rebuild --flake .#your-hostname'
-    nixosConfigurations = {
-      nixos-laptop = mkSystem "nixos-laptop" {
+
+    machines = {
+      nixos-laptop = {
         system = "x86_64-linux";
         users = [ "naturalh" ];
       };
 
-      nix-hp-pavilion = mkSystem "nix-hp-pavilion" {
+      nix-hp-pavilion = {
         system = "x86_64-linux";
         users = [ "naturalh" ];
       };
 
-      nixos-desktop = mkSystem "nixos-desktop" {
+      nixos-desktop = {
         system = "x86_64-linux";
         users = [ "naturalh" "mikeus" ];
       };
 
-      nixos-wsl = mkSystem "nixos-wsl" {
+      nixos-wsl = {
         system = "x86_64-linux";
         users = [ "naturalh" ];
         wsl = true;
       };
     };
 
-    homeConfigurations = {
-      "naturalh@nixos-laptop" = mkHome {
-        system = "x86_64-linux";
-        user = "naturalh";
-      };
+    # for each user in machines, create a home configuration
+    homes = nixpkgs.lib.foldlAttrs (acc: name: config:
+        acc // nixpkgs.lib.listToAttrs(nixpkgs.lib.map (
+            user: {
+              name = "${user}@${name}";
+              value = {inherit (config) system; inherit user; wsl = config.wsl or false;};
+            }
+          ) config.users)
+    ) ({}) machines;
+  in {
+    nixosConfigurations = nixpkgs.lib.mapAttrs (name: config: (
+      mkSystem "${name}" { inherit (config) system users; wsl = config.wsl or false; }
+    )) machines;
 
-      "naturalh@nix-hp-pavilion" = mkHome {
-        system = "x86_64-linux";
-        user = "naturalh";
-      };
-
-      "naturalh@nixos-desktop" = mkHome {
-        system = "x86_64-linux";
-        user = "naturalh";
-      };
-
-      "mikeus@nixos-desktop" = mkHome {
-        system = "x86_64-linux";
-        user = "mikeus";
-      };
-
-      "naturalh@nixos-wsl" = mkHome {
-        system = "x86_64-linux";
-        user = "naturalh";
-        wsl = true;
-      };
-    };
+    homeConfigurations = nixpkgs.lib.mapAttrs (name: config: (
+      mkHome { inherit (config) system user wsl; }
+    )) homes;
   };
 }
