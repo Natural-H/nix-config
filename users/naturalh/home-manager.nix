@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-stable, isWsl, inputs, ... }:
+{ config, lib, pkgs, pkgs-stable, isWsl, inputs, hardwareSpecific, ... }:
 
 {
   imports = [
@@ -61,7 +61,6 @@
     libreoffice-qt6
     vesktop
     mission-center
-    blender-hip
     nextcloud-client
     transmission_4-qt6
     xournalpp
@@ -76,13 +75,15 @@
     nvtopPackages.amd
     thunderbird
 
-    # davinci-resolve
+    (if hardwareSpecific.amd.hipCapable then blender-hip else blender)
 
     # jdk24
     jetbrains-toolbox
     dotnetCorePackages.dotnet_9.sdk
 
     wineWowPackages.waylandFull
+  ] ++ (lib.optionals (hardwareSpecific.amd.rocmCapable)) [
+    davinci-resolve
   ] ++ (with pkgs-stable; [
     osu-lazer-bin
     nodejs_22

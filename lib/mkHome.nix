@@ -3,7 +3,8 @@
 {
   system,
   user,
-  wsl ? false
+  wsl ? false,
+  hardwareSpecific
 }:
 let
   isWsl = wsl;
@@ -28,6 +29,7 @@ in createHome rec {
         inputs = inputs;
         currentSystem = system;
         isWsl = isWsl;
+        hardwareSpecific = hardwareSpecific;
       };
     }
   ];

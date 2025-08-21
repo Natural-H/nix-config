@@ -48,6 +48,12 @@
       nixos-desktop = {
         system = "x86_64-linux";
         users = [ "naturalh" "mikeus" ];
+        hardwareSpecific = {
+          amd = {
+            rocmCapable = true;
+            hipCapable = true;
+          };
+        };
       };
 
       nixos-wsl = {
@@ -62,7 +68,17 @@
         acc // nixpkgs.lib.listToAttrs(nixpkgs.lib.map (
             user: {
               name = "${user}@${host}";
-              value = {inherit (config) system; inherit user; wsl = config.wsl or false;};
+              value = {
+                inherit (config) system;
+                inherit user;
+                wsl = config.wsl or false;
+                hardwareSpecific = nixpkgs.lib.recursiveUpdate {
+                  amd = {
+                    rocmCapable = false;
+                    hipCapable = false;
+                  };
+                } (config.hardwareSpecific or {});
+              };
             }
           ) config.users)
     ) ({}) machines;
@@ -72,7 +88,7 @@
     )) machines;
 
     homeConfigurations = nixpkgs.lib.mapAttrs (host: config: (
-      mkHome { inherit (config) system user wsl; }
+      mkHome { inherit (config) system user wsl hardwareSpecific; }
     )) homes;
   };
 }
