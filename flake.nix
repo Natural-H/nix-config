@@ -54,6 +54,7 @@
             hipCapable = true;
           };
         };
+        enableNixLd = true;
       };
 
       nixos-wsl = {
@@ -84,7 +85,11 @@
     ) ({}) machines;
   in {
     nixosConfigurations = nixpkgs.lib.mapAttrs (host: config: (
-      mkSystem "${host}" { inherit (config) system users; wsl = config.wsl or false; }
+      mkSystem "${host}" {
+        inherit (config) system users;
+        wsl = config.wsl or false;
+        enableNixLd = config.enableNixLd or false;
+      }
     )) machines;
 
     homeConfigurations = nixpkgs.lib.mapAttrs (host: config: (

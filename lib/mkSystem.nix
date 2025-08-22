@@ -4,7 +4,8 @@ name:
 {
   system,
   users,
-  wsl ? false
+  wsl ? false,
+  enableNixLd ? false
 }:
 let
   isWsl = wsl;
@@ -22,9 +23,11 @@ in createSystem rec {
     (if isWsl then inputs.nixos-wsl.nixosModules.default else {})
     machineConfig
 
+    ../modules/nix-ld/nix-ld.nix
+
     {
       config._module.args = {
-        inherit isWsl inputs;
+        inherit isWsl inputs enableNixLd;
         currentSystem = system;
       };
     }
