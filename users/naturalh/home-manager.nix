@@ -59,6 +59,8 @@
     nix-index
     vscode
     libreoffice-qt6
+    hunspellDicts.es_MX
+    hunspellDicts.en_US
     vesktop
     mission-center
     nextcloud-client
