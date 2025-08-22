@@ -43,6 +43,7 @@
     home-manager
     p7zip
     geoclue2
+    btrfs-progs
     
     wayland-utils
     wl-clipboard

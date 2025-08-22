@@ -18,6 +18,12 @@
       fsType = "ext4";
     };
 
+  fileSystems."/nix" =
+    { device = "/dev/disk/by-label/nixstore";
+      fsType = "btrfs";
+      options = [ "compress=zstd:1" "noatime" ];
+    };
+
   fileSystems."/boot" =
     { device = "/dev/disk/by-label/NIXBOOT";
       fsType = "vfat";
