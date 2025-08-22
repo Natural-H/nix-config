@@ -4,7 +4,7 @@
     isNormalUser = true;
     shell = pkgs.zsh;
     extraGroups = [
-      "users"
+      "nix-admins"
       "wheel"
     ];
   };
