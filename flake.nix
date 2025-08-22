@@ -43,6 +43,7 @@
       nix-hp-pavilion = {
         system = "x86_64-linux";
         users = [ "naturalh" ];
+        enableNixLd = true;
       };
 
       nixos-desktop = {
