@@ -42,7 +42,7 @@
 
       nix-hp-pavilion = {
         system = "x86_64-linux";
-        users = [ "naturalh" ];
+        users = [ "naturalh" "mikeus" ];
         enableNixLd = true;
       };
 
