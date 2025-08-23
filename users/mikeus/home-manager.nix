@@ -108,7 +108,7 @@
       pbcopy = "xclip -selection clipboard";
       pbpaste = "xclip -selection clipboard -o";
       # plasma needs first a user update then a system update to link correctly
-      amogos = "home-manager switch --flake ~/nixos; sudo nixos-rebuild switch";
+      amogos = "sudo chmod g+w /etc/nixos -R; home-manager switch --flake ~/nixos; sudo nixos-rebuild switch";
     };
   };
 
