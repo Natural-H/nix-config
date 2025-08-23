@@ -20,6 +20,7 @@ in createSystem rec {
   modules = [
     { networking.hostName = name; }
     { nixpkgs.config.allowUnfree = true; }
+    { users.groups.nix-admins = {}; }
     (if isWsl then inputs.nixos-wsl.nixosModules.default else {})
     machineConfig
 
