@@ -8,5 +8,6 @@
       "wheel"
       "docker"
     ];
+    initialPassword = "password";
   };
 }
