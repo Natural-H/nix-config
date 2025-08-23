@@ -7,5 +7,6 @@
       "nix-admins"
       "wheel"
     ];
+    initialPassword = "password";
   };
 }
