@@ -14,6 +14,7 @@
     bluedevil
     bluez-qt
     qtlocation
+    krdp
     pkgs.kdiff3
     pkgs.nil
     pkgs.hardinfo2

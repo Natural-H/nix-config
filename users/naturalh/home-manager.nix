@@ -76,6 +76,8 @@
     mangojuice
     nvtopPackages.amd
     thunderbird
+    remmina
+    openssl
 
     (if hardwareSpecific.amd.hipCapable then blender-hip else blender)
 

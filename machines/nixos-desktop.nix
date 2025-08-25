@@ -133,7 +133,7 @@
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
+  networking.firewall.allowedUDPPorts = [ 3389 ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
