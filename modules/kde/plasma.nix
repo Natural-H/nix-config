@@ -15,6 +15,7 @@
     bluez-qt
     qtlocation
     krdp
+    kdenetwork-filesharing
     pkgs.kdiff3
     pkgs.nil
     pkgs.hardinfo2
