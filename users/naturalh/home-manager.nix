@@ -76,6 +76,8 @@
     mangojuice
     nvtopPackages.amd
     thunderbird
+    jamesdsp
+    handbrake
     remmina
     openssl
 
