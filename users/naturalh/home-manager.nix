@@ -80,6 +80,7 @@
     handbrake
     remmina
     openssl
+    (bottles.override { removeWarningPopup = true; })
 
     (if hardwareSpecific.amd.hipCapable then blender-hip else blender)
 
