@@ -13,9 +13,6 @@
   home.username = "naturalh";
   home.homeDirectory = "/home/naturalh";
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.permittedInsecurePackages = [
-    "libxml2-2.13.8"
-  ];
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -83,7 +80,6 @@
     handbrake
     remmina
     openssl
-    ciscoPacketTracer8
     (bottles.override { removeWarningPopup = true; })
 
     (if hardwareSpecific.amd.hipCapable then blender-hip else blender)
