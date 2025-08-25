@@ -14,5 +14,6 @@
     nerd-fonts.droid-sans-mono
     corefonts
     vista-fonts
+    oswald
   ];
 }
