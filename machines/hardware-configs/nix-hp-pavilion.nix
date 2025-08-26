@@ -24,6 +24,12 @@
       options = [ "compress=zstd:1" "noatime" ];
     };
 
+  fileSystems."/shared" =
+    { device = "/dev/disk/by-label/nixstore";
+      fsType = "btrfs";
+      options = [ "subvol=@shared" "noatime" "compress=zstd:1" ];
+    };
+
   fileSystems."/boot" =
     { device = "/dev/disk/by-label/NIXBOOT";
       fsType = "vfat";
