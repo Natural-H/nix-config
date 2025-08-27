@@ -82,6 +82,7 @@
     remmina
     openssl
     distrobox
+    arduino-ide
     (bottles.override { removeWarningPopup = true; })
 
     (if hardwareSpecific.amd.hipCapable then blender-hip else blender)

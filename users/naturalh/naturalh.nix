@@ -5,6 +5,8 @@
     shell = pkgs.zsh;
     extraGroups = [
       "nix-admins"
+      "dialout"
+      "uucp"
       "wheel"
       "docker"
     ];
