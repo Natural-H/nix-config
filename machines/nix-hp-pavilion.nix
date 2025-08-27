@@ -42,6 +42,7 @@
     openssh
     home-manager
     p7zip
+    unrar
     geoclue2
     btrfs-progs
     
