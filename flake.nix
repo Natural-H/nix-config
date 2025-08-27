@@ -44,6 +44,10 @@
         system = "x86_64-linux";
         users = [ "naturalh" "mikeus" ];
         enableNixLd = true;
+        # problematicPrograms = {
+        #   # needs to be added to nix store manually
+        #   useCiscoPacketTracer = true;
+        # };
       };
 
       nixos-desktop = {
@@ -80,6 +84,9 @@
                     hipCapable = false;
                   };
                 } (config.hardwareSpecific or {});
+                problematicPrograms = nixpkgs.lib.recursiveUpdate {
+                  useCiscoPacketTracer = false;
+                } (config.problematicPrograms or {});
               };
             }
           ) config.users)
@@ -94,7 +101,7 @@
     )) machines;
 
     homeConfigurations = nixpkgs.lib.mapAttrs (host: config: (
-      mkHome { inherit (config) system user wsl hardwareSpecific; }
+      mkHome { inherit (config) system user wsl hardwareSpecific problematicPrograms; }
     )) homes;
   };
 }

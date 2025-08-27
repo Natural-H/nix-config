@@ -4,7 +4,8 @@
   system,
   user,
   wsl ? false,
-  hardwareSpecific
+  hardwareSpecific,
+  problematicPrograms
 }:
 let
   isWsl = wsl;
@@ -32,5 +33,7 @@ in createHome rec {
         hardwareSpecific = hardwareSpecific;
       };
     }
-  ];
+  ] ++ (nixpkgs.lib.optionals (problematicPrograms.useCiscoPacketTracer) [
+    ../modules/problematic/packettracer.nix
+  ]);
 }

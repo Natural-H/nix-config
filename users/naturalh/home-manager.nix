@@ -7,6 +7,7 @@
       url = "https://github.com/msteen/nixos-vscode-server/tarball/6d5f074e4811d143d44169ba4af09b20ddb6937d";
       sha256 = "1rdn70jrg5mxmkkrpy2xk8lydmlc707sk0zb35426v1yxxka10by";
     }}/modules/vscode-server/home.nix"
+    # ./packettracer.nix
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -80,6 +81,7 @@
     handbrake
     remmina
     openssl
+    distrobox
     (bottles.override { removeWarningPopup = true; })
 
     (if hardwareSpecific.amd.hipCapable then blender-hip else blender)
