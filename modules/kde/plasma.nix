@@ -16,6 +16,7 @@
     qtlocation
     krdp
     kdenetwork-filesharing
+    plasma-vault
     pkgs.kdiff3
     pkgs.nil
     pkgs.hardinfo2

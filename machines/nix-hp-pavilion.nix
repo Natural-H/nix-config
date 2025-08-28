@@ -45,6 +45,7 @@
     unrar
     geoclue2
     btrfs-progs
+    lsof
     
     wayland-utils
     wl-clipboard
