@@ -66,9 +66,9 @@
     mission-center
     nextcloud-client
     transmission_4-qt6
-    xournalpp
-    texliveFull
-    texlivePackages.latex
+    # xournalpp
+    # texliveFull
+    # texlivePackages.latex
     obs-studio
     telegram-desktop
     imagemagick
