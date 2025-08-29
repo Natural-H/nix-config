@@ -15,6 +15,7 @@
     bluez-qt
     qtlocation
     krdp
+    kclock
     kdenetwork-filesharing
     plasma-vault
     pkgs.kdiff3
