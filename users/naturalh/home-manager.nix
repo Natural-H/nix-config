@@ -59,6 +59,7 @@
 
     nix-index
     vscode
+    coppwr
     libreoffice-qt6
     hunspellDicts.es_MX
     hunspellDicts.en_US
