@@ -84,6 +84,12 @@
     openssl
     distrobox
     arduino-ide
+    qtcreator
+    kdePackages.full
+    cmake
+    gnumake
+    gcc
+    gdb
     (bottles.override { removeWarningPopup = true; })
 
     (if hardwareSpecific.amd.hipCapable then blender-hip else blender)
