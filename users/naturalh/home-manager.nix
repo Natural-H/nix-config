@@ -70,6 +70,7 @@
     # xournalpp
     # texliveFull
     # texlivePackages.latex
+    obsidian
     obs-studio
     telegram-desktop
     imagemagick
