@@ -89,6 +89,7 @@
     kdePackages.full
     cmake
     gnumake
+    ninja
     gcc
     gdb
     (bottles.override { removeWarningPopup = true; })
