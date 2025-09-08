@@ -35,6 +35,11 @@
     };
 
     machines = {
+      nix-thinkbook16 = {
+        system = "x86_64-linux";
+        users = [ "naturalh" ];
+      };
+
       nixos-laptop = {
         system = "x86_64-linux";
         users = [ "naturalh" ];
