@@ -24,7 +24,8 @@ in createHome rec {
   };
   modules = [
     userConfig
-    
+    (if !isWsl then inputs.flatpaks.homeManagerModules.nix-flatpak else {})
+
     {
       config._module.args = {
         inputs = inputs;

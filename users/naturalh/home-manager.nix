@@ -24,6 +24,21 @@
   # release notes.
   home.stateVersion = "25.05"; # Please read the comment before changing.
 
+  # Okay, maybe I need some after all
+  services.flatpak = {
+    enable = true;
+    packages = [
+      "com.usebottles.bottles"
+      "com.github.tchx84.Flatseal"
+    ];
+
+    overrides = {
+      "com.usebottles.bottles".Context = {
+        filesystems = [ "xdg-data/applications" "xdg-documents" ];
+      };
+    };
+  };
+
   home.packages = with pkgs; [
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -92,7 +107,7 @@
     ninja
     gcc
     gdb
-    (bottles.override { removeWarningPopup = true; })
+    # (bottles.override { removeWarningPopup = true; })
 
     (if hardwareSpecific.amd.hipCapable then blender-hip else blender)
 

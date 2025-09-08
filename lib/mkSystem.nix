@@ -24,6 +24,8 @@ in createSystem rec {
     (if isWsl then inputs.nixos-wsl.nixosModules.default else {})
     machineConfig
 
+    (if !isWsl then inputs.flatpaks.nixosModules.nix-flatpak else {})
+
     ../modules/nix-ld/nix-ld.nix
 
     {
