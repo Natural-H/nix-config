@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, pkgs-unstable, lib, ... }:
 {
   imports = [
     ./hardware-configs/nixos-desktop.nix
@@ -82,6 +82,8 @@
     tailscale = {
       enable = true;
       useRoutingFeatures = "client";
+      # upstream is broken for the time being
+      package = pkgs-unstable.tailscale;
     };
 
     pipewire = {

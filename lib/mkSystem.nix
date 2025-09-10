@@ -17,6 +17,15 @@ let
   createSystem = inputs.nixpkgs.lib.nixosSystem;
 in createSystem rec {
   inherit system;
+
+  specialArgs = {
+    inherit isWsl system inputs enableNixLd;
+    pkgs-unstable = import inputs.nixpkgs-unstable {
+      inherit system;
+      config = { allowUnfree = true; };
+    };
+  };
+
   modules = [
     { networking.hostName = name; }
     { nixpkgs.config.allowUnfree = true; }
@@ -27,12 +36,5 @@ in createSystem rec {
     (if !isWsl then inputs.flatpaks.nixosModules.nix-flatpak else {})
 
     ../modules/nix-ld/nix-ld.nix
-
-    {
-      config._module.args = {
-        inherit isWsl inputs enableNixLd;
-        currentSystem = system;
-      };
-    }
   ] ++ usersConfig;
 }
