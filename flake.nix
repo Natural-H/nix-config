@@ -40,6 +40,10 @@
       nix-thinkbook16 = {
         system = "x86_64-linux";
         users = [ "naturalh" ];
+        problematicPrograms = {
+          # distrobox is complaining about libcrypto for some reason
+          useCiscoPacketTracer = true;
+        };
       };
 
       nixos-laptop = {
