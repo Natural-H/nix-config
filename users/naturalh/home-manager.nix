@@ -70,6 +70,7 @@
       ];
     })
     graalvm-ce
+    chromium
 
     nix-index
     vscode
