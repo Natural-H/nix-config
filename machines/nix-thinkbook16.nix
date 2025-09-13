@@ -49,10 +49,18 @@
     wl-clipboard
   ];
 
-  virtualisation.docker = {
-    enable = true;
-    enableOnBoot = true;
+  virtualisation = {
+    docker = {
+      enable = true;
+      enableOnBoot = true;
+    };
+
+    libvirtd = {
+      enable = true;
+    };
   };
+
+  programs.virt-manager.enable = true;
 
   programs.dconf.enable = true;
 
