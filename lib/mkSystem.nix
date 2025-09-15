@@ -1,4 +1,4 @@
-{ nixpkgs, inputs, ... }:
+{ nixpkgs, getPackages, inputs, ... }:
 
 name:
 {
@@ -14,16 +14,13 @@ let
   usersConfig = nixpkgs.lib.forEach users (user: ../users/${user}/${user}.nix);
 
   # createSystem = if isWsl then inputs.nixpkgs-wsl.lib.nixosSystem else inputs.nixpkgs-stable.lib.nixosSystem;
-  createSystem = inputs.nixpkgs.lib.nixosSystem;
+  createSystem = nixpkgs.lib.nixosSystem;
 in createSystem rec {
   inherit system;
 
   specialArgs = {
     inherit isWsl system inputs enableNixLd;
-    pkgs-unstable = import inputs.nixpkgs-unstable {
-      inherit system;
-      config = { allowUnfree = true; };
-    };
+    packages = getPackages { system = system; };
   };
 
   modules = [

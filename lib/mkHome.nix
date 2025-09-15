@@ -1,4 +1,4 @@
-{ inputs, nixpkgs, nixpkgs-stable, ... }:
+{ inputs, getPackages, ... }:
 
 {
   system,
@@ -11,32 +11,20 @@ let
   isWsl = wsl;
 
   userConfig = ../users/${user}/home-manager.nix;
+  packages = getPackages { system = system; };
 
   createHome = inputs.home-manager.lib.homeManagerConfiguration;
 in createHome rec {
-  pkgs = nixpkgs.legacyPackages.${system};
+  pkgs = packages.pkgs-unstable;
   extraSpecialArgs = {
-    inherit inputs isWsl;
+    inherit inputs isWsl packages;
     hardwareSpecific = hardwareSpecific;
-
-    pkgs-stable = import nixpkgs-stable {
-      inherit system;
-      config.allowUnfree = true;
-    };
   };
   modules = [
     userConfig
     (if !isWsl then inputs.flatpaks.homeManagerModules.nix-flatpak else {})
 
-    # {
-    #   config._module.args = {
-    #     inputs = inputs;
-    #     currentSystem = system;
-    #     isWsl = isWsl;
-    #     hardwareSpecific = hardwareSpecific;
-    #   };
-    # }
-  ] ++ (nixpkgs.lib.optionals (problematicPrograms.useCiscoPacketTracer) [
+  ] ++ (inputs.nixpkgs.lib.optionals (problematicPrograms.useCiscoPacketTracer) [
     ../modules/problematic/packettracer.nix
   ]);
 }

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-stable, isWsl, inputs, ... }:
+{ config, lib, pkgs, packages, isWsl, inputs, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -66,7 +66,7 @@
     dotnetCorePackages.dotnet_9.sdk
 
     wineWowPackages.waylandFull
-  ] ++ (with pkgs-stable; [ osu-lazer-bin ]));
+  ] ++ (with packages.pkgs; [ osu-lazer-bin ]));
 
   programs.git = {
     enable = true;

@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-graalvm21.url = "github:nixos/nixpkgs/336eda0d07dc5e2be1f923990ad9fdb6bc8e28e3";
     flatpaks.url = "github:gmodena/nix-flatpak/?ref=latest";
 
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
@@ -26,14 +27,27 @@
   } @ inputs: let
     inherit (self) outputs;
 
+    getPackages = {system}: {
+      pkgs = import nixpkgs {
+        inherit system;
+        config = { allowUnfree = true; };
+      };
+
+      pkgs-unstable = import nixpkgs-unstable {
+        inherit system;
+        config = { allowUnfree = true; };
+      };
+
+      # pinned package versions
+      graalvm21 = inputs.nixpkgs-graalvm21.legacyPackages.${system}.graalvm-ce;
+    };
+
     mkSystem = import ./lib/mkSystem.nix {
-      inherit nixpkgs inputs;
+      inherit inputs nixpkgs getPackages;
     };
 
     mkHome = import ./lib/mkHome.nix {
-      inherit inputs;
-      nixpkgs = nixpkgs-unstable;
-      nixpkgs-stable = inputs.nixpkgs;
+      inherit inputs getPackages;
     };
 
     machines = {

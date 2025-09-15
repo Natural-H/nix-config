@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-unstable, lib, ... }:
+{ config, pkgs, packages, lib, ... }:
 {
   imports = [
     ./hardware-configs/nix-thinkbook16.nix
@@ -86,7 +86,7 @@
       enable = true;
       useRoutingFeatures = "client";
       # upstream is broken for the time being
-      package = pkgs-unstable.tailscale;
+      package = packages.pkgs-unstable.tailscale;
     };
 
     pipewire = {

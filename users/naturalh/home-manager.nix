@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-stable, isWsl, inputs, hardwareSpecific, ... }:
+{ config, lib, pkgs, packages, isWsl, inputs, hardwareSpecific, ... }:
 
 {
   imports = [
@@ -64,7 +64,7 @@
   ] ++ (lib.optionals (!isWsl) [
     (prismlauncher.override {
       jdks = [
-        graalvm-ce
+        packages.graalvm21
         zulu8
         zulu17
         zulu
@@ -72,6 +72,7 @@
     })
     graalvm-ce
     chromium
+    parsec-bin
 
     nix-index
     vscode
@@ -119,7 +120,7 @@
     wineWowPackages.waylandFull
   ] ++ (lib.optionals (hardwareSpecific.amd.rocmCapable)) [
     davinci-resolve
-  ] ++ (with pkgs-stable; [
+  ] ++ (with packages.pkgs; [
     osu-lazer-bin
     nodejs_22
   ]));
