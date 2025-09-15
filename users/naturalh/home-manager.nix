@@ -62,7 +62,7 @@
     lazysql
     gh
   ] ++ (lib.optionals (!isWsl) [
-    (prismlauncher.override {
+    (packages.pkgs.prismlauncher.override {
       jdks = [
         packages.graalvm21
         zulu8
@@ -109,7 +109,8 @@
     ninja
     gcc
     gdb
-    # (bottles.override { removeWarningPopup = true; })
+    packages.pkgs.osu-lazer-bin
+    packages.pkgs.nodejs_22
 
     (if hardwareSpecific.amd.hipCapable then blender-hip else blender)
 
@@ -120,10 +121,7 @@
     wineWowPackages.waylandFull
   ] ++ (lib.optionals (hardwareSpecific.amd.rocmCapable)) [
     davinci-resolve
-  ] ++ (with packages.pkgs; [
-    osu-lazer-bin
-    nodejs_22
-  ]));
+  ]);
 
   programs.git = {
     enable = true;
