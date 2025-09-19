@@ -19,6 +19,21 @@
       copyKernels = true;
       useOSProber = true;
       efiInstallAsRemovable = true;
+      theme = pkgs.stdenv.mkDerivation {
+        pname = "distro-grub-themes";
+        version = "3.2";
+        src = pkgs.fetchFromGitHub {
+          owner = "AdisonCavani";
+          repo = "distro-grub-themes";
+          rev = "v3.2";
+          hash = "sha256-U5QfwXn4WyCXvv6A/CYv9IkR/uDx4xfdSgbXDl5bp9M=";
+        };
+        installPhase = ''
+          mkdir -p customize
+          tar -xf themes/nixos.tar -C customize
+          cp -r customize $out
+        '';
+      };
     };
   };
 
