@@ -54,6 +54,7 @@
     xclip
     lazysql
     gh
+    poppler-utils
   ] ++ (lib.optionals (!isWsl) [
     (packages.pkgs.prismlauncher.override {
       jdks = [
