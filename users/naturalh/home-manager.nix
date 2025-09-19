@@ -1,13 +1,6 @@
 { config, lib, pkgs, packages, isWsl, inputs, hardwareSpecific, ... }:
 
 {
-  imports = [
-    # vscode server, i'll probably remove this later in favor to the flake
-    "${fetchTarball {
-      url = "https://github.com/msteen/nixos-vscode-server/tarball/6d5f074e4811d143d44169ba4af09b20ddb6937d";
-      sha256 = "1rdn70jrg5mxmkkrpy2xk8lydmlc707sk0zb35426v1yxxka10by";
-    }}/modules/vscode-server/home.nix"
-  ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "naturalh";

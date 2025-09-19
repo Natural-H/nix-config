@@ -7,6 +7,7 @@
     nixpkgs-graalvm21.url = "github:nixos/nixpkgs/336eda0d07dc5e2be1f923990ad9fdb6bc8e28e3";
     flatpaks.url = "github:gmodena/nix-flatpak/?ref=latest";
 
+    vscode-server.url = "github:nix-community/nixos-vscode-server";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
 
     # Home manager
@@ -23,6 +24,7 @@
     nixos-wsl,
     home-manager,
     flatpaks,
+    vscode-server,
     ...
   } @ inputs: let
     inherit (self) outputs;

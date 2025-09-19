@@ -23,6 +23,7 @@ in createHome rec {
   modules = [
     userConfig
     (if !isWsl then inputs.flatpaks.homeManagerModules.nix-flatpak else {})
+    (if !isWsl then inputs.vscode-server.homeModules.default else {})
 
   ] ++ (inputs.nixpkgs.lib.optionals (problematicPrograms.useCiscoPacketTracer) [
     ../modules/problematic/packettracer.nix
