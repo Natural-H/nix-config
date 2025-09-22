@@ -1,4 +1,5 @@
-{ config, lib, pkgs, packages, isWsl, inputs, hardwareSpecific, ... }:
+{ isWsl, packages, inputs, hardwareSpecific, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -18,7 +19,7 @@
 
   # Okay, maybe I need some after all
   services.flatpak = {
-    enable = true;
+    enable = !isWsl;
     packages = [
       "com.usebottles.bottles"
       "com.github.tchx84.Flatseal"
