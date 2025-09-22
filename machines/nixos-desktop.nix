@@ -19,6 +19,7 @@
       copyKernels = true;
       useOSProber = true;
       efiInstallAsRemovable = true;
+      splashImage = null;
       theme = pkgs.stdenv.mkDerivation {
         pname = "distro-grub-themes";
         version = "3.2";
