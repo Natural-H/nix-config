@@ -34,7 +34,7 @@
     enable = true; # Enable WSL support
     defaultUser = "naturalh"; # Set the default user for WSL
     startMenuLaunchers = true;
-    docker-desktop.enable = false;
+    docker-desktop.enable = true;
   };
   programs.nix-ld.enable = lib.mkForce true;
   users.groups.kubeadmin.members = [ "naturalh" ];
