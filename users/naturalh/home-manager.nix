@@ -56,6 +56,15 @@
     lazysql
     gh
     poppler-utils
+
+    cmake
+    gnumake
+    ninja
+    gcc
+    gdb
+
+    packages.pkgs.nodejs_22
+    graalvm-ce
   ] ++ (lib.optionals (!isWsl) [
     (packages.pkgs.prismlauncher.override {
       jdks = [
@@ -65,7 +74,6 @@
         zulu
       ];
     })
-    graalvm-ce
     chromium
     parsec-bin
 
@@ -99,13 +107,7 @@
     arduino-ide
     qtcreator
     kdePackages.full
-    cmake
-    gnumake
-    ninja
-    gcc
-    gdb
     packages.pkgs.osu-lazer-bin
-    packages.pkgs.nodejs_22
 
     (if hardwareSpecific.amd.hipCapable then blender-hip else blender)
 
