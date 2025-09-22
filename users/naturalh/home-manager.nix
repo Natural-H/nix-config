@@ -57,6 +57,9 @@
     gh
     poppler-utils
 
+    python313
+    python313Packages.numpy
+    python313Packages.pip
     cmake
     gnumake
     ninja
