@@ -69,6 +69,7 @@
     packages.pkgs.nodejs_22
     pnpm
     graalvm-ce
+    go
   ] ++ (lib.optionals (!isWsl) [
     (packages.pkgs.prismlauncher.override {
       jdks = [
