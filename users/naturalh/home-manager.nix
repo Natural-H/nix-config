@@ -67,6 +67,7 @@
     gdb
 
     packages.pkgs.nodejs_22
+    pnpm
     graalvm-ce
   ] ++ (lib.optionals (!isWsl) [
     (packages.pkgs.prismlauncher.override {
