@@ -80,6 +80,7 @@
     })
     chromium
     parsec-bin
+    dbeaver-bin
 
     nix-index
     vscode
