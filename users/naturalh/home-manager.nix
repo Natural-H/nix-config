@@ -170,7 +170,13 @@
     bindkey '^[[1;5D' beginning-of-line
     bindkey '^[[1;5C' end-of-line
     eval `ssh-agent -s | grep -v 'echo'`
-    '' else ""; # this will be added later for non-wsl systems
+    '' else ''
+    bindkey '^[[1;5D' backward-word
+    bindkey '^[[1;5C' forward-word
+    bindkey '^[[H' beginning-of-line
+    bindkey '^[[F' end-of-line
+    bindkey '^[[3~' delete-char
+    ''; # this will be added later for non-wsl systems
 
     shellAliases = {
       pbcopy = "xclip -selection clipboard";
