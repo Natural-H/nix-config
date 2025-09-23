@@ -164,7 +164,7 @@
       searchDownKey = "^[OB"; # Key to search down
       searchUpKey = "^[OA"; # Key to search up
     };
-    initExtra = if isWsl then ''
+    initContent = if isWsl then ''
     bindkey '^[[1;3D' backward-word
     bindkey '^[[1;3C' forward-word
     bindkey '^[[1;5D' beginning-of-line
