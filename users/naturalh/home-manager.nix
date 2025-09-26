@@ -56,6 +56,7 @@
     lazysql
     gh
     poppler-utils
+    insomnia
 
     python313
     python313Packages.numpy
@@ -68,8 +69,10 @@
 
     packages.pkgs.nodejs_22
     pnpm
+    prisma-engines
     graalvm-ce
     go
+    cloudflared
   ] ++ (lib.optionals (!isWsl) [
     (packages.pkgs.prismlauncher.override {
       jdks = [
