@@ -1,13 +1,15 @@
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
 # NixOS-WSL specific options are documented on the NixOS-WSL repository:
 # https://github.com/nix-community/NixOS-WSL
-
-{ config, lib, pkgs, inputs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}: {
   imports = [];
 
   nix = let
@@ -37,7 +39,7 @@
     docker-desktop.enable = true;
   };
   programs.nix-ld.enable = lib.mkForce true;
-  users.groups.kubeadmin.members = [ "naturalh" ];
+  users.groups.kubeadmin.members = ["naturalh"];
   programs.zsh = {
     enable = true;
     # enableCompletion = true;
@@ -101,7 +103,7 @@
     #     ''}";
     #   };
     #   "kube-proxy" = {
-    #     "proxy-mode" = "ipvs";  
+    #     "proxy-mode" = "ipvs";
     #     "ipvs-scheduler" = "rr";
     #   };
     # };

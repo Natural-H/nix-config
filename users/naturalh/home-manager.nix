@@ -1,7 +1,15 @@
-{ isWsl, packages, inputs, hardwareSpecific, ... }:
-{ config, lib, pkgs, ... }:
-
 {
+  isWsl,
+  packages,
+  inputs,
+  hardwareSpecific,
+  ...
+}: {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "naturalh";
@@ -28,107 +36,114 @@
 
     overrides = {
       "com.usebottles.bottles".Context = {
-        filesystems = [ "xdg-data/applications" "xdg-documents" ];
+        filesystems = ["xdg-data/applications" "xdg-documents"];
       };
     };
   };
 
-  home.packages = with pkgs; [
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
+  home.packages = with pkgs;
+    [
+      # # It is sometimes useful to fine-tune packages, for example, by applying
+      # # overrides. You can do that directly here, just don't forget the
+      # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
+      # # fonts?
+      # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
 
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
+      # # You can also create simple shell scripts directly inside your
+      # # configuration. For example, this adds a command 'my-hello' to your
+      # # environment:
+      # (pkgs.writeShellScriptBin "my-hello" ''
+      #   echo "Hello, ${config.home.username}!"
+      # '')
 
       alejandra
-    lazygit
-    lazydocker
-    gitkraken
-    tree
-    btop
-    xclip
-    lazysql
-    gh
-    poppler-utils
-    insomnia
+      lazygit
+      lazydocker
+      gitkraken
+      tree
+      btop
+      xclip
+      lazysql
+      gh
+      poppler-utils
+      insomnia
 
-    python313
-    python313Packages.numpy
-    python313Packages.pip
-    cmake
-    gnumake
-    ninja
-    gcc
-    gdb
+      python313
+      python313Packages.numpy
+      python313Packages.pip
+      cmake
+      gnumake
+      ninja
+      gcc
+      gdb
 
-    packages.pkgs.nodejs_22
-    pnpm
-    prisma-engines
-    graalvm-ce
-    go
-    cloudflared
-  ] ++ (lib.optionals (!isWsl) [
-    (packages.pkgs.prismlauncher.override {
-      jdks = [
-        packages.graalvm21
-        zulu8
-        zulu17
-        zulu
-      ];
-    })
-    chromium
-    parsec-bin
-    dbeaver-bin
+      packages.pkgs.nodejs_22
+      pnpm
+      prisma-engines
+      graalvm-ce
+      go
+      cloudflared
+    ]
+    ++ (lib.optionals (!isWsl) [
+        (packages.pkgs.prismlauncher.override {
+          jdks = [
+            packages.graalvm21
+            zulu8
+            zulu17
+            zulu
+          ];
+        })
+        chromium
+        parsec-bin
+        dbeaver-bin
 
-    nix-index
-    vscode
-    coppwr
-    libreoffice-qt6
-    hunspellDicts.es_MX
-    hunspellDicts.en_US
-    vesktop
-    mission-center
-    nextcloud-client
-    transmission_4-qt6
-    # xournalpp
-    # texliveFull
-    # texlivePackages.latex
-    obsidian
-    obs-studio
-    telegram-desktop
-    imagemagick
-    ffmpeg
-    mangohud
-    mangojuice
-    nvtopPackages.amd
-    thunderbird
-    jamesdsp
-    handbrake
-    remmina
-    openssl
-    distrobox
-    arduino-ide
-    qtcreator
-    kdePackages.full
-    packages.pkgs.osu-lazer-bin
+        nix-index
+        vscode
+        coppwr
+        libreoffice-qt6
+        hunspellDicts.es_MX
+        hunspellDicts.en_US
+        vesktop
+        mission-center
+        nextcloud-client
+        transmission_4-qt6
+        # xournalpp
+        # texliveFull
+        # texlivePackages.latex
+        obsidian
+        obs-studio
+        telegram-desktop
+        imagemagick
+        ffmpeg
+        mangohud
+        mangojuice
+        nvtopPackages.amd
+        thunderbird
+        jamesdsp
+        handbrake
+        remmina
+        openssl
+        distrobox
+        arduino-ide
+        qtcreator
+        kdePackages.full
+        packages.pkgs.osu-lazer-bin
 
-    (if hardwareSpecific.amd.hipCapable then blender-hip else blender)
+        (
+          if hardwareSpecific.amd.hipCapable
+          then blender-hip
+          else blender
+        )
 
-    # jdk24
-    jetbrains-toolbox
-    dotnetCorePackages.dotnet_9.sdk
+        # jdk24
+        jetbrains-toolbox
+        dotnetCorePackages.dotnet_9.sdk
 
-    wineWowPackages.waylandFull
-  ] ++ (lib.optionals (hardwareSpecific.amd.rocmCapable)) [
-    davinci-resolve
-  ]);
+        wineWowPackages.waylandFull
+      ]
+      ++ (lib.optionals (hardwareSpecific.amd.rocmCapable)) [
+        davinci-resolve
+      ]);
 
   programs.git = {
     enable = true;
@@ -139,7 +154,7 @@
     extraConfig = {
       # credential.helper = "manager";
       credential."https://github.com".helper = "!gh auth git-credential";
-      safe.directory = [ "/etc/nixos" ];
+      safe.directory = ["/etc/nixos"];
     };
   };
 
@@ -169,19 +184,22 @@
       searchDownKey = "^[OB"; # Key to search down
       searchUpKey = "^[OA"; # Key to search up
     };
-    initContent = if isWsl then ''
-    bindkey '^[[1;3D' backward-word
-    bindkey '^[[1;3C' forward-word
-    bindkey '^[[1;5D' beginning-of-line
-    bindkey '^[[1;5C' end-of-line
-    eval `ssh-agent -s | grep -v 'echo'`
-    '' else ''
-    bindkey '^[[1;5D' backward-word
-    bindkey '^[[1;5C' forward-word
-    bindkey '^[[H' beginning-of-line
-    bindkey '^[[F' end-of-line
-    bindkey '^[[3~' delete-char
-    ''; # this will be added later for non-wsl systems
+    initContent =
+      if isWsl
+      then ''
+        bindkey '^[[1;3D' backward-word
+        bindkey '^[[1;3C' forward-word
+        bindkey '^[[1;5D' beginning-of-line
+        bindkey '^[[1;5C' end-of-line
+        eval `ssh-agent -s | grep -v 'echo'`
+      ''
+      else ''
+        bindkey '^[[1;5D' backward-word
+        bindkey '^[[1;5C' forward-word
+        bindkey '^[[H' beginning-of-line
+        bindkey '^[[F' end-of-line
+        bindkey '^[[3~' delete-char
+      ''; # this will be added later for non-wsl systems
 
     shellAliases = {
       pbcopy = "xclip -selection clipboard";

@@ -1,6 +1,10 @@
-{ enableNixLd, config, pkgs, lib, ... }:
-
 {
+  enableNixLd,
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   programs.nix-ld.enable = enableNixLd;
 
   programs.nix-ld.libraries = with pkgs; [

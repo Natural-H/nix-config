@@ -1,5 +1,9 @@
-{ config, pkgs, inputs, ... }:
 {
+  config,
+  pkgs,
+  inputs,
+  ...
+}: {
   environment.systemPackages = with pkgs.kdePackages; [
     kcalc
     kcharselect
@@ -30,7 +34,7 @@
 
   programs = {
     steam = {
-        package = pkgs.steam.override {
+      package = pkgs.steam.override {
         extraPkgs = p: [
           p.kdePackages.breeze
         ];

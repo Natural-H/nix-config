@@ -32,12 +32,12 @@
     getPackages = {system}: {
       pkgs = import nixpkgs {
         inherit system;
-        config = { allowUnfree = true; };
+        config = {allowUnfree = true;};
       };
 
       pkgs-unstable = import nixpkgs-unstable {
         inherit system;
-        config = { allowUnfree = true; };
+        config = {allowUnfree = true;};
       };
 
       # pinned package versions
@@ -55,7 +55,7 @@
     machines = {
       nix-thinkbook16 = {
         system = "x86_64-linux";
-        users = [ "naturalh" ];
+        users = ["naturalh"];
         problematicPrograms = {
           # distrobox is complaining about libcrypto for some reason
           useCiscoPacketTracer = true;
@@ -64,12 +64,12 @@
 
       nixos-laptop = {
         system = "x86_64-linux";
-        users = [ "naturalh" ];
+        users = ["naturalh"];
       };
 
       nix-hp-pavilion = {
         system = "x86_64-linux";
-        users = [ "naturalh" "mikeus" ];
+        users = ["naturalh" "mikeus"];
         enableNixLd = true;
         # problematicPrograms = {
         #   # needs to be added to nix store manually
@@ -79,7 +79,7 @@
 
       nixos-desktop = {
         system = "x86_64-linux";
-        users = [ "naturalh" "mikeus" ];
+        users = ["naturalh" "mikeus"];
         hardwareSpecific = {
           amd = {
             rocmCapable = true;
@@ -91,44 +91,53 @@
 
       nixos-wsl = {
         system = "x86_64-linux";
-        users = [ "naturalh" ];
+        users = ["naturalh"];
         wsl = true;
       };
     };
 
     # for each user in machines, create a home configuration
-    homes = nixpkgs.lib.foldlAttrs (acc: host: config:
-        acc // nixpkgs.lib.listToAttrs(nixpkgs.lib.map (
-            user: {
-              name = "${user}@${host}";
-              value = {
-                inherit (config) system;
-                inherit user;
-                wsl = config.wsl or false;
-                hardwareSpecific = nixpkgs.lib.recursiveUpdate {
-                  amd = {
-                    rocmCapable = false;
-                    hipCapable = false;
-                  };
-                } (config.hardwareSpecific or {});
-                problematicPrograms = nixpkgs.lib.recursiveUpdate {
-                  useCiscoPacketTracer = false;
-                } (config.problematicPrograms or {});
-              };
-            }
-          ) config.users)
-    ) ({}) machines;
+    homes =
+      nixpkgs.lib.foldlAttrs (
+        acc: host: config:
+          acc
+          // nixpkgs.lib.listToAttrs (nixpkgs.lib.map (
+              user: {
+                name = "${user}@${host}";
+                value = {
+                  inherit (config) system;
+                  inherit user;
+                  wsl = config.wsl or false;
+                  hardwareSpecific = nixpkgs.lib.recursiveUpdate {
+                    amd = {
+                      rocmCapable = false;
+                      hipCapable = false;
+                    };
+                  } (config.hardwareSpecific or {});
+                  problematicPrograms = nixpkgs.lib.recursiveUpdate {
+                    useCiscoPacketTracer = false;
+                  } (config.problematicPrograms or {});
+                };
+              }
+            )
+            config.users)
+      ) {}
+      machines;
   in {
-    nixosConfigurations = nixpkgs.lib.mapAttrs (host: config: (
-      mkSystem "${host}" {
-        inherit (config) system users;
-        wsl = config.wsl or false;
-        enableNixLd = config.enableNixLd or false;
-      }
-    )) machines;
+    nixosConfigurations =
+      nixpkgs.lib.mapAttrs (host: config: (
+        mkSystem "${host}" {
+          inherit (config) system users;
+          wsl = config.wsl or false;
+          enableNixLd = config.enableNixLd or false;
+        }
+      ))
+      machines;
 
-    homeConfigurations = nixpkgs.lib.mapAttrs (host: config: (
-      mkHome { inherit (config) system user wsl hardwareSpecific problematicPrograms; }
-    )) homes;
+    homeConfigurations =
+      nixpkgs.lib.mapAttrs (host: config: (
+        mkHome {inherit (config) system user wsl hardwareSpecific problematicPrograms;}
+      ))
+      homes;
   };
 }

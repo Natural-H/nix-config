@@ -1,7 +1,15 @@
-{ isWsl, packages, inputs, hardwareSpecific, ... }:
-{ config, lib, pkgs, ... }:
-
 {
+  isWsl,
+  packages,
+  inputs,
+  hardwareSpecific,
+  ...
+}: {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "mikeus";
@@ -17,64 +25,67 @@
   # release notes.
   home.stateVersion = "25.05"; # Please read the comment before changing.
 
-  home.packages = with pkgs; [
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
+  home.packages = with pkgs;
+    [
+      # # It is sometimes useful to fine-tune packages, for example, by applying
+      # # overrides. You can do that directly here, just don't forget the
+      # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
+      # # fonts?
+      # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
 
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
+      # # You can also create simple shell scripts directly inside your
+      # # configuration. For example, this adds a command 'my-hello' to your
+      # # environment:
+      # (pkgs.writeShellScriptBin "my-hello" ''
+      #   echo "Hello, ${config.home.username}!"
+      # '')
 
-    lazygit
-    lazydocker
-    gitkraken
-    tree
-    btop
-    xclip
-    lazysql
-  ] ++ (lib.optionals (!isWsl) [
-    (prismlauncher.override {
-      jdks = [
-        graalvm-ce
-        zulu8
-        zulu17
-        zulu
-      ];
-    })
+      lazygit
+      lazydocker
+      gitkraken
+      tree
+      btop
+      xclip
+      lazysql
+    ]
+    ++ (lib.optionals (!isWsl) [
+        (prismlauncher.override {
+          jdks = [
+            graalvm-ce
+            zulu8
+            zulu17
+            zulu
+          ];
+        })
 
-    brave
-    nix-index
-    vscode
-    libreoffice-qt6
-    vesktop
-    mission-center
-    blender-hip
+        brave
+        nix-index
+        vscode
+        libreoffice-qt6
+        vesktop
+        mission-center
+        blender-hip
 
-    obs-studio
-    imagemagick
-    ffmpeg
-    mangohud
-    mangojuice
-    nvtopPackages.amd
+        obs-studio
+        imagemagick
+        ffmpeg
+        mangohud
+        mangojuice
+        nvtopPackages.amd
 
-    jdk24
-    dotnetCorePackages.dotnet_9.sdk
+        jdk24
+        dotnetCorePackages.dotnet_9.sdk
 
-    wineWowPackages.waylandFull
-  ] ++ (with packages.pkgs; [ osu-lazer-bin ]));
+        wineWowPackages.waylandFull
+      ]
+      ++ (with packages.pkgs; [osu-lazer-bin]));
 
   programs.git = {
     enable = true;
     userName = "mikeus";
     userEmail = "mikeleche1232@outlook.com";
     extraConfig = {
-      safe.directory = [ "/etc/nixos" ];
+      safe.directory = ["/etc/nixos"];
     };
   };
 

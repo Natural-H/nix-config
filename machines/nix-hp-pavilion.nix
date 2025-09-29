@@ -1,5 +1,9 @@
-{ config, pkgs, lib, ... }:
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
     ./hardware-configs/nix-hp-pavilion.nix
     ../modules/kde/plasma.nix
@@ -46,7 +50,7 @@
     geoclue2
     btrfs-progs
     lsof
-    
+
     wayland-utils
     wl-clipboard
   ];
@@ -93,7 +97,7 @@
 
     printing = {
       enable = true;
-      drivers = with pkgs; [ hplip ];
+      drivers = with pkgs; [hplip];
     };
 
     avahi = {
@@ -116,7 +120,8 @@
   # nixpkgs.config.packageOverrides = pkgs: {
   #   intel-vaapi-driver = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
   # };
-  hardware.graphics = { # hardware.graphics since NixOS 24.11
+  hardware.graphics = {
+    # hardware.graphics since NixOS 24.11
     enable = true;
     extraPackages = with pkgs; [
       rocmPackages.clr.icd
