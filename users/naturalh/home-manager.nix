@@ -47,6 +47,7 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
 
+      alejandra
     lazygit
     lazydocker
     gitkraken
