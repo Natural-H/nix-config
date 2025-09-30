@@ -24,7 +24,7 @@
       nix-path = config.nix.nixPath;
     };
     # Opinionated: disable channels
-    channel.enable = false;
+    # channel.enable = false;
 
     # Opinionated: make flake registry and nix path match flake inputs
     registry = lib.mapAttrs (_: flake: {inherit flake;}) flakeInputs;
