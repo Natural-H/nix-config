@@ -118,6 +118,9 @@
     printing = {
       enable = true;
       drivers = with pkgs; [hplip];
+      cups-pdf = {
+        enable = true;
+      };
     };
 
     avahi = {
