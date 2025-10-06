@@ -111,6 +111,7 @@
         # texliveFull
         # texlivePackages.latex
         obsidian
+        simulide
         obs-studio
         telegram-desktop
         imagemagick
