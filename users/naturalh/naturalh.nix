@@ -12,6 +12,8 @@
       "uucp"
       "wheel"
       "docker"
+      "libvirtd"
+      "kvm"
     ];
     initialPassword = "password";
   };
