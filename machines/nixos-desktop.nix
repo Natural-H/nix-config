@@ -125,6 +125,14 @@
       drivers = with pkgs; [hplip];
       cups-pdf = {
         enable = true;
+        instances = {
+          pdf = {
+            settings = {
+              Out = "\${HOME}/cups-pdf";
+              UserUMask = "0033";
+            };
+          };
+        };
       };
     };
 
