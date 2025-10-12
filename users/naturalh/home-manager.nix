@@ -67,6 +67,7 @@
       gh
       poppler-utils
       insomnia
+      nil
 
       python313
       python313Packages.numpy
