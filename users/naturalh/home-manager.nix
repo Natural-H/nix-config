@@ -96,6 +96,7 @@
         chromium
         parsec-bin
         dbeaver-bin
+        ryubing
 
         nix-index
         vscode
