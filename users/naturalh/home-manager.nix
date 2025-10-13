@@ -131,6 +131,8 @@
         qtcreator
         kdePackages.full
         packages.pkgs.osu-lazer-bin
+        putty
+        screen
 
         (
           if hardwareSpecific.amd.hipCapable
