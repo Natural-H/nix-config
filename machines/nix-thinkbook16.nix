@@ -141,6 +141,10 @@
       enable = true;
     };
 
+    joycond = {
+      enable = true;
+    };
+
     # I don't use it that much, but it's good to test stuff
     flatpak.enable = true;
   };
@@ -148,6 +152,7 @@
   location.provider = "geoclue2";
 
   hardware.bluetooth.enable = true; # Enable Bluetooth support
+  hardware.xpadneo.enable = true;
 
   # nixpkgs.config.packageOverrides = pkgs: {
   #   intel-vaapi-driver = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };

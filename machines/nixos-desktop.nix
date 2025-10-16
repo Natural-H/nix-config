@@ -146,6 +146,10 @@
       enable = true;
     };
 
+    joycond = {
+      enable = true;
+    };
+
     # I don't use it that much, but it's good to test stuff
     flatpak.enable = true;
   };
