@@ -60,6 +60,7 @@
           # distrobox is complaining about libcrypto for some reason
           useCiscoPacketTracer = true;
         };
+        enableNixLd = true;
       };
 
       nixos-laptop = {
