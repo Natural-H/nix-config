@@ -98,6 +98,7 @@
         parsec-bin
         dbeaver-bin
         ryubing
+        drawio
 
         nix-index
         vscode
