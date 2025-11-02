@@ -94,6 +94,13 @@
     capSysNice = true;
   };
 
+  programs.git = {
+    enable = true;
+    config = {
+      safe.directory = ["/etc/nixos"];
+    };
+  };
+
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
