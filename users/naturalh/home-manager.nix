@@ -81,7 +81,7 @@
       packages.pkgs.nodejs_22
       pnpm
       prisma-engines
-      graalvm-ce
+      graalvmPackages.graalvm-ce
       go
       cloudflared
     ]
@@ -130,7 +130,7 @@
         distrobox
         arduino-ide
         qtcreator
-        kdePackages.full
+        # kdePackages.full # removed from upstream
         packages.pkgs.osu-lazer-bin
         putty
         screen
@@ -154,11 +154,11 @@
   programs.git = {
     enable = true;
     package = pkgs.gitFull;
-    userName = "naturalh";
-    userEmail = "marco.mmtz@proton.me";
 
-    extraConfig = {
-      # credential.helper = "manager";
+    settings = {
+      user.name = "naturalh";
+      user.email = "marco.mmtz@proton.me";
+
       credential."https://github.com".helper = "!gh auth git-credential";
       safe.directory = ["/etc/nixos"];
     };

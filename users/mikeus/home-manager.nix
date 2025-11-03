@@ -82,9 +82,10 @@
 
   programs.git = {
     enable = true;
-    userName = "mikeus";
-    userEmail = "mikeleche1232@outlook.com";
-    extraConfig = {
+    settings = {
+      user.name = "mikeus";
+      user.email = "mikeleche1232@outlook.com";
+
       safe.directory = ["/etc/nixos"];
     };
   };
