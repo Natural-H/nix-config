@@ -61,7 +61,7 @@
         brave
         nix-index
         vscode
-        libreoffice-qt6
+        packages.pkgs.libreoffice-qt6
         vesktop
         mission-center
         blender-hip

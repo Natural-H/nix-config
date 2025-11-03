@@ -103,7 +103,7 @@
         nix-index
         vscode
         coppwr
-        libreoffice-qt6
+        packages.pkgs.libreoffice-qt6
         hunspellDicts.es_MX
         hunspellDicts.en_US
         vesktop
