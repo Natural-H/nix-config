@@ -49,9 +49,9 @@
       lazysql
     ]
     ++ (lib.optionals (!isWsl) [
-        (prismlauncher.override {
+        (packages.pkgs.prismlauncher.override {
           jdks = [
-            graalvm-ce
+            graalvmPackages.graalvm-ce
             zulu8
             zulu17
             zulu
@@ -73,7 +73,7 @@
         mangojuice
         nvtopPackages.amd
 
-        jdk24
+        jdk
         dotnetCorePackages.dotnet_9.sdk
 
         wineWowPackages.waylandFull
