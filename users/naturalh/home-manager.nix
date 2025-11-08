@@ -95,6 +95,7 @@
           ];
         })
         chromium
+        android-tools
         parsec-bin
         dbeaver-bin
         ryubing
