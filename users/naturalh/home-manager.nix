@@ -100,6 +100,7 @@
         dbeaver-bin
         ryubing
         drawio
+        librecad
 
         nix-index
         vscode
