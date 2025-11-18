@@ -39,6 +39,11 @@
         filesystems = ["xdg-data/applications" "xdg-documents"];
       };
     };
+
+    update.auto = {
+      enable = true;
+      onCalendar = "weekly";
+    };
   };
 
   home.packages = with pkgs;
