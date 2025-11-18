@@ -87,7 +87,12 @@
       jdk
 
       go
-      dotnet-sdk
+      (with pkgs.dotnetCorePackages;
+        combinePackages [
+          dotnet-sdk
+          dotnet-sdk_9
+          dotnet-sdk_10
+        ])
       cloudflared
     ]
     ++ (lib.optionals (!isWsl) [
