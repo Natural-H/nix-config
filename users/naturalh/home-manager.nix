@@ -60,11 +60,12 @@
       lazygit
       lazydocker
       gitkraken
+      gh
+
       tree
       btop
       xclip
       lazysql
-      gh
       poppler-utils
       insomnia
       nil
@@ -72,6 +73,7 @@
       python313
       python313Packages.numpy
       python313Packages.pip
+
       cmake
       gnumake
       ninja
@@ -81,11 +83,17 @@
       packages.pkgs.nodejs_22
       pnpm
       prisma-engines
-      graalvmPackages.graalvm-ce
+
+      jdk
+
       go
+      dotnet-sdk
       cloudflared
     ]
     ++ (lib.optionals (!isWsl) [
+        packages.pkgs.osu-lazer-bin
+        parsec-bin
+        ryubing
         (packages.pkgs.prismlauncher.override {
           jdks = [
             packages.graalvm21
@@ -94,60 +102,54 @@
             zulu
           ];
         })
-        chromium
-        android-tools
-        parsec-bin
-        dbeaver-bin
-        ryubing
-        drawio
-        librecad
 
-        nix-index
-        vscode
-        coppwr
         packages.pkgs.libreoffice-qt6
         hunspellDicts.es_MX
         hunspellDicts.en_US
+        chromium
         vesktop
-        mission-center
+        telegram-desktop
         nextcloud-client
-        transmission_4-qt6
-        # xournalpp
-        # texliveFull
-        # texlivePackages.latex
         obsidian
         simulide
         obs-studio
-        telegram-desktop
-        imagemagick
-        ffmpeg
-        mangohud
-        mangojuice
-        nvtopPackages.amd
         thunderbird
-        jamesdsp
-        handbrake
         remmina
-        openssl
+        jetbrains-toolbox
+        wineWowPackages.waylandFull
+        packages.pkgs.transmission_4-qt6
+        nix-index
+
+        vscode
+        android-tools
+        dbeaver-bin
         distrobox
+        openssl
         arduino-ide
         qtcreator
         # kdePackages.full # removed from upstream
-        packages.pkgs.osu-lazer-bin
         putty
         screen
 
+        mangohud
+        mangojuice
+        nvtopPackages.amd
+
+        drawio
+        librecad
+        coppwr
+        jamesdsp
+        mission-center
+        imagemagick
+        ffmpeg
+        handbrake
+        gimp
+        inkscape
         (
           if hardwareSpecific.amd.hipCapable
           then blender-hip
           else blender
         )
-
-        # jdk24
-        jetbrains-toolbox
-        dotnetCorePackages.dotnet_9.sdk
-
-        wineWowPackages.waylandFull
       ]
       ++ (lib.optionals (hardwareSpecific.amd.rocmCapable)) [
         davinci-resolve
