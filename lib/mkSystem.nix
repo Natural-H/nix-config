@@ -43,7 +43,8 @@ in
           else {}
         )
 
-        ../modules/nix-ld/nix-ld.nix
+        ../modules/nix/nix-ld.nix
+        ../modules/nix/nix-gc.nix
       ]
       ++ usersConfig;
   }
