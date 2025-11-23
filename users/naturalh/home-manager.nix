@@ -56,6 +56,10 @@
       enable = !isWsl;
       enableFHS = !isWsl;
     };
+
+    tailscale-systray = {
+      enable = !isWsl;
+    };
   };
 
   home.packages = with pkgs;
