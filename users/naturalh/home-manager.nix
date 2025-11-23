@@ -26,23 +26,35 @@
   home.stateVersion = "25.05"; # Please read the comment before changing.
 
   # Okay, maybe I need some after all
-  services.flatpak = {
-    enable = !isWsl;
-    packages = [
-      "com.usebottles.bottles"
-      "com.github.tchx84.Flatseal"
-      "net.xmind.XMind"
-    ];
+  services = {
+    flatpak = {
+      enable = !isWsl;
+      packages = [
+        "com.usebottles.bottles"
+        "com.github.tchx84.Flatseal"
+        "net.xmind.XMind"
+      ];
 
-    overrides = {
-      "com.usebottles.bottles".Context = {
-        filesystems = ["xdg-data/applications" "xdg-documents"];
+      overrides = {
+        "com.usebottles.bottles".Context = {
+          filesystems = ["xdg-data/applications" "xdg-documents"];
+        };
+      };
+
+      update.auto = {
+        enable = true;
+        onCalendar = "weekly";
       };
     };
 
-    update.auto = {
-      enable = true;
-      onCalendar = "weekly";
+    nextcloud-client = {
+      enable = !isWsl;
+      startInBackground = true;
+    };
+
+    vscode-server = {
+      enable = !isWsl;
+      enableFHS = !isWsl;
     };
   };
 
@@ -234,14 +246,6 @@
       Homepage.StartPage = "previous-session";
     };
   };
-
-  services.nextcloud-client = {
-    enable = !isWsl;
-    startInBackground = true;
-  };
-
-  services.vscode-server.enable = !isWsl;
-  services.vscode-server.enableFHS = !isWsl;
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
