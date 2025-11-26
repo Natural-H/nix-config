@@ -16,7 +16,7 @@
 
   createHome = inputs.home-manager.lib.homeManagerConfiguration;
 in
-  createHome rec {
+  createHome {
     pkgs = packages.pkgs-unstable;
     modules =
       [
@@ -25,6 +25,8 @@ in
         })
         inputs.flatpaks.homeManagerModules.nix-flatpak
         inputs.vscode-server.homeModules.default
+
+        ../modules/home-manager/nix-gc.nix
       ]
       ++ (inputs.nixpkgs.lib.optionals (problematicPrograms.useCiscoPacketTracer) [
         ../modules/problematic/packettracer.nix
