@@ -128,6 +128,8 @@
             zulu
           ];
         })
+        lutris
+        heroic
 
         packages.pkgs.libreoffice-qt6
         hunspellDicts.es_MX
