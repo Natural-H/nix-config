@@ -101,7 +101,7 @@
       gcc
       gdb
 
-      packages.pkgs.nodejs_22
+      nodejs_22
       pnpm
       prisma-engines
 
@@ -117,10 +117,10 @@
       cloudflared
     ]
     ++ (lib.optionals (!isWsl) [
-        packages.pkgs.osu-lazer-bin
+        osu-lazer-bin
         parsec-bin
         ryubing
-        (packages.pkgs.prismlauncher.override {
+        (prismlauncher.override {
           jdks = [
             packages.graalvm21
             zulu8
@@ -131,7 +131,7 @@
         lutris
         heroic
 
-        packages.pkgs.libreoffice-qt6
+        libreoffice-qt6
         hunspellDicts.es_MX
         hunspellDicts.en_US
         chromium
@@ -145,7 +145,7 @@
         remmina
         jetbrains-toolbox
         wineWowPackages.waylandFull
-        packages.pkgs.transmission_4-qt6
+        transmission_4-qt6
         nix-index
 
         vscode

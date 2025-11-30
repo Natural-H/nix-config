@@ -49,7 +49,7 @@
       lazysql
     ]
     ++ (lib.optionals (!isWsl) [
-        (packages.pkgs.prismlauncher.override {
+        (prismlauncher.override {
           jdks = [
             graalvmPackages.graalvm-ce
             zulu8
@@ -61,7 +61,7 @@
         brave
         nix-index
         vscode
-        packages.pkgs.libreoffice-qt6
+        libreoffice-qt6
         vesktop
         mission-center
         blender-hip
