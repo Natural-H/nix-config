@@ -68,6 +68,7 @@
 
     wayland-utils
     wl-clipboard
+    openrgb-with-all-plugins
   ];
 
   virtualisation = {
@@ -164,6 +165,10 @@
 
     # I don't use it that much, but it's good to test stuff
     flatpak.enable = true;
+
+    hardware = {
+      openrgb.enable = true;
+    };
   };
 
   location.provider = "geoclue2";
