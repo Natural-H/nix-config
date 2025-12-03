@@ -27,8 +27,6 @@
     vscode-server,
     ...
   } @ inputs: let
-    inherit (self) outputs;
-
     getPackages = {system}: {
       pkgs = import nixpkgs {
         inherit system;
@@ -42,14 +40,6 @@
 
       # pinned package versions
       graalvm21 = inputs.nixpkgs-graalvm21.legacyPackages.${system}.graalvm-ce;
-    };
-
-    mkSystem = import ./lib/mkSystem.nix {
-      inherit inputs nixpkgs getPackages;
-    };
-
-    mkHome = import ./lib/mkHome.nix {
-      inherit inputs getPackages;
     };
 
     machines = {
@@ -98,47 +88,24 @@
     };
 
     # for each user in machines, create a home configuration
-    homes =
-      nixpkgs.lib.foldlAttrs (
-        acc: host: config:
-          acc
-          // nixpkgs.lib.listToAttrs (nixpkgs.lib.map (
-              user: {
-                name = "${user}@${host}";
-                value = {
-                  inherit (config) system;
-                  inherit user;
-                  wsl = config.wsl or false;
-                  hardwareSpecific = nixpkgs.lib.recursiveUpdate {
-                    amd = {
-                      rocmCapable = false;
-                      hipCapable = false;
-                    };
-                  } (config.hardwareSpecific or {});
-                  problematicPrograms = nixpkgs.lib.recursiveUpdate {
-                    useCiscoPacketTracer = false;
-                  } (config.problematicPrograms or {});
-                };
-              }
-            )
-            config.users)
-      ) {}
-      machines;
-  in {
-    nixosConfigurations =
-      nixpkgs.lib.mapAttrs (host: config: (
-        mkSystem "${host}" {
-          inherit (config) system users;
-          wsl = config.wsl or false;
-          enableNixLd = config.enableNixLd or false;
-        }
-      ))
-      machines;
+    homes = import ./lib/utils/getHomes.nix {
+      inherit nixpkgs machines;
+    };
 
-    homeConfigurations =
-      nixpkgs.lib.mapAttrs (host: config: (
-        mkHome {inherit (config) system user wsl hardwareSpecific problematicPrograms;}
-      ))
-      homes;
+    createMachines = import ./lib/utils/createMachines.nix {
+      inherit inputs getPackages;
+    };
+
+    createHomes = import ./lib/utils/createHomes.nix {
+      inherit inputs getPackages;
+    };
+  in {
+    nixosConfigurations = createMachines {
+      inherit machines;
+    };
+
+    homeConfigurations = createHomes {
+      inherit homes;
+    };
   };
 }

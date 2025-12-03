@@ -6,9 +6,9 @@
   ...
 }: {
   imports = [
-    ./hardware-configs/nixos-desktop.nix
-    ../modules/kde/plasma.nix
-    ../modules/fonts/fonts.nix
+    ./hardware-configuration.nix
+    ./../../modules/kde/plasma.nix
+    ./../../modules/fonts/fonts.nix
   ];
 
   boot.loader = {
@@ -68,18 +68,12 @@
 
     wayland-utils
     wl-clipboard
-    openrgb-with-all-plugins
   ];
 
   virtualisation = {
     docker = {
       enable = true;
       enableOnBoot = true;
-      autoPrune = {
-        enable = true;
-        dates = "weekly";
-        flags = ["--all" "--volumes"];
-      };
     };
 
     libvirtd = {
@@ -95,24 +89,12 @@
   programs.zsh.enable = true;
 
   programs.gamemode.enable = true;
-  programs.gamescope = {
-    enable = true;
-    capSysNice = true;
-  };
-
-  programs.git = {
-    enable = true;
-    config = {
-      safe.directory = ["/etc/nixos"];
-    };
-  };
 
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
-    gamescopeSession.enable = true;
   };
 
   services = {
@@ -165,10 +147,6 @@
 
     # I don't use it that much, but it's good to test stuff
     flatpak.enable = true;
-
-    hardware = {
-      openrgb.enable = true;
-    };
   };
 
   location.provider = "geoclue2";

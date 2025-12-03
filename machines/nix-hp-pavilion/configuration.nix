@@ -5,9 +5,9 @@
   ...
 }: {
   imports = [
-    ./hardware-configs/nix-hp-pavilion.nix
-    ../modules/kde/plasma.nix
-    ../modules/fonts/fonts.nix
+    ./hardware-configuration.nix
+    ./../../modules/kde/plasma.nix
+    ./../../modules/fonts/fonts.nix
   ];
 
   boot.loader = {

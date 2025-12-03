@@ -11,7 +11,7 @@
 }: let
   isWsl = wsl;
 
-  machineConfig = ../machines/${name}.nix;
+  machineConfig = ../machines/${name}/configuration.nix;
   usersConfig = nixpkgs.lib.forEach users (user: ../users/${user}/${user}.nix);
 
   # createSystem = if isWsl then inputs.nixpkgs-wsl.lib.nixosSystem else inputs.nixpkgs-stable.lib.nixosSystem;

@@ -1,19 +1,20 @@
 {
   config,
   pkgs,
+  packages,
   lib,
   ...
 }: {
   imports = [
-    ./hardware-configs/nixos-laptop.nix
-    ../modules/kde/plasma.nix
-    ../modules/fonts/fonts.nix
+    ./hardware-configuration.nix
+    ./../../modules/kde/plasma.nix
+    ./../../modules/fonts/fonts.nix
   ];
 
   boot.loader = {
     efi = {
       efiSysMountPoint = "/boot";
-      canTouchEfiVariables = true;
+      # canTouchEfiVariables = true;
     };
     grub = {
       enable = true;
@@ -22,7 +23,23 @@
       fsIdentifier = "label";
       copyKernels = true;
       useOSProber = true;
-      # efiInstallAsRemovable = true;
+      efiInstallAsRemovable = true;
+      splashImage = null;
+      theme = pkgs.stdenv.mkDerivation {
+        pname = "distro-grub-themes";
+        version = "3.2";
+        src = pkgs.fetchFromGitHub {
+          owner = "AdisonCavani";
+          repo = "distro-grub-themes";
+          rev = "v3.2";
+          hash = "sha256-U5QfwXn4WyCXvv6A/CYv9IkR/uDx4xfdSgbXDl5bp9M=";
+        };
+        installPhase = ''
+          mkdir -p customize
+          tar -xf themes/nixos.tar -C customize
+          cp -r customize $out
+        '';
+      };
     };
   };
 
@@ -46,20 +63,33 @@
     openssh
     home-manager
     p7zip
+    unrar
+    geoclue2
 
     wayland-utils
     wl-clipboard
+    openrgb-with-all-plugins
   ];
 
-  virtualisation.docker = {
-    enable = true;
-    enableOnBoot = true;
-    autoPrune = {
+  virtualisation = {
+    docker = {
       enable = true;
-      dates = "weekly";
-      flags = ["--all" "--volumes"];
+      enableOnBoot = true;
+      autoPrune = {
+        enable = true;
+        dates = "weekly";
+        flags = ["--all" "--volumes"];
+      };
+    };
+
+    libvirtd = {
+      enable = true;
     };
   };
+
+  programs.virt-manager.enable = true;
+
+  programs.dconf.enable = true;
 
   programs.firefox.enable = true;
   programs.zsh.enable = true;
@@ -68,6 +98,13 @@
   programs.gamescope = {
     enable = true;
     capSysNice = true;
+  };
+
+  programs.git = {
+    enable = true;
+    config = {
+      safe.directory = ["/etc/nixos"];
+    };
   };
 
   programs.steam = {
@@ -87,6 +124,8 @@
     tailscale = {
       enable = true;
       useRoutingFeatures = "client";
+      # upstream is broken for the time being
+      package = packages.pkgs-unstable.tailscale;
     };
 
     pipewire = {
@@ -97,6 +136,17 @@
     printing = {
       enable = true;
       drivers = with pkgs; [hplip];
+      cups-pdf = {
+        enable = true;
+        instances = {
+          pdf = {
+            settings = {
+              Out = "\${HOME}/cups-pdf";
+              UserUMask = "0033";
+            };
+          };
+        };
+      };
     };
 
     avahi = {
@@ -104,33 +154,54 @@
       nssmdns4 = true;
       openFirewall = true;
     };
+
+    geoclue2 = {
+      enable = true;
+    };
+
+    joycond = {
+      enable = true;
+    };
+
+    # I don't use it that much, but it's good to test stuff
+    flatpak.enable = true;
+
+    hardware = {
+      openrgb.enable = true;
+    };
   };
+
+  location.provider = "geoclue2";
 
   hardware.bluetooth.enable = true; # Enable Bluetooth support
+  hardware.xpadneo.enable = true;
 
-  nixpkgs.config.packageOverrides = pkgs: {
-    intel-vaapi-driver = pkgs.intel-vaapi-driver.override {enableHybridCodec = true;};
-  };
+  # nixpkgs.config.packageOverrides = pkgs: {
+  #   intel-vaapi-driver = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
+  # };
   hardware.graphics = {
     # hardware.graphics since NixOS 24.11
     enable = true;
     extraPackages = with pkgs; [
-      intel-media-driver # LIBVA_DRIVER_NAME=iHD
-      intel-vaapi-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
-      libvdpau-va-gl
+      rocmPackages.clr.icd
     ];
+    # extraPackages = with pkgs; [
+    #   intel-media-driver # LIBVA_DRIVER_NAME=iHD
+    #   intel-vaapi-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+    #   libvdpau-va-gl
+    # ];
   };
-  environment.sessionVariables = {
-    LIBVA_DRIVER_NAME = "iHD";
-  }; # Force intel-media-driver
+  # environment.sessionVariables = {
+  #   LIBVA_DRIVER_NAME = "iHD";
+  # }; # Force intel-media-driver
 
   # Enable support for webcam
   # I need this even if I don't have Raptor Lake+ cpu
-  hardware.ipu6.enable = true;
-  hardware.ipu6.platform = "ipu6ep";
+  # hardware.ipu6.enable = true;
+  # hardware.ipu6.platform = "ipu6ep";
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [8443]; # a docker service I use
+  # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
