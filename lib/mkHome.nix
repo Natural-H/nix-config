@@ -7,7 +7,7 @@
   user,
   wsl ? false,
   hardwareSpecific,
-  problematicPrograms,
+  ...
 }: let
   isWsl = wsl;
 
@@ -18,17 +18,13 @@
 in
   createHome {
     pkgs = packages.pkgs-unstable;
-    modules =
-      [
-        (import userConfig {
-          inherit isWsl packages inputs hardwareSpecific;
-        })
-        inputs.flatpaks.homeManagerModules.nix-flatpak
-        inputs.vscode-server.homeModules.default
+    modules = [
+      (import userConfig {
+        inherit isWsl packages inputs hardwareSpecific;
+      })
+      inputs.flatpaks.homeManagerModules.nix-flatpak
+      inputs.vscode-server.homeModules.default
 
-        ../modules/home-manager/nix-gc.nix
-      ]
-      ++ (inputs.nixpkgs.lib.optionals (problematicPrograms.useCiscoPacketTracer) [
-        ../modules/problematic/packettracer.nix
-      ]);
+      ../modules/home-manager/default.nix
+    ];
   }

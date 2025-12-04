@@ -6,8 +6,7 @@
 }: {
   imports = [
     ./hardware-configuration.nix
-    ./../../modules/kde/plasma.nix
-    ./../../modules/fonts/fonts.nix
+    ./../../modules/nixos/kde/plasma.nix
   ];
 
   boot.loader = {

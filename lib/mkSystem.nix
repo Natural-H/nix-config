@@ -7,44 +7,36 @@
   system,
   users,
   wsl ? false,
-  enableNixLd ? false,
+  ...
 }: let
   isWsl = wsl;
 
   machineConfig = ../machines/${name}/configuration.nix;
   usersConfig = nixpkgs.lib.forEach users (user: ../users/${user}/${user}.nix);
-
   # createSystem = if isWsl then inputs.nixpkgs-wsl.lib.nixosSystem else inputs.nixpkgs-stable.lib.nixosSystem;
-  createSystem = nixpkgs.lib.nixosSystem;
+  # createSystem = nixpkgs.lib.nixosSystem;
 in
-  createSystem rec {
+  nixpkgs.lib.nixosSystem rec {
     inherit system;
 
     specialArgs = {
-      inherit isWsl system inputs enableNixLd;
-      packages = getPackages {system = system;};
+      inherit isWsl system inputs name;
+      packages = getPackages {inherit system;};
     };
 
     modules =
       [
-        {networking.hostName = name;}
-        {nixpkgs.config.allowUnfree = true;}
-        {users.groups.nix-admins = {};}
-        (
-          if isWsl
-          then inputs.nixos-wsl.nixosModules.default
-          else {}
-        )
+        ./../modules/nixos/default.nix
         machineConfig
-
-        (
-          if !isWsl
-          then inputs.flatpaks.nixosModules.nix-flatpak
-          else {}
-        )
-
-        ../modules/nix/nix-ld.nix
-        ../modules/nix/nix-gc.nix
       ]
+      ++ (
+        if isWsl
+        then [
+          inputs.nixos-wsl.nixosModules.default
+        ]
+        else [
+          inputs.flatpaks.nixosModules.nix-flatpak
+        ]
+      )
       ++ usersConfig;
   }

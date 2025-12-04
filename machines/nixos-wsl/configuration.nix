@@ -38,7 +38,6 @@
     startMenuLaunchers = true;
     docker-desktop.enable = true;
   };
-  programs.nix-ld.enable = lib.mkForce true;
   users.groups.kubeadmin.members = ["naturalh"];
   programs.zsh = {
     enable = true;
@@ -58,6 +57,9 @@
     enableOnBoot = true;
     autoPrune.enable = true;
   };
+
+  fonts.includeCommon = false;
+  nix-linker.enable = true;
 
   environment = {
     systemPackages = with pkgs; [

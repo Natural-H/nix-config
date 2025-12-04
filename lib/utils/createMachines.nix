@@ -8,10 +8,6 @@
   };
 in
   inputs.nixpkgs.lib.mapAttrs (host: config: (
-    mkSystem "${host}" {
-      inherit (config) system users;
-      wsl = config.wsl or false;
-      enableNixLd = config.enableNixLd or false;
-    }
+    mkSystem "${host}" config
   ))
   machines

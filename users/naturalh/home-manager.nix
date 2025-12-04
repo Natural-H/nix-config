@@ -183,6 +183,8 @@
         davinci-resolve
       ]);
 
+  problematicPrograms.useCiscoPacketTracer = true;
+
   programs.git = {
     enable = true;
     package = pkgs.gitFull;
