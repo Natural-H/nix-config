@@ -23,7 +23,7 @@
   config = lib.mkIf config.nix-linker.enable {
     programs.nix-ld.enable = true;
 
-    programs.nix-ld.libraries = with pkgs; [
+    programs.nix-ld.libraries = lib.mkIf config.nix-linker.includeGuiLibraries (with pkgs; [
       SDL
       SDL2
       SDL2_image
@@ -137,6 +137,6 @@
       xorg.xkeyboardconfig
       xz
       zlib
-    ];
+    ]);
   };
 }
