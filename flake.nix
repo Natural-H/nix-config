@@ -46,11 +46,6 @@
       nix-thinkbook16 = {
         system = "x86_64-linux";
         users = ["naturalh"];
-        problematicPrograms = {
-          # distrobox is complaining about libcrypto for some reason
-          useCiscoPacketTracer = true;
-        };
-        enableNixLd = true;
       };
 
       nixos-laptop = {
@@ -61,23 +56,11 @@
       nix-hp-pavilion = {
         system = "x86_64-linux";
         users = ["naturalh" "mikeus"];
-        enableNixLd = true;
-        # problematicPrograms = {
-        #   # needs to be added to nix store manually
-        #   useCiscoPacketTracer = true;
-        # };
       };
 
       nixos-desktop = {
         system = "x86_64-linux";
         users = ["naturalh" "mikeus"];
-        hardwareSpecific = {
-          amd = {
-            rocmCapable = true;
-            hipCapable = true;
-          };
-        };
-        enableNixLd = true;
       };
 
       nixos-wsl = {

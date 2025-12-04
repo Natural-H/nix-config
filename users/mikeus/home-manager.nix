@@ -2,7 +2,6 @@
   isWsl,
   packages,
   inputs,
-  hardwareSpecific,
   ...
 }: {
   config,
@@ -79,6 +78,11 @@
         wineWowPackages.waylandFull
       ]
       ++ (with packages.pkgs; [osu-lazer-bin]));
+
+  programs.blender = {
+    enable = !isWsl;
+    useHip = true;
+  };
 
   programs.git = {
     enable = true;

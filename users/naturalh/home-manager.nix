@@ -1,13 +1,8 @@
 {
-  isWsl,
-  packages,
-  inputs,
-  hardwareSpecific,
-  ...
-}: {
-  config,
   lib,
   pkgs,
+  isWsl,
+  allPackages,
   ...
 }: {
   # Home Manager needs a bit of information about you and the paths it should
@@ -117,73 +112,70 @@
       cloudflared
     ]
     ++ (lib.optionals (!isWsl) [
-        osu-lazer-bin
-        parsec-bin
-        ryubing
-        (prismlauncher.override {
-          jdks = [
-            packages.graalvm21
-            zulu8
-            zulu17
-            zulu
-          ];
-        })
-        lutris
-        heroic
+      osu-lazer-bin
+      parsec-bin
+      ryubing
+      (prismlauncher.override {
+        jdks = [
+          allPackages.graalvm21
+          zulu8
+          zulu17
+          zulu
+        ];
+      })
+      lutris
+      heroic
 
-        libreoffice-qt6
-        hunspellDicts.es_MX
-        hunspellDicts.en_US
-        chromium
-        vesktop
-        telegram-desktop
-        nextcloud-client
-        obsidian
-        simulide
-        obs-studio
-        thunderbird
-        remmina
-        jetbrains-toolbox
-        wineWowPackages.waylandFull
-        transmission_4-qt6
-        nix-index
+      libreoffice-qt6
+      hunspellDicts.es_MX
+      hunspellDicts.en_US
+      chromium
+      vesktop
+      telegram-desktop
+      nextcloud-client
+      obsidian
+      simulide
+      obs-studio
+      thunderbird
+      remmina
+      jetbrains-toolbox
+      wineWowPackages.waylandFull
+      transmission_4-qt6
+      nix-index
 
-        vscode
-        android-tools
-        dbeaver-bin
-        distrobox
-        openssl
-        arduino-ide
-        qtcreator
-        # kdePackages.full # removed from upstream
-        putty
-        screen
+      vscode
+      android-tools
+      dbeaver-bin
+      distrobox
+      openssl
+      arduino-ide
+      qtcreator
+      # kdePackages.full # removed from upstream
+      putty
+      screen
 
-        mangohud
-        mangojuice
-        nvtopPackages.amd
+      mangohud
+      mangojuice
+      nvtopPackages.amd
 
-        drawio
-        librecad
-        coppwr
-        jamesdsp
-        mission-center
-        imagemagick
-        ffmpeg
-        handbrake
-        gimp
-        inkscape
-        (
-          if hardwareSpecific.amd.hipCapable
-          then blender-hip
-          else blender
-        )
-      ]
-      ++ (lib.optionals (hardwareSpecific.amd.rocmCapable)) [
-        davinci-resolve
-      ]);
+      drawio
+      librecad
+      coppwr
+      jamesdsp
+      mission-center
+      imagemagick
+      ffmpeg
+      handbrake
+      gimp
+      inkscape
+    ]);
 
-  problematicPrograms.ciscoPacketTracer8.enable = true;
+  problematicPrograms.ciscoPacketTracer8.enable = !isWsl;
+
+  programs.blender = {
+    enable = !isWsl;
+    useHip = true;
+  };
 
   programs.git = {
     enable = true;

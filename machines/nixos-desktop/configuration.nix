@@ -1,7 +1,7 @@
 {
   config,
   pkgs,
-  packages,
+  allPackages,
   lib,
   ...
 }: {
@@ -129,7 +129,7 @@
       enable = true;
       useRoutingFeatures = "client";
       # upstream is broken for the time being
-      package = packages.pkgs-unstable.tailscale;
+      package = allPackages.pkgs-unstable.tailscale;
     };
 
     pipewire = {

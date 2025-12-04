@@ -21,7 +21,7 @@ in
 
     specialArgs = {
       inherit isWsl system inputs name;
-      packages = getPackages {inherit system;};
+      allPackages = getPackages {inherit system;};
     };
 
     modules =

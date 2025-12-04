@@ -6,25 +6,24 @@
   system,
   user,
   wsl ? false,
-  hardwareSpecific,
-  ...
 }: let
   isWsl = wsl;
 
   userConfig = ../users/${user}/home-manager.nix;
-  packages = getPackages {system = system;};
-
-  createHome = inputs.home-manager.lib.homeManagerConfiguration;
+  allPackages = getPackages {inherit system;};
+  # createHome = inputs.home-manager.lib.homeManagerConfiguration;
 in
-  createHome {
-    pkgs = packages.pkgs-unstable;
-    modules = [
-      (import userConfig {
-        inherit isWsl packages inputs hardwareSpecific;
-      })
-      inputs.flatpaks.homeManagerModules.nix-flatpak
-      inputs.vscode-server.homeModules.default
+  inputs.home-manager.lib.homeManagerConfiguration {
+    pkgs = allPackages.pkgs-unstable;
 
+    extraSpecialArgs = {
+      inherit isWsl allPackages;
+    };
+
+    modules = [
       ../modules/home-manager/default.nix
+      userConfig
+      inputs.vscode-server.homeModules.default
+      inputs.flatpaks.homeManagerModules.nix-flatpak
     ];
   }
