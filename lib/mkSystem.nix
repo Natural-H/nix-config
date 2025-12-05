@@ -2,7 +2,6 @@
   nixpkgs,
   getPackages,
   inputs,
-  ...
 }: name: {
   system,
   users,

@@ -1,7 +1,7 @@
 {
   inputs,
   getPackages,
-  ...
+  nixpkgs,
 }: {
   system,
   user,

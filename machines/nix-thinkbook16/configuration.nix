@@ -7,7 +7,6 @@
 }: {
   imports = [
     ./hardware-configuration.nix
-    ./../../modules/nixos/kde/plasma.nix
   ];
 
   boot.loader = {
@@ -49,6 +48,8 @@
   networking.networkmanager.enable = true;
   zramSwap.enable = true;
   time.timeZone = "America/Mexico_City";
+
+  desktop-environments.kde.enable = true;
 
   nix.settings.experimental-features = [
     "nix-command"
