@@ -2,13 +2,14 @@
   nixpkgs,
   getPackages,
   inputs,
-}: name: {
+}: hostname: {
   system,
   users,
   wsl ? false,
   ...
 }: let
   isWsl = wsl;
+  name = hostname;
 
   machineConfig = ../machines/${name}/configuration.nix;
   usersConfig = nixpkgs.lib.forEach users (user: ../users/${user}/${user}.nix);

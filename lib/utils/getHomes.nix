@@ -9,11 +9,11 @@ nixpkgs.lib.foldlAttrs (
         user: {
           name = "${user}@${host}";
           value =
-            removeAttrs
-            (config
-              // {
-                inherit user;
-              }) ["users"];
+            config
+            // {
+              inherit user;
+              hostname = host;
+            };
         }
       )
       config.users)
