@@ -5,6 +5,10 @@
   allPackages,
   ...
 }: {
+  imports = [
+    ./non-wsl.nix
+  ];
+
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "naturalh";
@@ -20,162 +24,59 @@
   # release notes.
   home.stateVersion = "25.05"; # Please read the comment before changing.
 
-  # Okay, maybe I need some after all
-  services = {
-    flatpak = {
-      enable = !isWsl;
-      packages = [
-        "com.usebottles.bottles"
-        "com.github.tchx84.Flatseal"
-        "net.xmind.XMind"
-      ];
+  home.packages = with pkgs; [
+    # # It is sometimes useful to fine-tune packages, for example, by applying
+    # # overrides. You can do that directly here, just don't forget the
+    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
+    # # fonts?
+    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
 
-      overrides = {
-        "com.usebottles.bottles".Context = {
-          filesystems = ["xdg-data/applications" "xdg-documents"];
-        };
-      };
+    # # You can also create simple shell scripts directly inside your
+    # # configuration. For example, this adds a command 'my-hello' to your
+    # # environment:
+    # (pkgs.writeShellScriptBin "my-hello" ''
+    #   echo "Hello, ${config.home.username}!"
+    # '')
 
-      update.auto = {
-        enable = true;
-        onCalendar = "weekly";
-      };
-    };
+    alejandra
+    lazygit
+    lazydocker
+    gitkraken
+    gh
 
-    nextcloud-client = {
-      enable = !isWsl;
-      startInBackground = true;
-    };
+    tree
+    btop
+    xclip
+    lazysql
+    poppler-utils
+    insomnia
+    nil
 
-    vscode-server = {
-      enable = !isWsl;
-      enableFHS = !isWsl;
-    };
+    python313
+    python313Packages.numpy
+    python313Packages.pip
 
-    tailscale-systray = {
-      enable = !isWsl;
-    };
-  };
+    cmake
+    gnumake
+    ninja
+    gcc
+    gdb
 
-  home.packages = with pkgs;
-    [
-      # # It is sometimes useful to fine-tune packages, for example, by applying
-      # # overrides. You can do that directly here, just don't forget the
-      # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-      # # fonts?
-      # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
+    nodejs_22
+    pnpm
+    prisma-engines
 
-      # # You can also create simple shell scripts directly inside your
-      # # configuration. For example, this adds a command 'my-hello' to your
-      # # environment:
-      # (pkgs.writeShellScriptBin "my-hello" ''
-      #   echo "Hello, ${config.home.username}!"
-      # '')
+    jdk
 
-      alejandra
-      lazygit
-      lazydocker
-      gitkraken
-      gh
-
-      tree
-      btop
-      xclip
-      lazysql
-      poppler-utils
-      insomnia
-      nil
-
-      python313
-      python313Packages.numpy
-      python313Packages.pip
-
-      cmake
-      gnumake
-      ninja
-      gcc
-      gdb
-
-      nodejs_22
-      pnpm
-      prisma-engines
-
-      jdk
-
-      go
-      (with pkgs.dotnetCorePackages;
-        combinePackages [
-          dotnet-sdk
-          dotnet-sdk_9
-          dotnet-sdk_10
-        ])
-      cloudflared
-    ]
-    ++ (lib.optionals (!isWsl) [
-      osu-lazer-bin
-      parsec-bin
-      ryubing
-      (prismlauncher.override {
-        jdks = [
-          allPackages.graalvm21
-          zulu8
-          zulu17
-          zulu
-        ];
-      })
-      lutris
-      heroic
-
-      libreoffice-qt6
-      hunspellDicts.es_MX
-      hunspellDicts.en_US
-      chromium
-      vesktop
-      telegram-desktop
-      nextcloud-client
-      obsidian
-      simulide
-      obs-studio
-      thunderbird
-      remmina
-      jetbrains-toolbox
-      wineWowPackages.waylandFull
-      transmission_4-qt6
-      nix-index
-
-      vscode
-      android-tools
-      dbeaver-bin
-      distrobox
-      openssl
-      arduino-ide
-      qtcreator
-      # kdePackages.full # removed from upstream
-      putty
-      screen
-
-      mangohud
-      mangojuice
-      nvtopPackages.amd
-
-      drawio
-      librecad
-      coppwr
-      jamesdsp
-      mission-center
-      imagemagick
-      ffmpeg
-      handbrake
-      gimp
-      inkscape
-    ]);
-
-  problematicPrograms.ciscoPacketTracer8.enable = !isWsl;
-
-  programs.blender = {
-    enable = !isWsl;
-    useHip = true;
-  };
+    go
+    (with pkgs.dotnetCorePackages;
+      combinePackages [
+        dotnet-sdk
+        dotnet-sdk_9
+        dotnet-sdk_10
+      ])
+    cloudflared
+  ];
 
   programs.git = {
     enable = true;
