@@ -28,15 +28,14 @@ in
       [
         ./../modules/nixos/default.nix
         machineConfig
+        inputs.flatpaks.nixosModules.nix-flatpak
       ]
       ++ (
         if isWsl
         then [
           inputs.nixos-wsl.nixosModules.default
         ]
-        else [
-          inputs.flatpaks.nixosModules.nix-flatpak
-        ]
+        else []
       )
       ++ usersConfig;
   }
