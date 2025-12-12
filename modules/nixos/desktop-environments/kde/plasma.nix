@@ -29,6 +29,9 @@
       kclock
       kdenetwork-filesharing
       plasma-vault
+      (skanpage.override {
+        tesseractLanguages = ["eng" "deu" "fra" "spa"];
+      })
       pkgs.kdiff3
       pkgs.nil
       pkgs.hardinfo2
