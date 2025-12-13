@@ -42,7 +42,8 @@
   };
 
   # Use latest kernel.
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_latest; # xpadneo does not support linux 6.18+
+  boot.kernelPackages = pkgs.linuxPackages_6_17;
   hardware.enableAllFirmware = true;
 
   networking.networkmanager.enable = true;
@@ -129,8 +130,6 @@
     tailscale = {
       enable = true;
       useRoutingFeatures = "client";
-      # upstream is broken for the time being
-      package = allPackages.pkgs-unstable.tailscale;
     };
 
     pipewire = {
