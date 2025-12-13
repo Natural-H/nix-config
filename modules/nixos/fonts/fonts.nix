@@ -31,6 +31,7 @@
       oswald
       lexend
       roboto
+      montserrat
     ];
   };
 }
