@@ -28,7 +28,6 @@
       krdp
       kclock
       kdenetwork-filesharing
-      plasma-vault
       (skanpage.override {
         tesseractLanguages = ["eng" "deu" "fra" "spa"];
       })
