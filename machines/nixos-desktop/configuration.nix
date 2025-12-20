@@ -46,7 +46,10 @@
   boot.kernelPackages = pkgs.linuxPackages_6_17;
   hardware.enableAllFirmware = true;
 
-  networking.networkmanager.enable = true;
+  networking.networkmanager = {
+    enable = true;
+    dns = "systemd-resolved";
+  };
   zramSwap.enable = true;
   time.timeZone = "America/Mexico_City";
 
@@ -125,6 +128,17 @@
     openssh = {
       enable = true;
       settings.PermitRootLogin = "no";
+    };
+
+    resolved = {
+      enable = true;
+      dnssec = "true";
+      dnsovertls = "opportunistic";
+      domains = ["~."];
+      fallbackDns = [
+        "8.8.8.8"
+        "2001:4860:4860::8844"
+      ];
     };
 
     tailscale = {
