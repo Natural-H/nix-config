@@ -107,6 +107,7 @@
       handbrake
       gimp
       inkscape
+      vlc
     ];
   };
 }
