@@ -43,7 +43,7 @@
       };
     };
 
-    problematicPrograms.ciscoPacketTracer8.enable = true;
+    # problematicPrograms.ciscoPacketTracer8.enable = true;
 
     programs.blender = {
       enable = true;
