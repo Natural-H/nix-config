@@ -71,7 +71,6 @@
       chromium
       vesktop
       telegram-desktop
-      nextcloud-client
       obsidian
       simulide
       obs-studio
