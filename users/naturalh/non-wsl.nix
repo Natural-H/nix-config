@@ -14,6 +14,7 @@
           "com.usebottles.bottles"
           "com.github.tchx84.Flatseal"
           "net.xmind.XMind"
+          "com.super_productivity.SuperProductivity"
         ];
 
         overrides = {
