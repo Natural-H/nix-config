@@ -76,6 +76,7 @@
         dotnetCorePackages.dotnet_9.sdk
 
         wineWowPackages.waylandFull
+        desktop-file-utils
       ]
       ++ (with packages.pkgs; [osu-lazer-bin]));
 
@@ -124,8 +125,7 @@
     shellAliases = {
       pbcopy = "xclip -selection clipboard";
       pbpaste = "xclip -selection clipboard -o";
-      # plasma needs first a user update then a system update to link correctly
-      amogos = "sudo chmod g+w /etc/nixos -R; home-manager switch --flake ~/nixos; sudo nixos-rebuild switch";
+      amogos = "sudo nixos-rebuild switch; home-manager switch --flake ~/nixos; update-desktop-database";
     };
   };
 

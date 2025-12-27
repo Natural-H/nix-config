@@ -51,6 +51,7 @@
     poppler-utils
     insomnia
     nil
+    desktop-file-utils
 
     python313
     python313Packages.numpy
@@ -137,8 +138,10 @@
     shellAliases = {
       pbcopy = "xclip -selection clipboard";
       pbpaste = "xclip -selection clipboard -o";
-      # plasma needs first a user update then a system update to link correctly
-      nix-update-machine = "sudo chmod g+w /etc/nixos -R; home-manager switch --flake ~/nixos; sudo nixos-rebuild switch";
+      nix-update-machine = "sudo nixos-rebuild switch; home-manager switch --flake ~/nixos; update-desktop-database";
+      nix-test-machine = "sudo nixos-rebuild test; home-manager switch --flake ~/nixos; update-desktop-database";
+      nix-update-home = "home-manager switch --flake ~/nixos; update-desktop-database";
+      nix-update-system = "sudo nixos-rebuild switch";
     };
   };
 
