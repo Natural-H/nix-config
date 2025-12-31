@@ -3,6 +3,7 @@
   pkgs,
   isWsl,
   allPackages,
+  config,
   ...
 }: {
   imports = [
@@ -109,6 +110,7 @@
     enableCompletion = true;
     syntaxHighlighting.enable = true;
     autosuggestion.enable = false;
+    dotDir = "${config.xdg.configHome}/zsh";
     history = {
       size = 10000; # Set history size
       share = false; # Share history across sessions

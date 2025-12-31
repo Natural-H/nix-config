@@ -94,7 +94,7 @@
       screen
 
       mangohud
-      allPackages.pkgs.mangojuice # upstream doesn't have the has updated
+      mangojuice # upstream doesn't have the has updated
       nvtopPackages.amd
 
       drawio
