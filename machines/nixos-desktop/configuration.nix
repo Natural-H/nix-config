@@ -49,7 +49,7 @@
 
   # Use latest kernel.
   # boot.kernelPackages = pkgs.linuxPackages_latest; # xpadneo does not support linux 6.18+
-  boot.kernelPackages = pkgs.linuxPackages_6_17;
+  boot.kernelPackages = pkgs.linuxPackages_zen;
   hardware.enableAllFirmware = true;
 
   networking.networkmanager = {
