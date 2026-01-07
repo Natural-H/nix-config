@@ -24,7 +24,7 @@
     home.packages = with pkgs; [
       (
         if config.programs.blender.useHip
-        then blender-hip
+        then pkgsRocm.blender
         else blender
       )
     ];

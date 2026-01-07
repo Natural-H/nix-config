@@ -70,7 +70,7 @@
       hunspellDicts.es_MX
       hunspellDicts.en_US
       chromium
-      allPackages.pkgs.vesktop # unstable is broken
+      vesktop
       telegram-desktop
       obsidian
       simulide
