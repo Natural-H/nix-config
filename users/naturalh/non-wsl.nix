@@ -38,10 +38,6 @@
         enable = true;
         enableFHS = true;
       };
-
-      tailscale-systray = {
-        enable = true;
-      };
     };
 
     # problematicPrograms.ciscoPacketTracer8.enable = true;
