@@ -103,6 +103,16 @@
       vlc
 
       kdePackages.qtstyleplugin-kvantum
+
+      (pkgs.catppuccin-kvantum.override {
+        variant = "macchiato";
+        accent = "lavender";
+      })
+      (pkgs.catppuccin-kde.override {
+        flavour = ["macchiato"];
+        accents = ["lavender"];
+      })
+      catppuccin-cursors.macchiatoDark
     ];
 
     home.file = {
