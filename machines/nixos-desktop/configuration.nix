@@ -3,6 +3,7 @@
   pkgs,
   allPackages,
   lib,
+  inputs,
   ...
 }: {
   imports = [
@@ -12,7 +13,6 @@
   boot.loader = {
     efi = {
       efiSysMountPoint = "/boot/efi";
-      # canTouchEfiVariables = true;
     };
     grub = {
       enable = true;
@@ -59,7 +59,11 @@
   zramSwap.enable = true;
   time.timeZone = "America/Mexico_City";
 
-  desktop-environments.kde.enable = true;
+  # desktop-environments.kde.enable = true;
+  desktop-environments.kde.enable = config.specialisation != {};
+  specialisation.hyprland.configuration = {
+    desktop-environments.hyprland.enable = true;
+  };
 
   nix.settings.experimental-features = [
     "nix-command"
@@ -84,6 +88,7 @@
     wayland-utils
     wl-clipboard
     openrgb-with-all-plugins
+    kbd
   ];
 
   virtualisation = {

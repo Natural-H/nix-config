@@ -1,8 +1,6 @@
 {
-  lib,
   pkgs,
   isWsl,
-  allPackages,
   config,
   ...
 }: {
@@ -53,6 +51,7 @@
     insomnia
     nil
     desktop-file-utils
+    eza
 
     python313
     python313Packages.numpy
@@ -140,6 +139,9 @@
     shellAliases = {
       pbcopy = "xclip -selection clipboard";
       pbpaste = "xclip -selection clipboard -o";
+
+      ls = "eza";
+
       nix-update-machine = "sudo nixos-rebuild switch; home-manager switch --flake ~/nixos; update-desktop-database";
       nix-test-machine = "sudo nixos-rebuild test; home-manager switch --flake ~/nixos; update-desktop-database";
       nix-update-home = "home-manager switch --flake ~/nixos; update-desktop-database";

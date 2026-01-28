@@ -3,6 +3,7 @@
   isWsl,
   pkgs,
   allPackages,
+  config,
   ...
 }: {
   config = lib.mkIf (!isWsl) {
@@ -27,11 +28,6 @@
           enable = true;
           onCalendar = "weekly";
         };
-      };
-
-      nextcloud-client = {
-        enable = true;
-        startInBackground = true;
       };
 
       vscode-server = {
@@ -77,6 +73,7 @@
       wineWowPackages.waylandFull
       transmission_4-qt6
       nix-index
+      nextcloud-client
 
       vscode
       android-tools
@@ -104,6 +101,29 @@
       gimp
       inkscape
       vlc
+
+      kdePackages.qtstyleplugin-kvantum
     ];
+
+    home.file = {
+      "${config.xdg.configHome}/hypr" = {
+        source = ./hyprland;
+        recursive = true;
+      };
+
+      "${config.xdg.configHome}/rofi" = {
+        source = ./rofi;
+        recursive = true;
+      };
+
+      "${config.xdg.configHome}/swaync" = {
+        source = ./swaync;
+        recursive = true;
+      };
+
+      "${config.xdg.configHome}/hypr/config/pam.conf".text = ''
+        exec-once = ${allPackages.pkgs.kdePackages.kwallet-pam}/libexec/pam_kwallet_init
+      '';
+    };
   };
 }

@@ -1,8 +1,4 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: {
+{pkgs, ...}: {
   users.users.naturalh = {
     isNormalUser = true;
     shell = pkgs.zsh;

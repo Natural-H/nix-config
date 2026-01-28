@@ -39,6 +39,22 @@
       # for bluetooth support
       pkgs.openobex
       pkgs.obexftp
+
+      (pkgs.catppuccin-sddm.override {
+        flavor = "macchiato";
+        accent = "lavender";
+        font = "Lexend";
+        fontSize = "10";
+        background = let
+          repo = pkgs.fetchFromGitHub {
+            owner = "zhichaoh";
+            repo = "catppuccin-wallpapers";
+            rev = "1023077979591cdeca76aae94e0359da1707a60e";
+            hash = "sha256-h+cFlTXvUVJPRMpk32jYVDDhHu1daWSezFcvhJqDpmU=";
+          };
+        in "${repo}/solids/bkg2.png";
+        loginBackground = true;
+      })
     ];
 
     programs = {
@@ -60,6 +76,7 @@
         enable = true;
         wayland.enable = true;
         settings.General.DisplayServer = "wayland";
+        theme = "catppuccin-macchiato-lavender";
       };
     };
   };
