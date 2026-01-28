@@ -121,6 +121,11 @@
         recursive = true;
       };
 
+      "${config.xdg.configHome}/waybar" = {
+        source = ./waybar;
+        recursive = true;
+      };
+
       "${config.xdg.configHome}/rofi" = {
         source = ./rofi;
         recursive = true;
