@@ -97,7 +97,7 @@
       mission-center
       imagemagick
       ffmpeg
-      handbrake
+      # handbrake # something really funny happened to upstream ffmpeg
       gimp
       inkscape
       vlc

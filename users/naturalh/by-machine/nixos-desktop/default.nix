@@ -4,9 +4,9 @@
   #   systemd.enable = true;
   # };
 
-  home.packages = with pkgs; [
-    kdePackages.kdenlive
-  ];
+  # home.packages = with pkgs; [
+  #   kdePackages.kdenlive # something really funny happened to upstream ffmpeg
+  # ];
 
   # home.pointerCursor.x11.enable = true;
   # home.pointerCursor.name = "Macciato-Dark";
