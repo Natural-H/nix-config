@@ -102,6 +102,8 @@
       inkscape
       vlc
 
+      ciscoPacketTracer9
+
       kdePackages.qtstyleplugin-kvantum
 
       (pkgs.catppuccin-kvantum.override {
