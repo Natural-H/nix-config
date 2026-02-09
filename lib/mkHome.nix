@@ -33,5 +33,6 @@ in
       )
       inputs.vscode-server.homeModules.default
       inputs.flatpaks.homeManagerModules.nix-flatpak
+      inputs.lazyvim.homeManagerModules.default
     ];
   }
