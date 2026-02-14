@@ -85,6 +85,11 @@
     };
   };
 
+  nix-linker = {
+    enable = true;
+    includeGuiLibraries = true;
+  };
+
   programs.virt-manager.enable = true;
 
   programs.dconf.enable = true;
