@@ -165,10 +165,18 @@
 
       ls = "eza";
 
-      nix-update-machine = "sudo nixos-rebuild switch; home-manager switch --flake ~/nixos; update-desktop-database";
-      nix-test-machine = "sudo nixos-rebuild test; home-manager switch --flake ~/nixos; update-desktop-database";
-      nix-update-home = "home-manager switch --flake ~/nixos; update-desktop-database";
-      nix-update-system = "sudo nixos-rebuild switch";
+      nix-update-machine =
+        if isWsl
+        then "sudo nixos-rebuild switch; home-manager switch --flake ~/nixos"
+        else "sudo nixos-rebuild switch; home-manager switch --flake ~/nixos; update-desktop-database";
+      nix-test-machine =
+        if isWsl
+        then "sudo nixos-rebuild test; home-manager switch --flake ~/nixos"
+        else "sudo nixos-rebuild test; home-manager switch --flake ~/nixos; update-desktop-database";
+      nix-update-home =
+        if isWsl
+        then "home-manager switch --flake ~/nixos"
+        else "home-manager switch --flake ~/nixos; update-desktop-database";
     };
   };
 

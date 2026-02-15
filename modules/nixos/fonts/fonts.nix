@@ -32,6 +32,7 @@
       lexend
       roboto
       montserrat
+      liberation-sans-narrow
     ];
   };
 }

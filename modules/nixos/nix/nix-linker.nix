@@ -114,7 +114,7 @@
       xorg.libX11
       xorg.libXScrnSaver
       xorg.libXcomposite
-      xorg.libXcursor
+      libxcursor # xorg.libXcursor
       xorg.libXdamage
       xorg.libXext
       xorg.libXfixes
@@ -128,7 +128,7 @@
       xorg.libXtst
       xorg.libXxf86vm
       xorg.libpciaccess
-      xorg.libxcb
+      libxcb # xorg.libxcb
       xorg.xcbutil
       xorg.xcbutilimage
       xorg.xcbutilkeysyms

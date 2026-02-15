@@ -1,4 +1,6 @@
 {pkgs, ...}: {
+  nixpkgs.config.rocmSupport = true;
+
   gtk = {
     enable = true;
     colorScheme = "dark";

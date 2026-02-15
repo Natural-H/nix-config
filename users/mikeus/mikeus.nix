@@ -1,8 +1,4 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: {
+{pkgs, ...}: {
   users.users.mikeus = {
     isNormalUser = true;
     shell = pkgs.zsh;

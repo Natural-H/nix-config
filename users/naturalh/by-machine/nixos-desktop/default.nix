@@ -12,6 +12,8 @@
   # home.pointerCursor.name = "Macciato-Dark";
   # home.pointerCursor.package = pkgs.catppuccin-cursors.macchiatoDark;
 
+  nixpkgs.config.rocmSupport = true;
+
   gtk = {
     enable = true;
     colorScheme = "dark";

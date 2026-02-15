@@ -36,13 +36,6 @@
       };
     };
 
-    # problematicPrograms.ciscoPacketTracer8.enable = true;
-
-    programs.blender = {
-      enable = true;
-      useHip = true;
-    };
-
     home.packages = with pkgs; [
       osu-lazer-bin
       parsec-bin
@@ -70,10 +63,11 @@
       thunderbird
       remmina
       jetbrains-toolbox
-      wineWowPackages.waylandFull
+      wineWow64Packages.waylandFull
       transmission_4-qt6
       nix-index
       nextcloud-client
+      blender
 
       vscode
       android-tools
