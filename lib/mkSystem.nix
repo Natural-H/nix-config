@@ -6,6 +6,7 @@
   system,
   users,
   wsl ? false,
+  stateVersion,
   ...
 }: let
   isWsl = wsl;
@@ -29,6 +30,12 @@ in
         ./../modules/nixos/default.nix
         machineConfig
         inputs.flatpaks.nixosModules.nix-flatpak
+        {
+          networking.hostName = name;
+          nixpkgs.config.allowUnfree = true;
+          users.groups.nix-admins = {};
+          system.stateVersion = stateVersion;
+        }
       ]
       ++ (
         if isWsl

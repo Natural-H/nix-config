@@ -22,7 +22,10 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    lazyvim.url = "github:pfassina/lazyvim-nix";
+    lazyvim = {
+      url = "github:pfassina/lazyvim-nix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs = {
@@ -50,27 +53,20 @@
       nix-thinkbook16 = {
         system = "x86_64-linux";
         users = ["naturalh"];
-      };
-
-      nixos-laptop = {
-        system = "x86_64-linux";
-        users = ["naturalh"];
-      };
-
-      nix-hp-pavilion = {
-        system = "x86_64-linux";
-        users = ["naturalh" "mikeus"];
+        stateVersion = "25.05";
       };
 
       nixos-desktop = {
         system = "x86_64-linux";
         users = ["naturalh" "mikeus"];
+        stateVersion = "25.11";
       };
 
       nixos-wsl = {
         system = "x86_64-linux";
         users = ["naturalh"];
         wsl = true;
+        stateVersion = "25.05";
       };
     };
 
@@ -87,12 +83,7 @@
       inherit inputs getPackages;
     };
   in {
-    nixosConfigurations = createMachines {
-      inherit machines;
-    };
-
-    homeConfigurations = createHomes {
-      inherit homes;
-    };
+    nixosConfigurations = createMachines machines;
+    homeConfigurations = createHomes homes;
   };
 }

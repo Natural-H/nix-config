@@ -1,7 +1,7 @@
 {
   inputs,
   getPackages,
-}: {machines}: let
+}: machines: let
   mkSystem = import ./../mkSystem.nix {
     inherit inputs getPackages;
     nixpkgs = inputs.nixpkgs;

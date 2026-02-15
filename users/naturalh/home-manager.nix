@@ -21,7 +21,7 @@
   # You should not change this value, even if you update Home Manager. If you do
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
-  home.stateVersion = "25.05"; # Please read the comment before changing.
+  # home.stateVersion = "25.05"; # Please read the comment before changing.
 
   home.packages = with pkgs; [
     # # It is sometimes useful to fine-tune packages, for example, by applying
@@ -63,7 +63,7 @@
     gcc
     gdb
 
-    nodejs_22
+    nodejs
     pnpm
     prisma-engines
 

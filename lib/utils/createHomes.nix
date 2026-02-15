@@ -1,7 +1,7 @@
 {
   inputs,
   getPackages,
-}: {homes}: let
+}: homes: let
   mkHome = import ./../mkHome.nix {
     inherit inputs getPackages;
     nixpkgs = inputs.nixpkgs;
