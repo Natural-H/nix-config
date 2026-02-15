@@ -1,14 +1,4 @@
-{
-  isWsl,
-  packages,
-  inputs,
-  ...
-}: {
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "mikeus";
@@ -24,66 +14,57 @@
   # release notes.
   # home.stateVersion = "25.05"; # Please read the comment before changing.
 
-  home.packages = with pkgs;
-    [
-      # # It is sometimes useful to fine-tune packages, for example, by applying
-      # # overrides. You can do that directly here, just don't forget the
-      # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-      # # fonts?
-      # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
+  home.packages = with pkgs; [
+    # # It is sometimes useful to fine-tune packages, for example, by applying
+    # # overrides. You can do that directly here, just don't forget the
+    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
+    # # fonts?
+    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
 
-      # # You can also create simple shell scripts directly inside your
-      # # configuration. For example, this adds a command 'my-hello' to your
-      # # environment:
-      # (pkgs.writeShellScriptBin "my-hello" ''
-      #   echo "Hello, ${config.home.username}!"
-      # '')
+    # # You can also create simple shell scripts directly inside your
+    # # configuration. For example, this adds a command 'my-hello' to your
+    # # environment:
+    # (pkgs.writeShellScriptBin "my-hello" ''
+    #   echo "Hello, ${config.home.username}!"
+    # '')
 
-      lazygit
-      lazydocker
-      gitkraken
-      tree
-      btop
-      xclip
-      lazysql
-    ]
-    ++ (lib.optionals (!isWsl) [
-        (prismlauncher.override {
-          jdks = [
-            graalvmPackages.graalvm-ce
-            zulu8
-            zulu17
-            zulu
-          ];
-        })
+    lazygit
+    lazydocker
+    gitkraken
+    tree
+    btop
+    xclip
+    lazysql
+    (prismlauncher.override {
+      jdks = [
+        zulu8
+        zulu17
+        zulu
+      ];
+    })
 
-        brave
-        nix-index
-        vscode
-        libreoffice-qt6
-        vesktop
-        mission-center
-        blender-hip
+    brave
+    nix-index
+    vscode
+    libreoffice-qt6
+    vesktop
+    mission-center
+    rocmPackages.blender
 
-        obs-studio
-        imagemagick
-        ffmpeg
-        mangohud
-        mangojuice
-        nvtopPackages.amd
+    obs-studio
+    imagemagick
+    ffmpeg
+    mangohud
+    mangojuice
+    nvtopPackages.amd
 
-        jdk
-        dotnetCorePackages.dotnet_9.sdk
+    jdk
+    dotnetCorePackages.dotnet_9.sdk
 
-        wineWow64Packages.waylandFull
-        desktop-file-utils
-      ]
-      ++ (with packages.pkgs; [osu-lazer-bin]));
-
-  programs.blender = {
-    enable = !isWsl;
-    useHip = true;
-  };
+    wineWow64Packages.waylandFull
+    desktop-file-utils
+    osu-lazer-bin
+  ];
 
   programs.git = {
     enable = true;
@@ -125,7 +106,7 @@
     shellAliases = {
       pbcopy = "xclip -selection clipboard";
       pbpaste = "xclip -selection clipboard -o";
-      amogos = "sudo nixos-rebuild switch; home-manager switch --flake ~/nixos; update-desktop-database";
+      amogos = "home-manager switch --flake /etc/nixos; update-desktop-database";
     };
   };
 
