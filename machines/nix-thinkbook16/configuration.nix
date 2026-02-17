@@ -112,6 +112,11 @@
       settings.PermitRootLogin = "no";
     };
 
+    sshguard = {
+      enable = true;
+      blacklist_threshold = 120;
+    };
+
     resolved = {
       enable = true;
       dnsovertls = "opportunistic";
