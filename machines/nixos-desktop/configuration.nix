@@ -41,6 +41,8 @@
     };
   };
 
+  nix.settings.trusted-users = ["@nix-admins"];
+
   fileSystems = {
     "/".options = ["compress=zstd:1"];
     "/home".options = ["compress=zstd:1"];
