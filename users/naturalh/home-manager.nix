@@ -99,26 +99,25 @@
       lang.nix.enable = true;
       lang.python = {
         enable = true;
-        installDependencies = true; # Install ruff
-        installRuntimeDependencies = true; # Install python3
+        installDependencies = true;
+        installRuntimeDependencies = true;
       };
       lang.go = {
         enable = true;
-        installDependencies = true; # Install gopls, gofumpt, etc.
-        installRuntimeDependencies = true; # Install go compiler
+        installDependencies = true;
+        installRuntimeDependencies = true;
       };
     };
 
-    # Additional packages (optional)
     extraPackages = with pkgs; [
-      nixd # Nix LSP
-      alejandra # Nix formatter
+      nixd
+      alejandra
+      statix
     ];
 
-    # Only needed for languages not covered by LazyVim extras
     treesitterParsers = with pkgs.vimPlugins.nvim-treesitter-parsers; [
-      wgsl # WebGPU Shading Language
-      templ # Go templ files
+      wgsl
+      templ
     ];
   };
 
