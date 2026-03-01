@@ -16,6 +16,7 @@
           "com.github.tchx84.Flatseal"
           "net.xmind.XMind"
           "com.super_productivity.SuperProductivity"
+          "org.gaphor.Gaphor"
         ];
 
         overrides = {
@@ -81,7 +82,7 @@
       screen
 
       mangohud
-      mangojuice # upstream doesn't have the has updated
+      mangojuice
       nvtopPackages.amd
 
       drawio
@@ -91,7 +92,7 @@
       mission-center
       imagemagick
       ffmpeg
-      # handbrake # something really funny happened to upstream ffmpeg
+      handbrake
       gimp
       inkscape
       vlc
