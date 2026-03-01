@@ -69,6 +69,7 @@
     p7zip
     unrar
     geoclue2
+    net-tools
 
     wayland-utils
     wl-clipboard
