@@ -14,6 +14,20 @@
 
   nixpkgs.config.rocmSupport = true;
 
+  services.flatpak = {
+    overrides = {
+      global = {
+        Environment = {
+          ICON_THEME = "Papirus-Dark";
+        };
+
+        Context = {
+          filesystems = ["${pkgs.papirus-icon-theme}/share/icons/Papirus-Dark:ro"];
+        };
+      };
+    };
+  };
+
   gtk = {
     enable = true;
     colorScheme = "dark";
