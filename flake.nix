@@ -52,28 +52,37 @@
     machines = {
       nix-thinkbook16 = {
         system = "x86_64-linux";
-        users = ["naturalh"];
+        users = [
+          "naturalh"
+        ];
         stateVersion = "25.05";
       };
 
       nixos-desktop = {
         system = "x86_64-linux";
-        users = ["naturalh" "mikeus"];
+        users = [
+          "naturalh"
+          "mikeus"
+        ];
         stateVersion = "25.11";
       };
 
       nixos-wsl = {
         system = "x86_64-linux";
-        users = ["naturalh"];
+        users = [
+          "naturalh"
+        ];
         wsl = true;
         stateVersion = "25.05";
       };
     };
 
     # for each user in machines, create a home configuration
-    homes = import ./lib/utils/getHomes.nix {
-      inherit nixpkgs machines;
-    };
+    homes =
+      import ./lib/utils/getHomes.nix {
+        inherit nixpkgs;
+      }
+      machines;
 
     createMachines = import ./lib/utils/createMachines.nix {
       inherit inputs getPackages;

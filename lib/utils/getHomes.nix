@@ -1,7 +1,4 @@
-{
-  nixpkgs,
-  machines,
-}:
+{nixpkgs}: machines:
 nixpkgs.lib.foldlAttrs (
   acc: host: config:
     acc
