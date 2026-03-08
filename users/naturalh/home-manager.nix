@@ -176,6 +176,8 @@
         if isWsl
         then "home-manager switch --flake ~/nixos"
         else "home-manager switch --flake ~/nixos; update-desktop-database";
+
+      disable-amdkvm = "sudo modprobe -r kvm_amd kvm"; # disable kvm temporarily, an ugly way to get virtualbox and virt-manager with kvm get along
     };
   };
 

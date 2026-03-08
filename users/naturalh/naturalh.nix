@@ -10,6 +10,7 @@
       "docker"
       "libvirtd"
       "kvm"
+      "vboxusers"
     ];
     initialPassword = "password";
   };

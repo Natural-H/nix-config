@@ -84,6 +84,14 @@
     libvirtd = {
       enable = true;
     };
+
+    spiceUSBRedirection.enable = true;
+
+    virtualbox.host = {
+      enable = true;
+      enableExtensionPack = true;
+      # enableKvm = true; # won't let use Bridged config
+    };
   };
 
   nix-linker = {
