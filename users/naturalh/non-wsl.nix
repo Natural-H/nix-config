@@ -96,6 +96,8 @@
       gimp
       inkscape
       vlc
+      audacity
+      filezilla
 
       ciscoPacketTracer9
 
