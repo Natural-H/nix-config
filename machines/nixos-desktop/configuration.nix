@@ -61,11 +61,11 @@
   zramSwap.enable = true;
   time.timeZone = "America/Mexico_City";
 
-  # desktop-environments.kde.enable = true;
-  desktop-environments.kde.enable = config.specialisation != {};
-  specialisation.hyprland.configuration = {
-    desktop-environments.hyprland.enable = true;
-  };
+  desktop-environments.kde.enable = true;
+  # desktop-environments.kde.enable = config.specialisation != {}; # Maybe later I'll have time to configure it
+  # specialisation.hyprland.configuration = {
+  #   desktop-environments.hyprland.enable = true;
+  # };
 
   nix.settings.experimental-features = [
     "nix-command"
