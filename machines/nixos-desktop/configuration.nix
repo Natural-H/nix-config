@@ -119,6 +119,7 @@
   };
 
   programs.virt-manager.enable = true;
+  programs.ghidra.enable = true;
 
   programs.dconf.enable = true;
 
