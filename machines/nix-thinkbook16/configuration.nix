@@ -14,29 +14,29 @@
       efiSysMountPoint = "/boot";
       # canTouchEfiVariables = true;
     };
-    grub = {
+    limine = {
       enable = true;
-      device = "nodev";
-      efiSupport = true;
-      fsIdentifier = "label";
-      copyKernels = true;
-      useOSProber = true;
       efiInstallAsRemovable = true;
-      splashImage = null;
-      theme = pkgs.stdenv.mkDerivation {
-        pname = "distro-grub-themes";
-        version = "3.2";
-        src = pkgs.fetchFromGitHub {
-          owner = "AdisonCavani";
-          repo = "distro-grub-themes";
-          rev = "v3.2";
-          hash = "sha256-U5QfwXn4WyCXvv6A/CYv9IkR/uDx4xfdSgbXDl5bp9M=";
+      package = pkgs.limine-full;
+      efiSupport = true;
+      maxGenerations = 50;
+      extraEntries = ''
+        /Windows
+          protocol: efi
+          path: uuid(85422297-2710-40c2-865a-a20599a89822):/EFI/Microsoft/Boot/bootmgfw.efi
+      '';
+      style = {
+        wallpapers = [pkgs.nixos-artwork.wallpapers.catppuccin-macchiato.gnomeFilePath];
+
+        # Catppuccin-Macchiato theme
+        graphicalTerminal = {
+          palette = "24273a;ed8796;a6da95;eed49f;8aadf4;f5bde6;8bd5ca;cad3f5";
+          brightPalette = "5b6078;ed8796;a6da95;eed49f;8aadf4;f5bde6;8bd5ca;cad3f5";
+          background = "24273a";
+          foreground = "cad3f5";
+          brightBackground = "5b6078";
+          brightForeground = "cad3f5";
         };
-        installPhase = ''
-          mkdir -p customize
-          tar -xf themes/nixos.tar -C customize
-          cp -r customize $out
-        '';
       };
     };
   };
@@ -122,6 +122,21 @@
       settings.PermitRootLogin = "no";
     };
 
+    sunshine = {
+      enable = true;
+      capSysAdmin = true;
+      autoStart = false;
+      openFirewall = true;
+      settings = {
+        openFirewall = true;
+      };
+    };
+
+    cloudflare-warp = {
+      enable = true;
+      openFirewall = true;
+    };
+
     sshguard = {
       enable = true;
       blacklist_threshold = 120;
@@ -204,12 +219,13 @@
 
   # Enable support for webcam
   # I need this even if I don't have Raptor Lake+ cpu
-  # hardware.ipu6.enable = true;
+  # hardware.ipu6.enable = true;hello world
+
   # hardware.ipu6.platform = "ipu6ep";
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
+  # networking.firewall.allowedTCPPorts = [3389];
+  # networking.firewall.allowedUDPPorts = [3389];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
