@@ -51,6 +51,7 @@
       })
       lutris
       heroic
+      autopsy
 
       libreoffice-qt6
       hunspellDicts.es_MX
