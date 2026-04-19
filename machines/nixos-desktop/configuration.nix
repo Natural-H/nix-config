@@ -49,9 +49,8 @@
     "/nix".options = ["compress=zstd:1" "noatime"];
   };
 
-  # Use latest kernel.
-  # boot.kernelPackages = pkgs.linuxPackages_latest; # xpadneo does not support linux 6.18+
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  # Stay in here until virtualbox modules update to support 6.19
+  boot.kernelPackages = pkgs.linuxPackages_6_18;
   hardware.enableAllFirmware = true;
 
   networking.networkmanager = {

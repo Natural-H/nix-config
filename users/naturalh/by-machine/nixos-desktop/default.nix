@@ -1,17 +1,8 @@
-{pkgs, ...}: {
-  # wayland.windowManager.hyprland = {
-  #   enable = true;
-  #   systemd.enable = true;
-  # };
-
-  # home.packages = with pkgs; [
-  #   kdePackages.kdenlive
-  # ];
-
-  # home.pointerCursor.x11.enable = true;
-  # home.pointerCursor.name = "Macciato-Dark";
-  # home.pointerCursor.package = pkgs.catppuccin-cursors.macchiatoDark;
-
+{
+  pkgs,
+  config,
+  ...
+}: {
   nixpkgs.config.rocmSupport = true;
 
   services.flatpak = {
@@ -48,5 +39,6 @@
       size = 10;
       package = pkgs.lexend;
     };
+    gtk4.theme = config.gtk.theme;
   };
 }

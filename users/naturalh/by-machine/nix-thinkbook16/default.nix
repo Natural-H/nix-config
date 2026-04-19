@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   nixpkgs.config.rocmSupport = true;
 
   gtk = {
@@ -21,5 +25,6 @@
       size = 10;
       package = pkgs.lexend;
     };
+    gtk4.theme = config.gtk.theme;
   };
 }
