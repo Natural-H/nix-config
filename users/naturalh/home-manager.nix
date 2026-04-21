@@ -3,7 +3,14 @@
   isWsl,
   config,
   ...
-}: {
+}: let
+  dotnet = with pkgs.dotnetCorePackages;
+    combinePackages (with pkgs; [
+      dotnet-sdk
+      dotnet-sdk_9
+      dotnet-sdk_10
+    ]);
+in {
   imports = [
     ./non-wsl.nix
   ];
@@ -70,12 +77,7 @@
     jdk
 
     go
-    (with pkgs.dotnetCorePackages;
-      combinePackages [
-        dotnet-sdk
-        dotnet-sdk_9
-        dotnet-sdk_10
-      ])
+    dotnet
     cloudflared
   ];
 
@@ -220,6 +222,7 @@
   #
   home.sessionVariables = {
     # EDITOR = "EMACS";
+    DOTNET_ROOT = "${dotnet}/share/dotnet";
   };
 
   # Let Home Manager install and manage itself.
