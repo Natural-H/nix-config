@@ -5,7 +5,9 @@
   allPackages,
   config,
   ...
-}: {
+}: let
+  autopsy-pkg = pkgs.callPackage ./autopsy.nix {};
+in {
   config = lib.mkIf (!isWsl) {
     # Okay, maybe I need some after all
     services = {
@@ -51,8 +53,14 @@
       })
       lutris
       heroic
-      autopsy
-      sleuthkit
+      (pkgs.buildFHSEnv {
+        name = "autopsy";
+        targetPkgs = pkgs: (with pkgs; [
+          autopsy-pkg
+          perl
+        ]);
+        runScript = "autopsy";
+      })
 
       libreoffice-qt6
       hunspellDicts.es_MX
