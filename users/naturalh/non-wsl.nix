@@ -63,6 +63,7 @@ in {
       })
 
       libreoffice-qt6
+      onlyoffice-desktopeditors
       hunspellDicts.es_MX
       hunspellDicts.en_US
       chromium
