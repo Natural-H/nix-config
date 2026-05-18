@@ -49,6 +49,7 @@ in {
           zulu8
           zulu17
           zulu
+          zulu25
         ];
       })
       lutris
