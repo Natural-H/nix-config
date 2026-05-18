@@ -152,12 +152,18 @@
       settings.PermitRootLogin = "no";
     };
 
+    sunshine = {
+      enable = false;
+      capSysAdmin = true;
+      openFirewall = true;
+    };
+
     cloudflare-warp = {
       enable = false;
     };
 
     samba = {
-      enable = true;
+      enable = false;
       securityType = "user";
       openFirewall = true;
       settings = {
