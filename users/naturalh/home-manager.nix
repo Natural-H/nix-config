@@ -80,6 +80,8 @@ in {
     go
     dotnet
     cloudflared
+    opencode
+    lmstudio
   ];
 
   programs.git = {
