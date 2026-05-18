@@ -45,6 +45,7 @@ in {
     # '')
 
     alejandra
+    nixd
     lazygit
     lazydocker
     gitkraken
