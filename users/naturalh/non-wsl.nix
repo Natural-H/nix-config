@@ -52,7 +52,7 @@ in {
           zulu25
         ];
       })
-      lutris
+      # lutris
       heroic
       (pkgs.buildFHSEnv {
         name = "autopsy";
