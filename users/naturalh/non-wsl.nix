@@ -53,6 +53,7 @@ in {
         ];
       })
       # lutris
+      retroarch-free
       heroic
       (pkgs.buildFHSEnv {
         name = "autopsy";
