@@ -64,7 +64,7 @@ in {
         runScript = "autopsy";
       })
 
-      libreoffice-qt6
+      allPackages.pkgs.libreoffice-qt6
       onlyoffice-desktopeditors
       hunspellDicts.es_MX
       hunspellDicts.en_US
