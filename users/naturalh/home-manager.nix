@@ -57,6 +57,7 @@ in {
     lazysql
     poppler-utils
     insomnia
+    bruno
     nil
     desktop-file-utils
     eza
