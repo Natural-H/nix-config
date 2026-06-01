@@ -159,12 +159,11 @@
     };
 
     cloudflare-warp = {
-      enable = false;
+      enable = true;
     };
 
     samba = {
       enable = false;
-      securityType = "user";
       openFirewall = true;
       settings = {
         global = {
@@ -210,8 +209,12 @@
 
     resolved = {
       enable = true;
-      dnsovertls = "opportunistic";
-      domains = ["~."];
+      settings = {
+        Resolve = {
+          DNSOverTLS = "opportunistic";
+          Domains = ["~."];
+        };
+      };
     };
 
     tailscale = {

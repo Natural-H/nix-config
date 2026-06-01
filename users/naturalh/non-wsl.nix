@@ -36,6 +36,7 @@ in {
       vscode-server = {
         enable = true;
         enableFHS = true;
+        nodejsPackage = pkgs.nodejs;
       };
     };
 

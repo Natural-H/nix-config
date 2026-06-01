@@ -2,8 +2,8 @@
   description = "Nixos config flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixpkgs-graalvm21.url = "github:nixos/nixpkgs/336eda0d07dc5e2be1f923990ad9fdb6bc8e28e3";
     flatpaks.url = "github:gmodena/nix-flatpak/?ref=latest";
 
@@ -80,7 +80,7 @@
     # for each user in machines, create a home configuration
     homes =
       import ./lib/utils/getHomes.nix {
-        inherit nixpkgs;
+        nixpkgs = nixpkgs-unstable;
       }
       machines;
 
