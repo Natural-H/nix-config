@@ -28,6 +28,7 @@
       krdp
       kclock
       kdenetwork-filesharing
+      kpat
       (skanpage.override {
         tesseractLanguages = ["eng" "deu" "fra" "spa"];
       })
