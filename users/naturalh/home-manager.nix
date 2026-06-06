@@ -46,7 +46,6 @@ in {
 
     alejandra
     nixd
-    lazygit
     lazydocker
     gitkraken
     gh
@@ -85,111 +84,148 @@ in {
     lmstudio
   ];
 
-  programs.git = {
-    enable = true;
-    package = pkgs.gitFull;
+  programs = {
+    git = {
+      enable = true;
+      package = pkgs.gitFull;
 
-    settings = {
-      user.name = "naturalh";
-      user.email = "marco.mmtz@proton.me";
+      settings = {
+        user.name = "naturalh";
+        user.email = "marco.mmtz@proton.me";
 
-      credential."https://github.com".helper = "!gh auth git-credential";
-      safe.directory = ["/etc/nixos"];
-    };
-  };
-
-  programs.lazyvim = {
-    enable = true;
-
-    extras = {
-      lang.nix.enable = true;
-      lang.python = {
-        enable = true;
-        installDependencies = true;
-        installRuntimeDependencies = true;
-      };
-      lang.go = {
-        enable = true;
-        installDependencies = true;
-        installRuntimeDependencies = true;
+        init.defaultBranch = "main";
+        credential."https://github.com".helper = "!gh auth git-credential";
+        safe.directory = ["/etc/nixos"];
       };
     };
 
-    extraPackages = with pkgs; [
-      nixd
-      alejandra
-      statix
-    ];
+    zsh = {
+      enable = true;
+      enableCompletion = true;
+      syntaxHighlighting.enable = true;
+      autosuggestion.enable = false;
+      dotDir = "${config.xdg.configHome}/zsh";
+      history = {
+        size = 10000;
+        share = false;
+      };
 
-    treesitterParsers = with pkgs.vimPlugins.nvim-treesitter-parsers; [
-      wgsl
-      templ
-    ];
-  };
+      historySubstringSearch = {
+        enable = true;
+        searchDownKey = "^[OB";
+        searchUpKey = "^[OA";
+      };
 
-  programs.starship = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-  programs.zsh = {
-    enable = true;
-    # Enable completion, syntax highlighting, and autosuggestions
-    enableCompletion = true;
-    syntaxHighlighting.enable = true;
-    autosuggestion.enable = false;
-    dotDir = "${config.xdg.configHome}/zsh";
-    history = {
-      size = 10000; # Set history size
-      share = false; # Share history across sessions
-    };
-    historySubstringSearch = {
-      enable = true; # Enable substring search in history
-      searchDownKey = "^[OB"; # Key to search down
-      searchUpKey = "^[OA"; # Key to search up
-    };
-    initContent =
-      if isWsl
-      then ''
-        bindkey '^[[1;3D' backward-word
-        bindkey '^[[1;3C' forward-word
-        bindkey '^[[1;5D' beginning-of-line
-        bindkey '^[[1;5C' end-of-line
-        eval `ssh-agent -s | grep -v 'echo'`
-      ''
-      else ''
-        bindkey '^[[1;5D' backward-word
-        bindkey '^[[1;5C' forward-word
-        bindkey '^[[H' beginning-of-line
-        bindkey '^[[F' end-of-line
-        bindkey '^[[3~' delete-char
-      ''; # this will be added later for non-wsl systems
-
-    shellAliases = {
-      pbcopy = "xclip -selection clipboard";
-      pbpaste = "xclip -selection clipboard -o";
-
-      ls = "eza";
-
-      nix-update-machine =
+      initContent =
         if isWsl
-        then "sudo nixos-rebuild switch; home-manager switch --flake ~/nixos"
-        else "sudo nixos-rebuild switch; home-manager switch --flake ~/nixos; update-desktop-database";
-      nix-test-machine =
-        if isWsl
-        then "sudo nixos-rebuild test; home-manager switch --flake ~/nixos"
-        else "sudo nixos-rebuild test; home-manager switch --flake ~/nixos; update-desktop-database";
-      nix-update-home =
-        if isWsl
-        then "home-manager switch --flake ~/nixos"
-        else "home-manager switch --flake ~/nixos; update-desktop-database";
+        then ''
+          bindkey '^[[1;3D' backward-word
+          bindkey '^[[1;3C' forward-word
+          bindkey '^[[1;5D' beginning-of-line
+          bindkey '^[[1;5C' end-of-line
+          eval `ssh-agent -s | grep -v 'echo'`
+        ''
+        else ''
+          bindkey '^[[1;5D' backward-word
+          bindkey '^[[1;5C' forward-word
+          bindkey '^[[H' beginning-of-line
+          bindkey '^[[F' end-of-line
+          bindkey '^[[3~' delete-char
+        '';
 
-      disable-amdkvm = "sudo modprobe -r kvm_amd kvm"; # disable kvm temporarily, an ugly way to get virtualbox and virt-manager with kvm get along
+      shellAliases = {
+        pbcopy = "xclip -selection clipboard";
+        pbpaste = "xclip -selection clipboard -o";
+
+        ls = "eza";
+        cat = "bat";
+
+        nix-update-machine =
+          if isWsl
+          then "sudo nixos-rebuild switch; home-manager switch --flake ~/nixos"
+          else "sudo nixos-rebuild switch; home-manager switch --flake ~/nixos; update-desktop-database";
+        nix-test-machine =
+          if isWsl
+          then "sudo nixos-rebuild test; home-manager switch --flake ~/nixos"
+          else "sudo nixos-rebuild test; home-manager switch --flake ~/nixos; update-desktop-database";
+        nix-update-home =
+          if isWsl
+          then "home-manager switch --flake ~/nixos"
+          else "home-manager switch --flake ~/nixos; update-desktop-database";
+      };
     };
-  };
 
-  programs.firefox = {
-    policies = {
-      Homepage.StartPage = "previous-session";
+    lazygit = {
+      enable = true;
+      enableZshIntegration = true;
+    };
+
+    fzf = {
+      enable = true;
+      enableZshIntegration = false; # avoid conflicts with atuin
+    };
+
+    bat = {
+      enable = true;
+      extraPackages = with pkgs.bat-extras; [
+        batdiff
+        batman
+        prettybat
+      ];
+    };
+
+    atuin = {
+      enable = true;
+      daemon.enable = true;
+      enableZshIntegration = true;
+    };
+
+    eza = {
+      enable = true;
+      enableZshIntegration = true;
+      git = true;
+      icons = "auto";
+      colors = "auto";
+    };
+
+    starship = {
+      enable = true;
+      enableZshIntegration = true;
+    };
+
+    lazyvim = {
+      enable = true;
+
+      extras = {
+        lang.nix.enable = true;
+        lang.python = {
+          enable = true;
+          installDependencies = true;
+          installRuntimeDependencies = true;
+        };
+        lang.go = {
+          enable = true;
+          installDependencies = true;
+          installRuntimeDependencies = true;
+        };
+      };
+
+      extraPackages = with pkgs; [
+        nixd
+        alejandra
+        statix
+      ];
+
+      treesitterParsers = with pkgs.vimPlugins.nvim-treesitter-parsers; [
+        wgsl
+        templ
+      ];
+    };
+
+    firefox = {
+      policies = {
+        Homepage.StartPage = "previous-session";
+      };
     };
   };
 
