@@ -143,8 +143,12 @@
 
     resolved = {
       enable = true;
-      dnsovertls = "opportunistic";
-      domains = ["~."];
+      settings = {
+        Resolve = {
+          DNSOverTLS = "opportunistic";
+          Domains = ["~."];
+        };
+      };
     };
 
     tailscale = {
@@ -223,7 +227,7 @@
   # hardware.ipu6.platform = "ipu6ep";
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [3389];
+  networking.firewall.allowedTCPPorts = [3000];
   # networking.firewall.allowedUDPPorts = [3389];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
