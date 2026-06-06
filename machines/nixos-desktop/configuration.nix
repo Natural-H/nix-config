@@ -49,8 +49,7 @@
     "/nix".options = ["compress=zstd:1" "noatime"];
   };
 
-  # Stay in here until virtualbox modules update to support 6.19
-  boot.kernelPackages = pkgs.linuxPackages_6_18;
+  boot.kernelPackages = pkgs.linuxPackages_zen;
   hardware.enableAllFirmware = true;
 
   networking.networkmanager = {
@@ -127,7 +126,7 @@
 
   programs.gamemode.enable = true;
   programs.gamescope = {
-    enable = true;
+    enable = false;
     capSysNice = true;
   };
 
@@ -140,10 +139,10 @@
 
   programs.steam = {
     enable = true;
-    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
-    gamescopeSession.enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+    localNetworkGameTransfers.openFirewall = true;
+    gamescopeSession.enable = false;
   };
 
   services = {

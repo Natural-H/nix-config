@@ -41,8 +41,7 @@
     };
   };
 
-  # Stay in here until virtualbox modules update to support 6.19
-  boot.kernelPackages = pkgs.linuxPackages_6_18;
+  boot.kernelPackages = pkgs.linuxPackages_zen;
   hardware.enableAllFirmware = true;
 
   networking.networkmanager = {
