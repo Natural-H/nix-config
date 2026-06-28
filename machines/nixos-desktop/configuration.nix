@@ -119,6 +119,8 @@
   programs.virt-manager.enable = true;
   programs.ghidra.enable = true;
 
+  programs.droidcam.enable = true;
+
   programs.dconf.enable = true;
 
   programs.firefox.enable = true;

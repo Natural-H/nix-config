@@ -123,7 +123,6 @@ in {
           bindkey '^[[1;3C' forward-word
           bindkey '^[[1;5D' beginning-of-line
           bindkey '^[[1;5C' end-of-line
-          eval `ssh-agent -s | grep -v 'echo'`
         ''
         else ''
           bindkey '^[[1;5D' backward-word
@@ -226,6 +225,12 @@ in {
       policies = {
         Homepage.StartPage = "previous-session";
       };
+    };
+  };
+
+  services = {
+    ssh-agent = {
+      enable = true;
     };
   };
 

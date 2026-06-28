@@ -19,6 +19,10 @@
     };
   };
 
+  home.packages = with pkgs; [
+    davinci-resolve
+  ];
+
   gtk = {
     enable = true;
     colorScheme = "dark";
