@@ -46,26 +46,16 @@ in {
       ryubing
       (prismlauncher.override {
         jdks = [
-          allPackages.graalvm21
           zulu8
           zulu17
-          zulu
+          zulu21
           zulu25
         ];
       })
-      # lutris
       retroarch-free
       heroic
-      (pkgs.buildFHSEnv {
-        name = "autopsy";
-        targetPkgs = pkgs: (with pkgs; [
-          autopsy-pkg
-          perl
-        ]);
-        runScript = "autopsy";
-      })
 
-      allPackages.pkgs.libreoffice-qt6
+      libreoffice-qt6
       onlyoffice-desktopeditors
       hunspellDicts.es_MX
       hunspellDicts.en_US
