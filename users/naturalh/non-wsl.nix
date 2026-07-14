@@ -5,9 +5,7 @@
   allPackages,
   config,
   ...
-}: let
-  autopsy-pkg = pkgs.callPackage ./autopsy.nix {};
-in {
+}: {
   config = lib.mkIf (!isWsl) {
     # Okay, maybe I need some after all
     services = {
@@ -69,7 +67,7 @@ in {
       remmina
       jetbrains-toolbox
       wineWow64Packages.waylandFull
-      transmission_4-qt6
+      transmission_4-qt
       nix-index
       nextcloud-client
       blender
@@ -80,8 +78,6 @@ in {
       distrobox
       openssl
       arduino-ide
-      qtcreator
-      # kdePackages.full # removed from upstream
       putty
       screen
 
@@ -96,7 +92,7 @@ in {
       mission-center
       imagemagick
       ffmpeg
-      handbrake
+      # handbrake
       gimp
       inkscape
       vlc
