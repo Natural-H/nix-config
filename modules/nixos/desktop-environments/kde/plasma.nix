@@ -11,6 +11,8 @@
   };
 
   config = lib.mkIf config.desktop-environments.kde.enable {
+    services.accounts-daemon.enable = true;
+
     environment.systemPackages = with pkgs.kdePackages; [
       kcalc
       kcharselect
@@ -29,6 +31,13 @@
       kclock
       kdenetwork-filesharing
       kpat
+      kaccounts-providers
+      kaccounts-integration
+      signond
+      signon-kwallet-extension
+      accounts-qt
+      kio-gdrive
+      qtwebengine
       (skanpage.override {
         tesseractLanguages = ["eng" "deu" "fra" "spa"];
       })
