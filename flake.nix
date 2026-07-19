@@ -37,12 +37,16 @@
     getPackages = {system}: {
       pkgs = import nixpkgs {
         inherit system;
-        config = {allowUnfree = true;};
+        config = {
+          allowUnfree = true;
+        };
       };
 
       pkgs-unstable = import nixpkgs-unstable {
         inherit system;
-        config = {allowUnfree = true;};
+        config = {
+          allowUnfree = true;
+        };
       };
 
       # pinned package versions
@@ -55,7 +59,7 @@
         users = [
           "naturalh"
         ];
-        stateVersion = "25.05";
+        stateVersion = "26.05";
       };
 
       nixos-desktop = {
