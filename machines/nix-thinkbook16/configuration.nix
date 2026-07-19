@@ -20,6 +20,11 @@
       package = pkgs.limine-full;
       efiSupport = true;
       maxGenerations = 50;
+      secureBoot = {
+        enable = true;
+        autoEnrollKeys.enable = true;
+        autoGenerateKeys = true;
+      };
       extraEntries = ''
         /Windows
           protocol: efi
@@ -68,6 +73,7 @@
     unrar
     geoclue2
     net-tools
+    sbctl
 
     wayland-utils
     wl-clipboard
