@@ -11,7 +11,7 @@
 
   boot.loader = {
     efi = {
-      efiSysMountPoint = "/boot";
+      efiSysMountPoint = "/boot/efi";
       # canTouchEfiVariables = true;
     };
     limine = {
@@ -23,7 +23,7 @@
       extraEntries = ''
         /Windows
           protocol: efi
-          path: uuid(85422297-2710-40c2-865a-a20599a89822):/EFI/Microsoft/Boot/bootmgfw.efi
+          path: uuid(9eca7320-8b60-4a37-82fd-b910d99a3d25):/EFI/Microsoft/Boot/bootmgfw.efi
       '';
       style = {
         wallpapers = [pkgs.nixos-artwork.wallpapers.catppuccin-macchiato.gnomeFilePath];
@@ -86,7 +86,7 @@
     spiceUSBRedirection.enable = true;
 
     virtualbox.host = {
-      enable = true;
+      enable = false;
       enableExtensionPack = true;
       # enableKvm = true; # won't let use Bridged config
     };
