@@ -69,12 +69,14 @@
       htop
       gitkraken
       home-manager
-      wslu
+      # wslu
       xclip
       xdg-utils
+      wsl-open
     ];
     variables = {
-      BROWSER = "${pkgs.wslu}/bin/wslview";
+      # BROWSER = "${pkgs.wslu}/bin/wslview";
+      BROWSER = "wsl-open";
     };
   };
   services.k3s = {
