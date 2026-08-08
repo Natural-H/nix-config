@@ -28,7 +28,7 @@
       extraEntries = ''
         /Windows
           protocol: efi
-          path: uuid(b3da0000-00e7-4ae8-b504-c46541252acb):/EFI/Microsoft/Boot/bootmgfw.efi
+          path: uuid(26f34f0a-36db-4eb5-8034-a71eab9f9e1d):/EFI/Microsoft/Boot/bootmgfw.efi
       '';
       style = {
         wallpapers = [pkgs.nixos-artwork.wallpapers.catppuccin-macchiato.gnomeFilePath];
