@@ -30,9 +30,16 @@
       name = "Papirus-Dark";
       package = pkgs.papirus-icon-theme;
     };
-    theme = {
-      name = "Catppuccin-GTK-Dark";
-      package = pkgs.magnetic-catppuccin-gtk;
+    theme = let
+      variant = "macchiato";
+      accent = "lavender";
+      size = "standard";
+    in {
+      name = "catppuccin-${variant}-${accent}-${size}";
+      package = pkgs.catppuccin-gtk.override {
+        inherit variant size;
+        accents = [accent];
+      };
     };
     cursorTheme = {
       name = "Macciato-Dark";
