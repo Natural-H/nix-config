@@ -46,6 +46,12 @@
     };
   };
 
+  fileSystems = {
+    "/".options = ["compress=zstd:1"];
+    "/home".options = ["compress=zstd:1"];
+    "/nix".options = ["compress=zstd:1" "noatime"];
+  };
+
   boot.kernelPackages = pkgs.linuxPackages_zen;
   hardware.enableAllFirmware = true;
 
