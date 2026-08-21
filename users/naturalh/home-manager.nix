@@ -48,7 +48,6 @@ in {
     nixd
     lazydocker
     gitkraken
-    gh
 
     tree
     btop
@@ -94,9 +93,11 @@ in {
         user.email = "marco.mmtz@proton.me";
 
         init.defaultBranch = "main";
-        credential."https://github.com".helper = "!gh auth git-credential";
-        safe.directory = ["/etc/nixos"];
       };
+    };
+
+    gh = {
+      enable = true;
     };
 
     zsh = {

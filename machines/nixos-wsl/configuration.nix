@@ -69,48 +69,50 @@
       htop
       gitkraken
       home-manager
-      # wslu
       xclip
       xdg-utils
       wsl-open
     ];
     variables = {
-      # BROWSER = "${pkgs.wslu}/bin/wslview";
       BROWSER = "wsl-open";
     };
   };
-  services.k3s = {
-    enable = true;
-    extraFlags = [
-      "--write-kubeconfig-group=kubeadmin"
-      "--write-kubeconfig-mode=640"
-      "--disable=traefik"
-      #"--disable=servicelb"
-      #"--disable=metrics-server"
-      #"--disable=local-storage"
-    ];
-    # extraArgs = {
-    #   "kubelet" = [
-    #     "--node-ip=$(ip -4 addr show dev eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')"
-    #     "--cgroup-driver=systemd"
-    #   ];
-    #   "kube-proxy" = [
-    #     "--proxy-mode=ipvs"
-    #     "--ipvs-scheduler=rr"
-    #   ];
-    # };
-    # extraK3sConfig = {
-    #   "kubelet" = {
-    #     "cgroup-driver" = "systemd";
-    #     "node-ip" = "${pkgs.writeShellScript "get-node-ip" ''
-    #       ip -4 addr show dev eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}'
-    #     ''}";
-    #   };
-    #   "kube-proxy" = {
-    #     "proxy-mode" = "ipvs";
-    #     "ipvs-scheduler" = "rr";
-    #   };
-    # };
+  services = {
+    passSecretService.enable = true;
+
+    k3s = {
+      enable = true;
+      extraFlags = [
+        "--write-kubeconfig-group=kubeadmin"
+        "--write-kubeconfig-mode=640"
+        "--disable=traefik"
+        #"--disable=servicelb"
+        #"--disable=metrics-server"
+        #"--disable=local-storage"
+      ];
+      # extraArgs = {
+      #   "kubelet" = [
+      #     "--node-ip=$(ip -4 addr show dev eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')"
+      #     "--cgroup-driver=systemd"
+      #   ];
+      #   "kube-proxy" = [
+      #     "--proxy-mode=ipvs"
+      #     "--ipvs-scheduler=rr"
+      #   ];
+      # };
+      # extraK3sConfig = {
+      #   "kubelet" = {
+      #     "cgroup-driver" = "systemd";
+      #     "node-ip" = "${pkgs.writeShellScript "get-node-ip" ''
+      #       ip -4 addr show dev eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}'
+      #     ''}";
+      #   };
+      #   "kube-proxy" = {
+      #     "proxy-mode" = "ipvs";
+      #     "ipvs-scheduler" = "rr";
+      #   };
+      # };
+    };
   };
 
   # This value determines the NixOS release from which the default
