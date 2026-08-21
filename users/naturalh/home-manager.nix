@@ -116,21 +116,13 @@ in {
         searchUpKey = "^[OA";
       };
 
-      initContent =
-        if isWsl
-        then ''
-          bindkey '^[[1;3D' backward-word
-          bindkey '^[[1;3C' forward-word
-          bindkey '^[[1;5D' beginning-of-line
-          bindkey '^[[1;5C' end-of-line
-        ''
-        else ''
-          bindkey '^[[1;5D' backward-word
-          bindkey '^[[1;5C' forward-word
-          bindkey '^[[H' beginning-of-line
-          bindkey '^[[F' end-of-line
-          bindkey '^[[3~' delete-char
-        '';
+      initContent = ''
+        bindkey '^[[1;5D' backward-word
+        bindkey '^[[1;5C' forward-word
+        bindkey '^[[H' beginning-of-line
+        bindkey '^[[F' end-of-line
+        bindkey '^[[3~' delete-char
+      '';
 
       shellAliases = {
         pbcopy = "xclip -selection clipboard";
