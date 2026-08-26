@@ -12,6 +12,7 @@
       inputs.hyprland.follows = "hyprland";
     };
 
+    vscode-server.url = "github:nix-community/nixos-vscode-server";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
 
     home-manager = {
