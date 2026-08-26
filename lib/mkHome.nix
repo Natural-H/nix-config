@@ -1,8 +1,8 @@
 {
   inputs,
   getPackages,
-  nixpkgs,
 }: {
+  nixpkgs ? inputs.nixpkgs,
   system,
   user,
   wsl ? false,

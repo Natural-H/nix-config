@@ -65,7 +65,7 @@
       keyutils.lib
       libGL
       libGLU
-      libappindicator-gtk2
+      # libappindicator-gtk2 # got deprecated
       libcaca
       libcanberra
       libcap

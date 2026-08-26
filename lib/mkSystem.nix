@@ -1,8 +1,8 @@
 {
-  nixpkgs,
   getPackages,
   inputs,
 }: hostname: {
+  nixpkgs ? inputs.nixpkgs,
   system,
   users,
   wsl ? false,
@@ -14,10 +14,9 @@
 
   machineConfig = ../machines/${name}/configuration.nix;
   usersConfig = nixpkgs.lib.forEach users (user: ../users/${user}/${user}.nix);
-  # createSystem = if isWsl then inputs.nixpkgs-wsl.lib.nixosSystem else inputs.nixpkgs-stable.lib.nixosSystem;
-  # createSystem = nixpkgs.lib.nixosSystem;
+  createSystem = nixpkgs.lib.nixosSystem;
 in
-  nixpkgs.lib.nixosSystem rec {
+  createSystem rec {
     inherit system;
 
     specialArgs = {

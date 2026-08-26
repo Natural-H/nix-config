@@ -4,7 +4,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nixpkgs-graalvm21.url = "github:nixos/nixpkgs/336eda0d07dc5e2be1f923990ad9fdb6bc8e28e3";
     flatpaks.url = "github:gmodena/nix-flatpak/?ref=latest";
 
     hyprland.url = "github:hyprwm/Hyprland";
@@ -13,10 +12,8 @@
       inputs.hyprland.follows = "hyprland";
     };
 
-    vscode-server.url = "github:nix-community/nixos-vscode-server";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
 
-    # Home manager
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -48,14 +45,12 @@
           allowUnfree = true;
         };
       };
-
-      # pinned package versions
-      graalvm21 = inputs.nixpkgs-graalvm21.legacyPackages.${system}.graalvm-ce;
     };
 
     machines = {
       nix-thinkbook16 = {
         system = "x86_64-linux";
+        nixpkgs = nixpkgs-unstable;
         users = [
           "naturalh"
         ];
@@ -64,6 +59,7 @@
 
       nixos-desktop = {
         system = "x86_64-linux";
+        nixpkgs = nixpkgs-unstable;
         users = [
           "naturalh"
           "mikeus"
@@ -73,6 +69,7 @@
 
       nixos-wsl = {
         system = "x86_64-linux";
+        nixpkgs = nixpkgs-unstable;
         users = [
           "naturalh"
         ];
@@ -84,7 +81,7 @@
     # for each user in machines, create a home configuration
     homes =
       import ./lib/utils/getHomes.nix {
-        nixpkgs = nixpkgs-unstable;
+        inherit nixpkgs;
       }
       machines;
 
