@@ -44,6 +44,8 @@ in {
     #   echo "Hello, ${config.home.username}!"
     # '')
 
+    pangolin-cli
+
     alejandra
     nixd
     lazydocker
