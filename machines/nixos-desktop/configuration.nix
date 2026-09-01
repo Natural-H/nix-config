@@ -61,6 +61,10 @@
     enable = true;
     dns = "systemd-resolved";
   };
+
+  networking.firewall.backend = "firewalld";
+  networking.nftables.enable = true;
+
   zramSwap.enable = true;
   time.timeZone = "America/Mexico_City";
 
@@ -107,6 +111,8 @@
         dates = "weekly";
         flags = ["--all" "--volumes"];
       };
+      extraPackages = with pkgs; [nftables];
+      extraOptions = "--firewall-backend=nftables";
     };
 
     libvirtd = {
