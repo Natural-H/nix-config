@@ -7,7 +7,7 @@
 in {
   flake.nixosConfigurations.${hostname} = inputs.nixpkgs.lib.nixosSystem {
     specialArgs = {
-      isWsl = false;
+      isWsl = true;
     };
 
     modules = [
