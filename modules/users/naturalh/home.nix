@@ -5,10 +5,10 @@
 }: let
   username = "naturalh";
 in {
-  flake.homeModules.naturalh = {
+  flake.homeModules.${username} = {
     pkgs,
     config,
-    isWsl ? false,
+    isWsl,
     hostname,
     stateVersion,
     ...
@@ -31,9 +31,8 @@ in {
 
     wsl.useNonWsl = !isWsl;
 
-    home.username = username;
-    home.homeDirectory = "/home/naturalh";
-    # nixpkgs.config.allowUnfree = true;
+    home.username = "${username}";
+    home.homeDirectory = "/home/${username}";
     home.stateVersion = stateVersion;
 
     home.packages = with pkgs; [

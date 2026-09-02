@@ -21,7 +21,7 @@
 
       nix.gc = {
         automatic = true;
-        dates = "weekly";
+        dates = "daily";
         options = "--delete-older-than 7d";
       };
     };
@@ -43,7 +43,7 @@
     config = lib.mkIf config.nix-gc.enable {
       nix.gc = {
         automatic = true;
-        dates = "weekly";
+        dates = "daily";
         options = "--delete-older-than 7d";
       };
     };

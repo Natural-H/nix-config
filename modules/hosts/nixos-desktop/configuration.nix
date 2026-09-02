@@ -7,6 +7,7 @@
     imports = [
       self.nixosModules.nixosDesktopHardware
       self.nixosModules.naturalh
+      self.nixosModules.mikeus
     ];
 
     boot.loader = {

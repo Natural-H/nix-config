@@ -3,7 +3,7 @@
   inputs,
   ...
 }: let
-  username = "naturalh";
+  username = "mikeus";
 in {
   flake.nixosModules.${username} = {pkgs, ...}: {
     users.users.${username} = {
@@ -11,15 +11,8 @@ in {
       shell = pkgs.zsh;
       extraGroups = [
         "nix-admins"
-        "dialout"
-        "uucp"
         "wheel"
-        "docker"
-        "libvirtd"
-        "kvm"
-        "vboxusers"
       ];
-
       initialPassword = "password";
     };
 
