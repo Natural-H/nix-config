@@ -21,6 +21,7 @@ in {
       self.nixosModules.home-manager
       {
         nixpkgs.config.allowUnfree = true;
+        nixpkgs.config.rocmSupport = true;
         networking.hostName = hostname;
         system.stateVersion = "26.05";
       }
