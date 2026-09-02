@@ -2,8 +2,8 @@
   description = "Nixos config flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    # nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     flatpaks.url = "github:gmodena/nix-flatpak/?ref=latest";
 
     hyprland.url = "github:hyprwm/Hyprland";
@@ -17,84 +17,95 @@
 
     home-manager = {
       url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     lazyvim = {
       url = "github:pfassina/lazyvim-nix";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    import-tree.url = "github:vic/import-tree";
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    nixpkgs-unstable,
-    ...
-  } @ inputs: let
-    getPackages = {system}: {
-      pkgs = import nixpkgs {
-        inherit system;
-        config = {
-          allowUnfree = true;
-        };
-      };
-
-      pkgs-unstable = import nixpkgs-unstable {
-        inherit system;
-        config = {
-          allowUnfree = true;
-        };
-      };
+  outputs = inputs:
+    inputs.flake-parts.lib.mkFlake {inherit inputs;} {
+      imports = [
+        inputs.home-manager.flakeModules.home-manager
+        (inputs.import-tree ./modules)
+      ];
     };
 
-    machines = {
-      nix-thinkbook16 = {
-        system = "x86_64-linux";
-        nixpkgs = nixpkgs-unstable;
-        users = [
-          "naturalh"
-        ];
-        stateVersion = "26.05";
-      };
+  # outputs = {
+  #   self,
+  #   nixpkgs,
+  #   nixpkgs-unstable,
+  #   ...
+  # } @ inputs: let
+  #   getPackages = {system}: {
+  #     pkgs = import nixpkgs {
+  #       inherit system;
+  #       config = {
+  #         allowUnfree = true;
+  #       };
+  #     };
 
-      nixos-desktop = {
-        system = "x86_64-linux";
-        nixpkgs = nixpkgs-unstable;
-        users = [
-          "naturalh"
-          "mikeus"
-        ];
-        stateVersion = "26.05";
-      };
+  #     pkgs-unstable = import nixpkgs-unstable {
+  #       inherit system;
+  #       config = {
+  #         allowUnfree = true;
+  #       };
+  #     };
+  #   };
 
-      nixos-wsl = {
-        system = "x86_64-linux";
-        nixpkgs = nixpkgs-unstable;
-        users = [
-          "naturalh"
-        ];
-        wsl = true;
-        stateVersion = "26.05";
-      };
-    };
+  #   machines = {
+  #     nix-thinkbook16 = {
+  #       system = "x86_64-linux";
+  #       nixpkgs = nixpkgs-unstable;
+  #       users = [
+  #         "naturalh"
+  #       ];
+  #       stateVersion = "26.05";
+  #     };
 
-    # for each user in machines, create a home configuration
-    homes =
-      import ./lib/utils/getHomes.nix {
-        inherit nixpkgs;
-      }
-      machines;
+  #     nixos-desktop = {
+  #       system = "x86_64-linux";
+  #       nixpkgs = nixpkgs-unstable;
+  #       users = [
+  #         "naturalh"
+  #         "mikeus"
+  #       ];
+  #       stateVersion = "26.05";
+  #     };
 
-    createMachines = import ./lib/utils/createMachines.nix {
-      inherit inputs getPackages;
-    };
+  #     nixos-wsl = {
+  #       system = "x86_64-linux";
+  #       nixpkgs = nixpkgs-unstable;
+  #       users = [
+  #         "naturalh"
+  #       ];
+  #       wsl = true;
+  #       stateVersion = "26.05";
+  #     };
+  #   };
 
-    createHomes = import ./lib/utils/createHomes.nix {
-      inherit inputs getPackages;
-    };
-  in {
-    nixosConfigurations = createMachines machines;
-    homeConfigurations = createHomes homes;
-  };
+  #   # for each user in machines, create a home configuration
+  #   homes =
+  #     import ./lib/utils/getHomes.nix {
+  #       inherit nixpkgs;
+  #     }
+  #     machines;
+
+  #   createMachines = import ./lib/utils/createMachines.nix {
+  #     inherit inputs getPackages;
+  #   };
+
+  #   createHomes = import ./lib/utils/createHomes.nix {
+  #     inherit inputs getPackages;
+  #   };
+  # in {
+  #   nixosConfigurations = createMachines machines;
+  #   homeConfigurations = createHomes homes;
+  # };
 }
