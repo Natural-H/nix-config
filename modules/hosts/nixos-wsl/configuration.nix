@@ -7,10 +7,11 @@
     config,
     lib,
     pkgs,
-    inputs,
     ...
   }: {
-    imports = [];
+    imports = [
+      self.nixosModules.naturalh
+    ];
 
     nix = let
       flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
@@ -31,6 +32,9 @@
       nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
     };
     nixpkgs.config.allowUnfree = true; # Allow unfree packages
+    nixpkgs.hostPlatform = {system = "x86_64-linux";};
+
+    nix-linker.includeGuiLibraries = false;
 
     wsl = {
       enable = true; # Enable WSL support
