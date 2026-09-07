@@ -9,7 +9,6 @@ in {
     pkgs,
     config,
     isWsl,
-    hostname,
     stateVersion,
     ...
   }: let
@@ -22,7 +21,7 @@ in {
   in {
     imports = [
       self.homeModules.naturalhNonwsl
-      self.homeModules."${username}@${hostname}"
+      self.homeModules.perHostNaturalh
       self.homeModules.nix-gc
       inputs.flatpaks.homeManagerModules.nix-flatpak
       inputs.vscode-server.homeModules.default
