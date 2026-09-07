@@ -112,7 +112,7 @@
         audacity
         filezilla
 
-        self.packages.${pkgs.system}.ciscoPacketTracer901
+        self.packages.${pkgs.stdenv.hostPlatform.system}.ciscoPacketTracer901
 
         kdePackages.qtstyleplugin-kvantum
 
