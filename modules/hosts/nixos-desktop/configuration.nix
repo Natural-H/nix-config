@@ -164,8 +164,7 @@
         repos = {
           Nextcloud = {
             authorizedKeys = [
-              "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBEl8hibH+3Jw+bLKK8EVP/Rqb1ymPNvDcSRemlIRkMF root@nextcloud-aio-borgbackup"
-              "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPM+5DYqC+e3DpZzQCWXGx1tJrnR57nC5IJFA5AIKxj3 root@nextcloud-aio-borgbackup"
+              "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMh2ECKRouFwvpnWn0UwiIOtkL7mIBLWTzbffQ7KjZvP root@nextcloud-aio-borgbackup"
             ];
             path = "/var/lib/borgbackup/nextcloud";
           };
