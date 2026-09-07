@@ -111,7 +111,7 @@
         audacity
         filezilla
 
-        # ciscoPacketTracer9
+        self.packages.${pkgs.system}.ciscoPacketTracer901
 
         kdePackages.qtstyleplugin-kvantum
 
