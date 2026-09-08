@@ -58,6 +58,8 @@
     networking.networkmanager = {
       enable = true;
       dns = "systemd-resolved";
+      # for some reason network manager wants to handle these
+      unmanaged = ["interface-name:docker0" "interface-name:veth0" "interface-name:br-*"];
     };
     zramSwap.enable = true;
     time.timeZone = "America/Mexico_City";
