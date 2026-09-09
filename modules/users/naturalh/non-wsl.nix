@@ -64,7 +64,7 @@
         })
         retroarch-free
         heroic
-        moonlight
+        moonlight-qt
 
         libreoffice-qt6
         onlyoffice-desktopeditors
