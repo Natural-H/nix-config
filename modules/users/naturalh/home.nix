@@ -41,6 +41,7 @@ in {
       nixd
       lazydocker
       gitkraken
+      devenv
 
       tree
       btop
