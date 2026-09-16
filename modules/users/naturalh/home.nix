@@ -41,7 +41,6 @@ in {
       nixd
       lazydocker
       gitkraken
-      devenv
 
       tree
       btop
@@ -92,6 +91,11 @@ in {
 
       gh = {
         enable = true;
+      };
+
+      devenv = {
+        enable = true;
+        enableZshIntegration = true;
       };
 
       zsh = {
