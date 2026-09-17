@@ -77,6 +77,7 @@
           package = pkgs.steam.override {
             extraPkgs = p: [
               p.kdePackages.breeze
+              p.catppuccin-cursors.macchiatoDark
             ];
           };
         };
