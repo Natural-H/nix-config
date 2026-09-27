@@ -49,9 +49,9 @@
     nix.settings.trusted-users = ["@nix-admins"];
 
     fileSystems = {
-      "/".options = ["compress=zstd:1"];
-      "/home".options = ["compress=zstd:1"];
-      "/nix".options = ["compress=zstd:1" "noatime"];
+      "/".options = ["compress=zstd"];
+      "/home".options = ["compress=zstd"];
+      "/nix".options = ["compress=zstd" "noatime"];
     };
 
     boot.kernelPackages = pkgs.linuxPackages_zen;
