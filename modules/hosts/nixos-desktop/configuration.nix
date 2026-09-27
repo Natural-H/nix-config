@@ -99,6 +99,8 @@
       kbd
     ];
 
+    nix-linker.includeGuiLibraries = false;
+
     virtualisation = {
       docker = {
         enable = true;

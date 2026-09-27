@@ -87,6 +87,8 @@
       wl-clipboard
     ];
 
+    nix-linker.includeGuiLibraries = false;
+
     virtualisation = {
       docker = {
         enable = true;
@@ -104,11 +106,6 @@
         enableExtensionPack = true;
         # enableKvm = true; # won't let use Bridged config
       };
-    };
-
-    nix-linker = {
-      enable = true;
-      includeGuiLibraries = true;
     };
 
     programs.virt-manager.enable = true;
