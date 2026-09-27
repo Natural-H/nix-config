@@ -8,8 +8,9 @@
     config,
     ...
   }: {
+    # Handle with KDE as packages for now
     gtk = {
-      enable = true;
+      enable = false;
       colorScheme = "dark";
       iconTheme = {
         name = "Papirus-Dark";

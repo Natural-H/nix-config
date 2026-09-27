@@ -15,7 +15,6 @@ in {
     dotnet = with pkgs.dotnetCorePackages;
       combinePackages (with pkgs; [
         dotnet-sdk
-        dotnet-sdk_9
         dotnet-sdk_10
       ]);
   in {
@@ -39,41 +38,25 @@ in {
 
       alejandra
       nixd
-      lazydocker
+      nil
       gitkraken
 
       tree
       btop
       xclip
-      lazysql
       poppler-utils
-      insomnia
       bruno
-      nil
       desktop-file-utils
       eza
 
-      python313
-      python313Packages.numpy
-      python313Packages.pip
-
-      cmake
-      gnumake
-      ninja
-      gcc
-      gdb
-
       nodejs
       pnpm
-      prisma-engines
-
-      jdk
 
       go
+      gopls
       dotnet
-      cloudflared
+      python3
       opencode
-      lmstudio
     ];
 
     programs = {
@@ -179,8 +162,9 @@ in {
         enableZshIntegration = true;
       };
 
+      # Will use later
       lazyvim = {
-        enable = true;
+        enable = false;
 
         extras = {
           lang.nix.enable = true;
