@@ -23,6 +23,8 @@ in {
       initialPassword = "password";
     };
 
+    nix.settings.trusted-users = ["naturalh"];
+
     home-manager = {
       users.${username} = self.homeModules.${username};
     };
