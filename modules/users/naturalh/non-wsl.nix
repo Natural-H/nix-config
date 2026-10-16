@@ -71,6 +71,7 @@
           hunspellDicts.en_US
           chromium
           brave
+          inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
           vesktop
           telegram-desktop
           obsidian
