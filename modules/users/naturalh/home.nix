@@ -70,6 +70,12 @@ in {
 
           init.defaultBranch = "main";
         };
+
+        signing = {
+          key = "~/.ssh/id_ed25519.pub";
+          format = "ssh";
+          signByDefault = true;
+        };
       };
 
       gh = {
