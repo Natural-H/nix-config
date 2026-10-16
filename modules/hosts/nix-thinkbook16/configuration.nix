@@ -102,7 +102,7 @@
       spiceUSBRedirection.enable = true;
 
       virtualbox.host = {
-        enable = false;
+        enable = true;
         enableExtensionPack = true;
         # enableKvm = true; # won't let use Bridged config
       };
