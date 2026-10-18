@@ -48,7 +48,14 @@
       enable = true;
       enableOnBoot = true;
       autoPrune.enable = true;
+
+      daemon.settings = {
+        ipv6 = true;
+        fixed-cidr-v6 = "fd00::/80";
+      };
     };
+
+    networking.firewall.trustedInterfaces = ["br-+"];
 
     environment = {
       systemPackages = with pkgs; [
