@@ -57,6 +57,7 @@ in {
       dotnet
       python3
       opencode
+      neovim
     ];
 
     programs = {
@@ -169,34 +170,34 @@ in {
       };
 
       # Will use later
-      lazyvim = {
-        enable = false;
+      # lazyvim = {
+      #   enable = false;
 
-        extras = {
-          lang.nix.enable = true;
-          lang.python = {
-            enable = true;
-            installDependencies = true;
-            installRuntimeDependencies = true;
-          };
-          lang.go = {
-            enable = true;
-            installDependencies = true;
-            installRuntimeDependencies = true;
-          };
-        };
+      #   extras = {
+      #     lang.nix.enable = true;
+      #     lang.python = {
+      #       enable = true;
+      #       installDependencies = true;
+      #       installRuntimeDependencies = true;
+      #     };
+      #     lang.go = {
+      #       enable = true;
+      #       installDependencies = true;
+      #       installRuntimeDependencies = true;
+      #     };
+      #   };
 
-        extraPackages = with pkgs; [
-          nixd
-          alejandra
-          statix
-        ];
+      #   extraPackages = with pkgs; [
+      #     nixd
+      #     alejandra
+      #     statix
+      #   ];
 
-        treesitterParsers = with pkgs.vimPlugins.nvim-treesitter-parsers; [
-          wgsl
-          templ
-        ];
-      };
+      #   treesitterParsers = with pkgs.vimPlugins.nvim-treesitter-parsers; [
+      #     wgsl
+      #     templ
+      #   ];
+      # };
 
       firefox = {
         policies = {
