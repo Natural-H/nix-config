@@ -48,11 +48,16 @@
 
     nix.settings.trusted-users = ["@nix-admins"];
 
+    boot.zswap.enable = true;
+
     fileSystems = {
       "/".options = ["compress=zstd"];
       "/home".options = ["compress=zstd"];
       "/nix".options = ["compress=zstd" "noatime"];
+      "/.swap".options = ["noatime"];
     };
+
+    swapDevices = [{device = "/.swap/swapfile";}];
 
     boot.kernelPackages = pkgs.linuxPackages_zen;
     hardware.enableAllFirmware = true;
@@ -67,7 +72,6 @@
     networking.firewall.backend = "firewalld";
     networking.nftables.enable = true;
 
-    zramSwap.enable = true;
     time.timeZone = "America/Mexico_City";
 
     desktop-environments.kde.enable = true;
