@@ -46,11 +46,16 @@
       };
     };
 
+    boot.zswap.enable = true;
+
     fileSystems = {
-      "/".options = ["compress=zstd:1"];
-      "/home".options = ["compress=zstd:1"];
-      "/nix".options = ["compress=zstd:1" "noatime"];
+      "/".options = ["compress=zstd"];
+      "/home".options = ["compress=zstd"];
+      "/nix".options = ["compress=zstd" "noatime"];
+      "/.swap".options = ["noatime"];
     };
+
+    swapDevices = [{device = "/.swap/swapfile";}];
 
     boot.kernelPackages = pkgs.linuxPackages_zen;
     hardware.enableAllFirmware = true;
@@ -61,7 +66,6 @@
       # for some reason network manager wants to handle these
       unmanaged = ["interface-name:docker0" "interface-name:br-*"];
     };
-    zramSwap.enable = true;
     time.timeZone = "America/Mexico_City";
 
     desktop-environments.kde.enable = true;
