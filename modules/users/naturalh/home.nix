@@ -58,6 +58,8 @@ in {
       python3
       opencode
       neovim
+      age
+      sops
     ];
 
     programs = {
