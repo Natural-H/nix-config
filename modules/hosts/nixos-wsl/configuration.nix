@@ -73,6 +73,22 @@
         BROWSER = "wsl-open";
       };
     };
+
+    sops = {
+      age = {
+        keyFile = "/home/naturalh/.config/sops/age/key.txt";
+        generateKey = true;
+      };
+
+      secrets = {
+        forgejo-naturalh-token = {
+          format = "dotenv";
+          sopsFile = ../../../secrets/forgejo-naturalh-token.env;
+          key = "";
+        };
+      };
+    };
+
     services = {
       passSecretService.enable = true;
 
@@ -82,6 +98,21 @@
           "--write-kubeconfig-group=kubeadmin"
           "--write-kubeconfig-mode=640"
         ];
+      };
+
+      gitea-actions-runner = {
+        package = pkgs.forgejo-runner;
+        instances = {
+          "naturalh@git-naturalh-dev" = {
+            enable = true;
+            url = "https://git.naturalh.dev";
+            tokenFile = config.sops.secrets.forgejo-naturalh-token.path;
+            name = config.networking.hostName;
+            labels = [
+              "ubuntu-latest:docker://ghcr.io/catthehacker/ubuntu:act-24.04"
+            ];
+          };
+        };
       };
     };
   };

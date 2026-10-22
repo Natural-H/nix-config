@@ -17,6 +17,7 @@ in {
       inputs.home-manager.nixosModules.home-manager
       self.nixosModules.home-manager
       inputs.nixos-wsl.nixosModules.default
+      inputs.sops-nix.nixosModules.sops
       {
         nixpkgs.config.allowUnfree = true;
         networking.hostName = hostname;
