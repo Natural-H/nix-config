@@ -49,10 +49,10 @@
       enableOnBoot = true;
       autoPrune.enable = true;
 
-      daemon.settings = {
-        ipv6 = true;
-        fixed-cidr-v6 = "fd00::/80";
-      };
+      # daemon.settings = {
+      #   ipv6 = true;
+      #   fixed-cidr-v6 = "fd00::/80";
+      # };
     };
 
     networking.firewall.trustedInterfaces = ["br-+"];
@@ -76,7 +76,7 @@
 
     sops = {
       age = {
-        keyFile = "/home/naturalh/.config/sops/age/key.txt";
+        keyFile = "/home/naturalh/.config/sops/age/keys.txt";
         generateKey = true;
       };
 
@@ -111,6 +111,17 @@
             labels = [
               "ubuntu-latest:docker://ghcr.io/catthehacker/ubuntu:act-24.04"
             ];
+
+            settings = {
+              runner = {
+                capacity = 4;
+              };
+
+              container = {
+                docker_host = "automount";
+                # enable_ipv6 = true;
+              };
+            };
           };
         };
       };
