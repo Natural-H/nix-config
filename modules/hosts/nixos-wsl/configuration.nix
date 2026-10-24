@@ -75,17 +75,14 @@
     };
 
     sops = {
+      defaultSopsFile = ../../../secrets/secrets.yaml;
       age = {
         keyFile = "/home/naturalh/.config/sops/age/keys.txt";
         generateKey = true;
       };
 
       secrets = {
-        forgejo-naturalh-token = {
-          format = "dotenv";
-          sopsFile = ../../../secrets/forgejo-naturalh-token.env;
-          key = "";
-        };
+        forgejo-naturalh-token = {};
       };
     };
 
@@ -100,31 +97,67 @@
         ];
       };
 
-      gitea-actions-runner = {
-        package = pkgs.forgejo-runner;
+      forgejo-runner = {
         instances = {
-          "naturalh@git-naturalh-dev" = {
+          default = {
             enable = true;
-            url = "https://git.naturalh.dev";
-            tokenFile = config.sops.secrets.forgejo-naturalh-token.path;
-            name = config.networking.hostName;
-            labels = [
-              "ubuntu-latest:docker://ghcr.io/catthehacker/ubuntu:act-24.04"
-            ];
+            secrets = {
+              server.connections.default = {
+                token_url = config.sops.secrets.forgejo-naturalh-token.path;
+              };
+            };
 
             settings = {
+              server = {
+                connections = {
+                  default = {
+                    url = "https://git.naturalh.dev";
+                    uuid = "7a1b80b0-0659-4b90-9549-ec4f87f3c43b";
+                  };
+                };
+              };
+
               runner = {
+                labels = [
+                  "ubuntu-latest:docker://ghcr.io/catthehacker/ubuntu:act-24.04"
+                ];
+
                 capacity = 4;
               };
 
               container = {
                 docker_host = "automount";
-                # enable_ipv6 = true;
               };
             };
           };
         };
       };
+
+      # gitea-actions-runner = {
+      #   package = pkgs.forgejo-runner;
+      #   instances = {
+      #     "naturalh@git-naturalh-dev" = {
+      #       enable = true;
+      #       url = "https://git.naturalh.dev";
+      #       tokenFile = config.sops.secrets.forgejo-naturalh-token.path;
+      #       name = config.networking.hostName;
+      #       labels = [
+      #         "ubuntu-latest:docker://ghcr.io/catthehacker/ubuntu:act-24.04"
+      #       ];
+
+      #       settings = {
+      #         runner = {
+      #           capacity = 4;
+      #         };
+
+      #         container = {
+      #           docker_host = "automount";
+      #           # enable_ipv6 = true;
+      #         };
+      #       };
+      #     };
+      #   };
+      # };
     };
   };
 }
