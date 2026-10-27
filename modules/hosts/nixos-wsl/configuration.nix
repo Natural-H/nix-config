@@ -74,16 +74,8 @@
       };
     };
 
-    sops = {
-      defaultSopsFile = ../../../secrets/secrets.yaml;
-      age = {
-        keyFile = "/home/naturalh/.config/sops/age/keys.txt";
-        generateKey = true;
-      };
-
-      secrets = {
-        forgejo-naturalh-token = {};
-      };
+    sops.secrets = {
+      forgejo-naturalh-token = {};
     };
 
     services = {

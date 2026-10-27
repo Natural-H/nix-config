@@ -3,7 +3,11 @@
   inputs,
   ...
 }: {
-  flake.nixosModules.nixosDesktopConfig = {pkgs, ...}: {
+  flake.nixosModules.nixosDesktopConfig = {
+    pkgs,
+    config,
+    ...
+  }: {
     imports = [
       self.nixosModules.nixosDesktopHardware
       self.nixosModules.naturalh
@@ -295,6 +299,47 @@
 
     hardware.bluetooth.enable = true; # Enable Bluetooth support
     hardware.xpadneo.enable = true;
+
+    sops.secrets = {
+      forgejo-naturalh-token = {};
+    };
+
+    services.forgejo-runner = {
+      instances = {
+        default = {
+          enable = true;
+          secrets = {
+            server.connections.default = {
+              token_url = config.sops.secrets.forgejo-naturalh-token.path;
+            };
+          };
+
+          settings = {
+            server = {
+              connections = {
+                default = {
+                  url = "https://git.naturalh.dev";
+                  uuid = "7a1b80b0-0659-4b90-9549-ec4f87f3c43b";
+                };
+              };
+            };
+
+            runner = {
+              labels = [
+                "ubuntu-latest:docker://ghcr.io/catthehacker/ubuntu:act-24.04"
+              ];
+
+              capacity = 4;
+            };
+
+            container = {
+              network = "host";
+              docker_host = "automount";
+            };
+          };
+        };
+      };
+    };
 
     # hardware.graphics = {
     # hardware.graphics since NixOS 24.11
