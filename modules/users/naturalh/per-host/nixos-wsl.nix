@@ -4,6 +4,9 @@
   ...
 }: {
   flake.homeModules."naturalh@nixos-wsl" = {...}: {
-    services.pass-secret-service.enable = true;
+    services.gnome-keyring = {
+      enable = true;
+      components = ["secrets"];
+    };
   };
 }

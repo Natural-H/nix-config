@@ -68,6 +68,7 @@
         xclip
         xdg-utils
         wsl-open
+        seahorse
       ];
       variables = {
         BROWSER = "wsl-open";
@@ -79,7 +80,7 @@
     };
 
     services = {
-      passSecretService.enable = true;
+      gnome.gnome-keyring.enable = true;
 
       k3s = {
         enable = true;
