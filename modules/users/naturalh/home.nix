@@ -60,6 +60,10 @@ in {
       neovim
       age
       sops
+      forgejo-cli
+      forgejo-runner
+      act
+      atlas
     ];
 
     programs = {
@@ -72,6 +76,12 @@ in {
           user.email = "marco.mmtz@proton.me";
 
           init.defaultBranch = "main";
+
+          credential = {
+            helper = [
+              "libsecret"
+            ];
+          };
         };
 
         signing = {
@@ -80,6 +90,8 @@ in {
           signByDefault = true;
         };
       };
+
+      git-credential-oauth.enable = true;
 
       gh = {
         enable = true;
