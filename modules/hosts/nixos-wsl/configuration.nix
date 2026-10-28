@@ -76,7 +76,8 @@
     };
 
     sops.secrets = {
-      forgejo-naturalh-token = {};
+      "forgejo/naturalh/token-wsl" = {};
+      "forgejo/org/token-wsl" = {};
     };
 
     services = {
@@ -95,8 +96,14 @@
           default = {
             enable = true;
             secrets = {
-              server.connections.default = {
-                token_url = config.sops.secrets.forgejo-naturalh-token.path;
+              server.connections = {
+                default = {
+                  token_url = config.sops.secrets."forgejo/naturalh/token-wsl".path;
+                };
+
+                org = {
+                  token_url = config.sops.secrets."forgejo/org/token-wsl".path;
+                };
               };
             };
 
@@ -107,6 +114,11 @@
                     url = "https://git.naturalh.dev";
                     uuid = "7a1b80b0-0659-4b90-9549-ec4f87f3c43b";
                   };
+
+                  org = {
+                    url = "https://git.naturalh.dev";
+                    uuid = "e485a3be-84e2-40d5-8bd1-af44a9614295";
+                  };
                 };
               };
 
@@ -115,7 +127,7 @@
                   "ubuntu-latest:docker://ghcr.io/catthehacker/ubuntu:act-24.04"
                 ];
 
-                capacity = 4;
+                capacity = 16;
               };
 
               container = {

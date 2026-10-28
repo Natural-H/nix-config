@@ -19,6 +19,8 @@ in {
       inputs.flatpaks.nixosModules.nix-flatpak
       inputs.home-manager.nixosModules.home-manager
       self.nixosModules.home-manager
+      self.nixosModules.sops-nix
+      inputs.sops-nix.nixosModules.sops
       {
         nixpkgs.config.allowUnfree = true;
         nixpkgs.config.rocmSupport = true;

@@ -3,7 +3,11 @@
   inputs,
   ...
 }: {
-  flake.nixosModules.nixThinkbookConfig = {pkgs, ...}: {
+  flake.nixosModules.nixThinkbookConfig = {
+    pkgs,
+    config,
+    ...
+  }: {
     imports = [
       self.nixosModules.nixThinkbookHardware
       self.nixosModules.naturalh
@@ -230,6 +234,60 @@
       #   libvdpau-va-gl
       # ];
     };
+
+    sops.secrets = {
+      "forgejo/naturalh/token-thinkbook" = {};
+      "forgejo/org/token-thinkbook" = {};
+    };
+
+    services.forgejo-runner = {
+      instances = {
+        default = {
+          enable = true;
+          secrets = {
+            server.connections = {
+              default = {
+                token_url = config.sops.secrets."forgejo/naturalh/token-thinkbook".path;
+              };
+
+              org = {
+                token_url = config.sops.secrets."forgejo/org/token-thinkbook".path;
+              };
+            };
+          };
+
+          settings = {
+            server = {
+              connections = {
+                default = {
+                  url = "https://git.naturalh.dev";
+                  uuid = "747fbccc-bf5b-49bb-b650-89835694f1e4";
+                };
+
+                org = {
+                  url = "https://git.naturalh.dev";
+                  uuid = "9cbbef6f-572f-4cce-817f-467cd77bd58b";
+                };
+              };
+            };
+
+            runner = {
+              labels = [
+                "ubuntu-latest:docker://ghcr.io/catthehacker/ubuntu:act-24.04"
+              ];
+
+              capacity = 16;
+            };
+
+            container = {
+              network = "bridge";
+              docker_host = "automount";
+            };
+          };
+        };
+      };
+    };
+
     # environment.sessionVariables = {
     #   LIBVA_DRIVER_NAME = "iHD";
     # }; # Force intel-media-driver
