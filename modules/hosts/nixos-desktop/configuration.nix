@@ -12,6 +12,7 @@
       self.nixosModules.nixosDesktopHardware
       self.nixosModules.naturalh
       self.nixosModules.mikeus
+      self.nixosModules.niri
     ];
 
     boot.loader = {
@@ -78,11 +79,11 @@
 
     time.timeZone = "America/Mexico_City";
 
-    desktop-environments.kde.enable = true;
-    # desktop-environments.kde.enable = config.specialisation != {}; # Maybe later I'll have time to configure it
-    # specialisation.hyprland.configuration = {
-    #   desktop-environments.hyprland.enable = true;
-    # };
+    # desktop-environments.kde.enable = true;
+    desktop-environments.kde.enable = config.specialisation != {}; # Maybe later I'll have time to configure it
+    specialisation.niri.configuration = {
+      desktop-environments.niri.enable = true;
+    };
 
     nix.settings.experimental-features = [
       "nix-command"
@@ -301,16 +302,16 @@
     hardware.xpadneo.enable = true;
 
     sops.secrets = {
-      forgejo-naturalh-token = {};
+      "forgejo/naturalh/token-wsl" = {};
     };
 
     services.forgejo-runner = {
       instances = {
         default = {
-          enable = true;
+          enable = false;
           secrets = {
             server.connections.default = {
-              token_url = config.sops.secrets.forgejo-naturalh-token.path;
+              token_url = config.sops.secrets."forgejo/naturalh/token-wsl".path;
             };
           };
 
