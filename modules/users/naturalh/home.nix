@@ -99,7 +99,7 @@ in {
 
       devenv = {
         enable = true;
-        enableZshIntegration = true;
+        enableZshIntegration = false;
       };
 
       zsh = {
