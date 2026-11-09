@@ -88,6 +88,7 @@
         extraFlags = [
           "--write-kubeconfig-group=kubeadmin"
           "--write-kubeconfig-mode=640"
+          "--disable=traefik"
         ];
       };
 
